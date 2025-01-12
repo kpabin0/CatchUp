@@ -12,7 +12,8 @@ function App() {
     const req =  async () => {
       return fetch("http://localhost:8080/")
               .then((res) => res.json())
-              .then((data) => { setReqData(data); return data;  });
+              .then((data) => { setReqData(data); return data;  })
+              .catch((error) => console.log(error));
     }
 
     req();
