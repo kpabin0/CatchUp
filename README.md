@@ -7,12 +7,13 @@
 open the cloned root directory (containing server and client with others..)
 
 **Install dependencies**
-in client
+
+in client (frontend)
 
     cd client
     yarn
 
-in server
+in server (backend)
 
     cd server 
     npm i
@@ -20,6 +21,7 @@ in server
 <hr />
 
 **Start Development Server**
+
 frontend server
 
     yarn start
@@ -27,6 +29,26 @@ frontend server
 backend server
 
     npm run dev
+
+**Add Packages**
+
+frontend
+
+    yarn add package-name
+
+backend
+
+    npm install package-name
+
+**For packages visit: [npmjs](https://www.npmjs.com/)**
+
+**#Note: If yarn is not installed**
+
+    npm i yarn -g
+
+-g is optional (do only if required to install globally)
+
+<hr />
 
 **Used Libraries**
 Frontend
