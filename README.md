@@ -42,3 +42,12 @@ Backend
 
 
 **#Note: These are major libraries, for detailed library used refer to `package.json`**
+
+A Project By
+- Neha Shah
+- Pabin Khanal
+- Roshan Thapa
+
+Objectives
+- To understand & realize workings of DBMS and its coordination with other components on interactive Web-Application.
+- To create an all-in-one Cricket Portal for Tournaments in Nepal.
