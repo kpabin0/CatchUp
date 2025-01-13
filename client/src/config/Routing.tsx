@@ -8,6 +8,8 @@ import Fixtures from "../pages/Fixtures"
 import NotFound from "../pages/NotFound"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+import Login from "../pages/Login"
+import Register from "../pages/Register"
 
 const Routing = () => {
   return (
@@ -20,6 +22,8 @@ const Routing = () => {
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/news" element={<News />} />
         <Route path="/fixtures" element={<Fixtures />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         <Route path="*" element={<NotFound />} />
     </Routes>
