@@ -21,10 +21,13 @@ const Landing = () => {
       setTextCount(textC);
       setActiveIndex(activeInd);
     }, 5000/_tournamentNames[activeInd].length);
+
+    // eslint-disable-next-line
   },[])
 
   useEffect(()=> {
     setcurrentTournament(_tournamentNames[activeIndex].substring(0, textCount) + "_");
+    // eslint-disable-next-line
   },[textCount])
 
   return (
