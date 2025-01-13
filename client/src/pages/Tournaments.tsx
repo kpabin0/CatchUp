@@ -21,15 +21,18 @@ interface ITournament   {
 const Tournaments = () => {
 
   const [tournament, SetTournament] = useState<ITournament[]>()
+  const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
   useEffect(() => {
     const res = async () => {
-      return await fetch("http://localhost:8080/tournament")
+      return await fetch(`http://localhost:${PORT_NUMBER}/tournament`)
                     .then((res) => res.json())
                     .then((data) => { SetTournament(data); console.log(data); return data })
-                    .catch((error) => console.log(error));
+                    .catch((error) => { console.log(error); });
     }
     res();
+    
+  // eslint-disable-next-line
   }, [])
 
   return (

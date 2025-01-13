@@ -11,16 +11,18 @@ const _subNews = [1, 2, 3, 4, 5];
 const News = () => {
 
   const [newsData, setNewsData] = useState<INews[]>();
-
+  const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+  
   useEffect(() => {
     const res = async () => {
-      return await fetch("http://localhost:8080/news/")
+      return await fetch(`http://localhost:${PORT_NUMBER}/news/`)
                     .then((res) => res.json())
                     .then((data) => { setNewsData(data); console.log(data); return data })
-                    .catch((error) => console.log(error));
+                    .catch((error) => { console.log(error); });
     }
 
     res();
+  // eslint-disable-next-line
   }, [])
 
   return (

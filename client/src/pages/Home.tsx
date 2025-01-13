@@ -7,13 +7,14 @@ const _tempObject = [11, 22, 33];
 function Home() {
 
   const [reqData, setReqData] = useState();
+  const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
   useEffect(() => {
     const req =  async () => {
-      return fetch("http://localhost:8080/")
+      return fetch(`http://localhost:/${PORT_NUMBER}`)
               .then((res) => res.json())
               .then((data) => { setReqData(data); return data;  })
-              .catch((error) => console.log(error));
+              .catch((error) => { console.log(error);  });
     }
 
     req();
