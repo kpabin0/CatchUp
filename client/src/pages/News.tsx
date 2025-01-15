@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 interface INews {
   title: string,
@@ -6,19 +7,57 @@ interface INews {
   description: string
 };
 
-const _subNews = [1, 2, 3, 4, 5];
+interface ISubNews {
+  title: string,
+  url?: string,
+  description: string
+};
+
+function getFallbackNews()
+{
+  const tempNews = [1, 2, 3, 4, 5];
+  return tempNews.map((val) => {
+    return {
+      title: "Fallback News Title : " + val.toString(),
+      description: "This is the place for description of news..... " + val.toString() 
+    }
+  })
+}
+
+function getFallbackSubNews()
+{
+  const tempSubNews = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  return tempSubNews.map((val) => {
+    return {
+      title: "Fallback Sub News Title : " + val.toString(),
+      url: "#",
+      description: "This is short sub news desc..... just some text to fill the place" + val.toString() 
+    }
+  })
+}
 
 const News = () => {
 
   const [newsData, setNewsData] = useState<INews[]>();
+  const [subNewsData, setSubNewsData] = useState<ISubNews[]>();
+
   const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
   
   useEffect(() => {
     const res = async () => {
-      return await fetch(`http://localhost:${PORT_NUMBER}/news/`)
+
+      // eslint-disable-next-line
+      const news =  await fetch(`http://localhost:${PORT_NUMBER}/news/`)
                     .then((res) => res.json())
                     .then((data) => { setNewsData(data); console.log(data); return data })
-                    .catch((error) => { console.log(error); });
+                    .catch((error) => { setNewsData(getFallbackNews()); console.log(error); });
+                    
+      // eslint-disable-next-line
+      const subNews =  await fetch(`http://localhost:${PORT_NUMBER}/subnews/`)
+                    .then((res) => res.json())
+                    .then((data) => { setSubNewsData(data); console.log(data); return data })
+                    .catch((error) => { setSubNewsData(getFallbackSubNews()); console.log(error); });
+
     }
 
     res();
@@ -27,8 +66,8 @@ const News = () => {
 
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
-        <h1>News</h1>
-        <div className="grid grid-cols-4 gap-2">
+        <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
+        <div className="min-w-[80%] max-w-[90%] grid grid-cols-4 gap-2 m-10">
           <div className="col-span-3 grid grid-cols-2 gap-10">
             {
               newsData ? newsData?.map(({title, img, description}, ind) => {
@@ -36,12 +75,12 @@ const News = () => {
               }) : <span className="text-3xl text-theme ">Loading...</span>
             }
           </div>
-          <div className="flex flex-col items-center">
-              {
-                _subNews.map((val, ind) => {
-                  return <span className="block my-2">Sub News {ind + 1}</span>
-                })
-              }
+          <div className="max-col-span-1 grid gap-4 ">
+            {
+              subNewsData ? subNewsData?.map(({title, url, description}) => {
+                return <SubNewsCard key={title} title={title} url={url} description={description} />
+              }) :  <span className="text-1xl text-theme ">Loading...</span>
+            }
           </div>
         </div>
     </section>
@@ -50,10 +89,24 @@ const News = () => {
 
 const NewsCard = ({title, img, description} : INews) => {
   return (
-    <div className="p-2 space-y-6 flex flex-col ">
-      <h1 className="text-xl font-main text-theme">{title}</h1>
-      { img ? <img className="rounded-xl w-[20rem] h-[15rem]" src={img} alt={title} /> : <div className="rounded-xl w-[20rem] h-[15rem] bg-theme"></div>}
-      <p className="text-black">{description}</p>
+    <div className="p-2 space-y-6 flex flex-col justify-center">
+      <h1 className="text-xl font-main-a font-bold">{title}</h1>
+      <div className="rounded-xl w-[25rem] h-[20rem] bg-theme-g">
+        { img ? <img className="rounded-xl w-full h-full" src={img} alt={title} /> : <></>}
+      </div>
+      <p className="font-light">{description}</p>
+    </div>
+  )
+}
+
+const SubNewsCard = ({title, url, description} : ISubNews) => {
+  return (
+    <div className="w-full pt-2 flex flex-col justify-between items-center bg-theme-w-alt border hover:border-theme" >
+      <span className="font-bold text-md">{title}</span>
+      <div className="w-full flex flex-row justify-between items-end">
+        <p className="text-sm font-light p-2">{description}</p>
+        <Link to={url ? url : "#"} className="p-1 px-2 bg-theme-w hover:bg-theme text-theme hover:text-theme-w">More</Link>
+      </div>
     </div>
   )
 }
