@@ -13,6 +13,8 @@ module.exports = {
         "theme-cont-alt" : "#d93021",
         "theme-w" : "#ffffff",
         "theme-w-alt" : "#dedede",
+        "theme-g" : "#bababa",
+        "theme-g-alt" : "#aaaaaa",
       },
       fontFamily : 
       {

@@ -11,7 +11,7 @@ interface INavItem {
 const Navbar = () => {
   return (
     <nav 
-        className="fixed w-full top-0 left-0 p-2 px-6 z-50 flex flex-row justify-between items-center bg-white shadow-lg ring-1 ring-black/5 backdrop-blur-xl"
+        className="sticky w-full top-0 left-0 p-2 px-6 mb-5 z-50 flex flex-row justify-between items-center bg-white shadow-sm"
     >
         <Logo style="h-[2rem] w-[2rem]" linkEnable={true} />
         <NavItems />

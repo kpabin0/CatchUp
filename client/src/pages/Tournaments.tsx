@@ -18,17 +18,51 @@ interface ITournament   {
     stats: IMatchStats[]
 };
 
+function getFallbackTournament()
+{
+  const tempTour = [1, 2, 3, 4, 5];
+  const stats = [1, 2, 3];
+
+  return tempTour.map((ind) => {
+    return {
+      name: "Fallback Tournament " + ind.toString(),
+      start: new Date().toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      }),
+      end: new Date().toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      }),
+      venue: "Venue " + ind.toString(),
+      stats: stats.map((ind) => {
+                return {
+                  day: ind.toString(),
+                  runs: ind,
+                  wickets: ind,
+                  fours: ind,
+                  sixes: ind,
+                  extras: ind,
+                  balls: ind
+                }
+              })
+    }
+  })
+}
+
 const Tournaments = () => {
 
-  const [tournament, SetTournament] = useState<ITournament[]>()
+  const [tournament, setTournament] = useState<ITournament[]>()
   const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
   useEffect(() => {
     const res = async () => {
       return await fetch(`http://localhost:${PORT_NUMBER}/tournament`)
                     .then((res) => res.json())
-                    .then((data) => { SetTournament(data); console.log(data); return data })
-                    .catch((error) => { console.log(error); });
+                    .then((data) => { setTournament(data); console.log(data); return data })
+                    .catch((error) => { setTournament(getFallbackTournament()); console.log(error); });
     }
     res();
     
@@ -36,9 +70,9 @@ const Tournaments = () => {
   }, [])
 
   return (
-    <section className="py-20 flex flex-col justify-evenly items-center min-h-screen min-w-full">
-        <span className="text-3xl text-theme font-bold my-4">Tournaments</span>
-        <div className="w-[80%] grid grid-cols-1 gap-10 text-center ">
+    <section className="py-5 flex flex-col justify-evenly items-center min-h-screen min-w-full">
+        <span className="text-3xl text-theme font-bold my-4 uppercase">Tournaments</span>
+        <div className="w-[80%] grid grid-cols-2 gap-10 text-center my-10">
           {
             tournament ? tournament?.map(({name, start, end, venue, stats}) => {
               return <TournamentCard name={name} start={start} end={end} venue={venue} stats={stats} />
@@ -53,9 +87,10 @@ const TournamentCard = ({name, start, end, venue, stats} : ITournament) => {
   return (
     <div className="border border-theme">
       <h1 className="text-xl font-bold uppercase text-theme-w bg-theme text-center py-2">{name}</h1>
-      <span className="font-extralight text-md text-center block my-2">Start Date: {start}</span>
-      <span className="font-extralight text-md text-center block my-2">End Date: {end}</span>
-      <div className="grid grid-cols-3 gap-6">
+      <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Start Date:</b> {start}</span>
+      <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">End Date:</b> {end}</span>
+      <hr className="border border-theme" />
+      <div className="grid grid-cols-3 gap-6 p-3 px-4">
         {
           stats.map(({day, runs, wickets, fours, sixes, extras, balls}, ind) => {
             return <StatsCard key={ind} day={day} runs={runs} wickets={wickets} fours={fours} sixes={sixes} extras={extras} balls={balls} />
@@ -68,14 +103,14 @@ const TournamentCard = ({name, start, end, venue, stats} : ITournament) => {
 
 const StatsCard = ({day, runs, wickets, fours, sixes, extras, balls} : IMatchStats) => {
   return (
-    <div className="flex flex-col justify-evenly items-start p-2">
-      <span>Day: {day}</span>
-      <span>Runs: {runs}</span>
-      <span>Wicket: {wickets}</span>
-      <span>Fours: {fours}</span>
-      <span>Sixes: {sixes}</span>
-      <span>Extras: {extras}</span>
-      <span>Balls: {balls}</span>
+    <div className="flex flex-col justify-evenly items-start space-y-1">
+      <span className="font-bold text-md">Day: {day}</span>
+      <span className="text-sm">Runs: {runs}</span>
+      <span className="text-sm">Wicket: {wickets}</span>
+      <span className="text-sm">Fours: {fours}</span>
+      <span className="text-sm">Sixes: {sixes}</span>
+      <span className="text-sm">Extras: {extras}</span>
+      <span className="text-sm">Balls: {balls}</span>
     </div>
   )
 }
