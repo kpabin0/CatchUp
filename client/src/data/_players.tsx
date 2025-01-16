@@ -8,6 +8,7 @@ export function getFallbackPlayers()
     return playerArray.map((ind) => {
         return {
             name: "Player ",
+            img: "https://w1.pngwing.com/pngs/386/684/png-transparent-face-icon-user-icon-design-user-profile-share-icon-avatar-black-and-white-silhouette.png",
             role: "Role ",
             runs: ind,
             wickets: ind,
