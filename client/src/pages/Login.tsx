@@ -15,7 +15,7 @@ const Login = () => {
   return (
     <section className="w-screen h-screen flex flex-col justify-center items-center ">
         
-        <img src="/assets/bg.png" alt="bg" className="absolute -z-50 brightness-75 h-full w-full bg-contain top-0 left-0" /> 
+        <img src="/assets/bg.png" alt="bg" className="absolute -z-50 brightness-75 h-full w-full top-0 left-0 object-cover" /> 
         
         <div className="rounded-xl shadow-xl w-[25rem] h-[50vh] flex flex-col justify-between items-center bg-theme-w ">
             <h2 className="w-full py-8 text-center text-sm font-light bg-theme text-theme-w rounded-t-xl">
