@@ -1,8 +1,9 @@
-const express =require("express")
-const mainRoute=express.Router()
+const express = require("express")
+const mainRoute = express.Router()
 
-// const feedback=require('../modules/conatact/feedback.router')
+mainRoute.get("/", (req, res) => {
+    console.log("Request recieved in backend")
+    res.json("Backend response")
+})
 
-// mainRoute.use('/feedback',feedback)
-
-module.exports=mainRoute
+module.exports = mainRoute
