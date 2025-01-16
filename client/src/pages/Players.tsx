@@ -4,6 +4,7 @@ import { getFallbackPlayers } from '../data/_players'
 interface IPlayers
 {
     name: string,
+    img: string,
     role: string,
     runs: number,
     wickets: number,
@@ -31,11 +32,11 @@ const Players = () => {
 
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
-        <h1 className="font-bold text-3xl text-theme">Players</h1>
-        <div className="grid grid-cols-3 gap-6">
+        <h1 className="font-bold text-3xl text-theme my-2">Players</h1>
+        <div className="grid grid-cols-3 gap-20 my-20">
             {
-                players?.map(({name, role, runs, wickets, fours, sixes, ballsFaced}) => {
-                    return <PlayerCard name={name} role={role} runs={runs} wickets={wickets} fours={fours} sixes={sixes} ballsFaced={ballsFaced} />
+                players?.map(({name, img, role, runs, wickets, fours, sixes, ballsFaced}) => {
+                    return <PlayerCard name={name} img={img} role={role} runs={runs} wickets={wickets} fours={fours} sixes={sixes} ballsFaced={ballsFaced} />
                 })
             }
         </div>
@@ -43,9 +44,10 @@ const Players = () => {
   )
 }
 
-const PlayerCard = ({name, role, runs, wickets, fours, sixes, ballsFaced} : IPlayers) => {
+const PlayerCard = ({name, img, role, runs, wickets, fours, sixes, ballsFaced} : IPlayers) => {
     return (
-        <div className="min-w-[20rem] flex flex-col justify-evenly items-center space-y-1 border border-theme p-4 rounded-sm hover:bg-theme hover:text-theme-w transition-colors duration-300">
+        <div className="min-w-[20rem] relative flex flex-col justify-evenly items-center space-y-1 border border-theme p-4 rounded-sm hover:bg-theme hover:text-theme-w transition-colors duration-300">
+            <img className="mt-[-5rem] w-[10rem] h-[10rem] mb-4" src={img} alt={name} />
             <span className="font-bold text-md">Name: {name}</span>
             <span className="font-bold text-md">Role: {role}</span>
             <span className="text-sm">Runs: {runs}</span>
