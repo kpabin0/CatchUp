@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { getFallbackMatches } from '../data/_matches'
 
 interface IMatchStats
 {
@@ -18,33 +19,6 @@ interface IMatches
   stats: IMatchStats[]
 };
 
-function getFallbackMatches()
-{
-  const tempMatch = [1, 2, 3, 4, 5];
-  const stats = [1, 2, 3];
-
-  return tempMatch.map((ind) => {
-    return {
-      date: new Date().toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      }),
-      time: new Date().getHours().toString(),
-      venue: "Venue " + ind.toString(),
-      stats: stats.map((ind) => {
-                return {
-                  runs: ind,
-                  wickets: ind,
-                  fours: ind,
-                  sixes: ind,
-                  extras: ind,
-                  balls: ind
-                }
-              })
-    }
-  })
-}
 
 const Matches = () => {
 

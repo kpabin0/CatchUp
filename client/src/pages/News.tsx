@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { getFallbackNews, getFallbackSubNews } from '../data/_news';
 
 interface INews {
   title: string,
@@ -13,28 +14,6 @@ interface ISubNews {
   description: string
 };
 
-function getFallbackNews()
-{
-  const tempNews = [1, 2, 3, 4, 5];
-  return tempNews.map((val) => {
-    return {
-      title: "Fallback News Title : " + val.toString(),
-      description: "This is the place for description of news..... " + val.toString() 
-    }
-  })
-}
-
-function getFallbackSubNews()
-{
-  const tempSubNews = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  return tempSubNews.map((val) => {
-    return {
-      title: "Fallback Sub News Title : " + val.toString(),
-      url: "#",
-      description: "This is short sub news desc..... just some text to fill the place" + val.toString() 
-    }
-  })
-}
 
 const News = () => {
 

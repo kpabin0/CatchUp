@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { getFallbackTournament } from '../data/_tournaments'
 
 interface IMatchStats    {
     day: string,
@@ -18,39 +19,6 @@ interface ITournament   {
     stats: IMatchStats[]
 };
 
-function getFallbackTournament()
-{
-  const tempTour = [1, 2, 3, 4, 5];
-  const stats = [1, 2, 3];
-
-  return tempTour.map((ind) => {
-    return {
-      name: "Fallback Tournament " + ind.toString(),
-      start: new Date().toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      }),
-      end: new Date().toLocaleDateString('en-US', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-      }),
-      venue: "Venue " + ind.toString(),
-      stats: stats.map((ind) => {
-                return {
-                  day: ind.toString(),
-                  runs: ind,
-                  wickets: ind,
-                  fours: ind,
-                  sixes: ind,
-                  extras: ind,
-                  balls: ind
-                }
-              })
-    }
-  })
-}
 
 const Tournaments = () => {
 
