@@ -19,10 +19,6 @@ export const _socialHandles = [
 
 export const _otherLinks = [
     {
-        label: "Home",
-        url: "/home"
-    },
-    {
         label: "Summary",
         url: "/summary"
     },
@@ -33,5 +29,13 @@ export const _otherLinks = [
     {
         label: "Venues",
         url: "/venues"
+    },
+    {
+        label: "Players",
+        url: "/players"
+    },
+    {
+        label: "About Us",
+        url: "/aboutus"
     },
 ]
