@@ -72,10 +72,17 @@ export interface ISubNews {
 };
 
 
-export interface ITournamentInfo   {
+export interface ITournamentInfo {
     name: string,
     start: string,
     end: string,
     venue: string,
     description: string,
 };
+
+export interface ITournamentForm {
+    tournamentid: number,
+    name: string,
+    start: Date,
+    end: Date
+}
