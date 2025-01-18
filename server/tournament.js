@@ -1,23 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('./db');
+const dbpool = require('./pgdb');
 
 
 router.post("/", async (req, res) => {
+    // console.log("post request recieved in tournament")
     try {
-        const { tournamentid, name, start, end_date } = req.body;
+        const { tournamentid, name, start, end } = req.body;
 
         console.log("Creating a new tournament:", req.body);
 
-        if (!tournamentid || !name || !start || !end_date) {
+        if (!tournamentid || !name || !start || !end) {
             return res.status(400).json({ error: "Missing required fields" });
         }
 
         const query = `
-            INSERT INTO tournaments (tournamentid, name, start, end_date)
+            INSERT INTO tournaments (tournamentid, name, start, end)
             VALUES ($1, $2, $3, $4) RETURNING *;
         `;
-        const newTournament = await pool.query(query, [tournamentid, name, start, end_date]);
+        const newTournament = await dbpool.query(query, [tournamentid, name, start, end]);
 
         console.log("Created tournament:", newTournament.rows[0]);
         res.json(newTournament.rows[0]);
@@ -29,8 +30,9 @@ router.post("/", async (req, res) => {
 
 
 router.get("/", async (req, res) => {
+    // console.log("get request recieved in tournament")
     try {
-        const allTournaments = await pool.query("SELECT * FROM tournaments");
+        const allTournaments = await dbpool.query("SELECT * FROM tournaments");
         console.log("Fetched all tournaments:", allTournaments.rows);
         res.json(allTournaments.rows);
     } catch (err) {
@@ -40,10 +42,11 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:tournamentid", async (req, res) => {
+    // console.log("get request recieved in tournament /:id")
     try {
         const { tournamentid } = req.params;
         console.log(`Fetching tournament with id: ${tournamentid}`);
-        const tournament = await pool.query("SELECT * FROM tournaments WHERE tournamentid = $1", [tournamentid]);
+        const tournament = await dbpool.query("SELECT * FROM tournaments WHERE tournamentid = $1", [tournamentid]);
 
         if (tournament.rows.length === 0) {
             console.log(`Tournament not found with id: ${tournamentid}`);
@@ -59,9 +62,10 @@ router.get("/:tournamentid", async (req, res) => {
 });
 
 router.put("/:tournamentid", async (req, res) => {
+    // console.log("put request recieved in tournament /:id")
     try {
         const { tournamentid } = req.params;
-        const { name, start, end_date } = req.body;
+        const { name, start, end } = req.body;
 
         console.log(`Updating tournament with id: ${tournamentid}, new data:`, req.body);
 
@@ -71,7 +75,7 @@ router.put("/:tournamentid", async (req, res) => {
             WHERE tournamentid = $4 RETURNING *;
         `;
 
-        const updatedTournament = await pool.query(updateQuery, [name, start, end_date, tournamentid]);
+        const updatedTournament = await dbpool.query(updateQuery, [name, start, end, tournamentid]);
 
         if (updatedTournament.rowCount === 0) {
             console.log(`Tournament not found for update with id: ${tournamentid}`);
@@ -88,11 +92,12 @@ router.put("/:tournamentid", async (req, res) => {
 
 
 router.delete("/:tournamentid", async (req, res) => {
+    // console.log("delete request recieved in tournament /:id")
     try {
         const { tournamentid } = req.params;
 
         console.log(`Deleting tournament with id: ${tournamentid}`);
-        const deleteTournament = await pool.query("DELETE FROM tournaments WHERE tournamentid = $1", [tournamentid]);
+        const deleteTournament = await dbpool.query("DELETE FROM tournaments WHERE tournamentid = $1", [tournamentid]);
 
         if (deleteTournament.rowCount === 0) {
             console.log(`Tournament not found for deletion with id: ${tournamentid}`);
