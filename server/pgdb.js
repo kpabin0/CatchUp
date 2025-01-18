@@ -1,7 +1,7 @@
 const { Pool } = require('pg'); 
 require('dotenv').config()
 
-const isDev = true;
+const isDev = false;
 
 const dbPool = isDev ? new Pool({
     user: process.env.USERNAME,
