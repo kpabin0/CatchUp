@@ -92,7 +92,6 @@ const CreateTournamentForm: React.FC = () => {
           </div>
         )}
 
-        {/* Error Message */}
         {errorMessage && (
           <div className="bg-red-500 text-white p-4 rounded-md mb-4 flex items-center justify-between">
             <span>{errorMessage}</span>
@@ -163,22 +162,5 @@ const CreateTournamentForm: React.FC = () => {
 
 
 
-// const CreateTournamentForm: React.FC = () => {
-//   const { register, handleSubmit, formState: { errors } } = useForm<TournamentFormData>({
-//     resolver: yupResolver(schema),
-//   });
-
-//   const onSubmit: SubmitHandler<TournamentFormData> = (data) => {
-//     console.log(data);
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       <input {...register("tournamentid")} />
-//       {errors.tournamentid && <span>{errors.tournamentid.message}</span>}
-//       <button type="submit">Submit</button>
-//     </form>
-//   );
-// };
 
 export default CreateTournamentForm;

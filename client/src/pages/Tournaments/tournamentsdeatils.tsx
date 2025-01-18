@@ -11,7 +11,7 @@ interface Tournament {
 
 const TournamentDetailsPage: React.FC = () => {
   const { tid } = useParams<{ tid: string }>();
-  console.log("Tournament ID from URL:", tid);  // Debug log
+  console.log("Tournament ID from URL:", tid);  
 
   const [tournament, setTournament] = useState<Tournament | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -26,11 +26,11 @@ const TournamentDetailsPage: React.FC = () => {
       }
 
       try {
-        console.log("Fetching tournament with ID:", tid);  // Log tournament ID
+        console.log("Fetching tournament with ID:", tid);  
         const response = await axios.get(
           `http://localhost:${PORT_NUMBER}/tournaments/${tid}`
         );
-        console.log("API Response:", response.data);  // Log the API response
+        console.log("API Response:", response.data); 
 
         if (response.data) {
           setTournament(response.data);

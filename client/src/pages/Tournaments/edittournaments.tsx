@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// Define the structure of the tournament object.
+
 interface Tournament {
   tid: number;
   name: string;
@@ -11,7 +11,7 @@ interface Tournament {
 }
 
 const EditTournamentPage: React.FC = () => {
-  const { tid } = useParams(); // Retrieve tournament id from URL
+  const { tid } = useParams(); 
   const [tournament, setTournament] = useState<Tournament | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -19,12 +19,12 @@ const EditTournamentPage: React.FC = () => {
 
   useEffect(() => {
     if (tid) {
-      // Fetch tournament details from backend using tid
+     
       axios
         .get(`http://localhost:3001/tournaments/${tid}`)
         .then((response) => {
           setTournament(response.data);
-          setLoading(false); // Set loading to false after data is fetched
+          setLoading(false); 
         })
         .catch((error) => {
           setError("Error fetching tournament data.");
@@ -47,10 +47,10 @@ const EditTournamentPage: React.FC = () => {
     e.preventDefault();
     if (tournament) {
       try {
-        // Update tournament details
+      
         const response = await axios.put(`http://localhost:3001/tournaments/${tid}`, tournament);
         console.log("Tournament updated:", response.data);
-        navigate("/tournament/all"); // Navigate to tournaments list page after successful update
+        navigate("/tournament/all"); 
       } catch (error) {
         setError("Error updating tournament data.");
         console.error("Error updating tournament:", error);
@@ -58,7 +58,7 @@ const EditTournamentPage: React.FC = () => {
     }
   };
 
-  // Show loading or error message
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
 

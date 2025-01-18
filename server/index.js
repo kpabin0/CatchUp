@@ -4,7 +4,7 @@ const port = 3001;
 const cors = require('cors');
 
 
-const playerRoutes = require('./player.route');
+
 const tournamentsRoutes = require('./tournament');
 
 const pool = require('./db');
