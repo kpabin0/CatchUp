@@ -1,8 +1,26 @@
-const http = require('http');
-const app = require('./config/sql.config');
+const express = require('express');
+const app = express();
+const port = 3001;
+const cors = require('cors');
 
-const server = http.createServer(app);
-server.listen(5000, '127.0.0.6', () => {
-  console.log('Server is running on port 5000');
-  console.log('Press CTRL + C to disconnect');
+
+const playerRoutes = require('./player.route');
+const tournamentsRoutes = require('./tournament');
+
+const pool = require('./db');
+
+app.use(express.json());
+app.use(cors());
+
+
+app.use('/players', playerRoutes);
+app.use('/tournaments', tournamentsRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

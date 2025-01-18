@@ -9,7 +9,7 @@ export const _navItems = [
     },
     {
         label: "Tournaments",
-        url: "/tournaments",
+        url: "/tournament/all",
         subItem: [
             {
                 label: "NPL",
@@ -20,6 +20,10 @@ export const _navItems = [
                 url: "/t20"
             }
         ]
+    },
+    {
+        label: "PLAYERS",
+        url: "/player/all"
     },
     {
         label: "News",
