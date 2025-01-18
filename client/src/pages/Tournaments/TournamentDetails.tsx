@@ -9,7 +9,7 @@ interface Tournament {
   end_date: string;
 }
 
-const TournamentDetailsPage: React.FC = () => {
+const TournamentDetails = () => {
   const { tid } = useParams<{ tid: string }>();
   console.log("Tournament ID from URL:", tid);  
 
@@ -82,4 +82,4 @@ const TournamentDetailsPage: React.FC = () => {
   );
 };
 
-export default TournamentDetailsPage;
+export default TournamentDetails;

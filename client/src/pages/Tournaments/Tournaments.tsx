@@ -7,7 +7,12 @@ import { MdDeleteForever, MdEdit } from "react-icons/md";
 
 const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
-const GetTournamentsPage: React.FC = () => {
+interface ITournamentCard extends ITournament {
+  handleEdit: (id : number) => void,
+  handleDelete: (id : number) => void
+};
+
+const Tournaments = () => {
   const [tournaments, setTournaments] = useState<ITournament[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -62,35 +67,7 @@ const GetTournamentsPage: React.FC = () => {
         <ul className="space-y-4 w-full p-4">
           {tournaments.map((tournament) => {
             return (
-              <li
-                key={tournament.tournamentid}
-                className="p-4 border rounded-lg shadow-sm hover:border-theme flex flex-row justify-between items-center"
-              >     
-
-              <div className="flex flex-col">
-                <strong>ID {tournament.tournamentid}</strong>
-                <strong>Name: {tournament.name}</strong>
-                <span>Start Date: {new Date(tournament.start).toLocaleDateString()}</span>
-                <span>End Date: {new Date(tournament.end).toLocaleDateString()}</span>
-
-              </div>
-              <div className="flex flex-col space-y-5">
-                <button
-                  onClick={() => handleEdit(tournament.tournamentid)}
-                  className="bg-theme text-theme-w px-4 py-2 rounded"
-                >
-                  <MdEdit />
-                </button>
-            
-                <button
-                  onClick={() => handleDelete(tournament.tournamentid)}
-                  className="bg-theme-cont text-theme-w px-4 py-2 rounded"
-                >
-                  <MdDeleteForever />
-                </button>
-              </div>
-
-            </li>
+              <TournamentCard key={tournament.tournamentid} {...tournament} handleEdit={handleEdit} handleDelete={handleDelete}  />
             )
           })}
         </ul>
@@ -99,4 +76,25 @@ const GetTournamentsPage: React.FC = () => {
   );
 };
 
-export default GetTournamentsPage;
+const TournamentCard = ({tournamentid, name, start, end, handleEdit, handleDelete} : ITournamentCard) => {
+  return (
+      <li className="p-4 border rounded-lg shadow-sm hover:border-theme flex flex-row justify-between items-center">     
+        <div className="flex flex-col">
+          <strong>ID {tournamentid}</strong>
+          <strong>Name: {name}</strong>
+          <span>Start Date: {new Date(start).toLocaleDateString()}</span>
+          <span>End Date: {new Date(end).toLocaleDateString()}</span>
+        </div>
+        <div className="flex flex-col space-y-5">
+          <button onClick={() => handleEdit(tournamentid)} className="bg-theme text-theme-w px-4 py-2 rounded">
+            <MdEdit />
+          </button>
+          <button onClick={() => handleDelete(tournamentid)} className="bg-theme-cont text-theme-w px-4 py-2 rounded">
+            <MdDeleteForever />
+          </button>
+        </div>
+      </li>
+  )
+}
+
+export default Tournaments;

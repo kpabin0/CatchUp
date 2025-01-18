@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ITournament } from "../../data/ITypes";
 
-const EditTournamentPage: React.FC = () => {
+const EditTournament = () => {
   const { tid } = useParams(); 
   const [tournament, setTournament] = useState<ITournament | null>();
   const [error, setError] = useState<string | null>(null);
@@ -120,4 +120,4 @@ const EditTournamentPage: React.FC = () => {
   );
 };
 
-export default EditTournamentPage;
+export default EditTournament;
