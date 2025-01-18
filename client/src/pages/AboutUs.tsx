@@ -3,6 +3,13 @@ import { _about } from '../data/_about'
 import { getFallbackTournamentsInfo } from '../data/_tournaments'
 import { ITournamentInfo } from '../data/ITypes'
 
+
+interface IPersonCard {
+    name: string,
+    img?: string,
+    post: string,
+};
+
 const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
 const AboutUs = () => {
@@ -32,13 +39,9 @@ const AboutUs = () => {
             <span className="text-md text-theme my-2">Address {_about.address}</span>
             <div className="grid grid-cols-3 gap-5 mt-20">
                 {
-                    _about.personals.map(({post, name, img}) => {
+                    _about.personals.map((props, ind) => {
                         return (
-                            <div className="min-w-[20rem] min-h-[20rem] flex flex-col justify-between items-center hover:bg-theme hover:text-white pb-5">
-                                <div className="w-full h-[15rem] bg-theme-g">{img?<img src={img} alt={name} /> : <></>}</div>
-                                <span className="font-bold text-xl">{name}</span>
-                                <span className="font-light text-sm">{post}</span>
-                            </div>
+                            <PersonCard key={ind} {...props} />
                         )
                     })
                 }
@@ -76,6 +79,16 @@ const TournamentInfoCard = ({name, start, end, venue, description} : ITournament
         </div>
         </>
     )
-}   
+}  
+
+const PersonCard = ({name, img, post} : IPersonCard) => {
+    return (
+        <div className="min-w-[20rem] min-h-[20rem] flex flex-col justify-between items-center hover:bg-theme hover:text-white pb-5">
+            <div className="w-full h-[15rem] bg-theme-g">{img?<img src={img} alt={name} /> : <></>}</div>
+            <span className="font-bold text-xl">{name}</span>
+            <span className="font-light text-sm">{post}</span>
+        </div>
+    )
+}
 
 export default AboutUs
