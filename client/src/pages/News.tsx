@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getFallbackNews, getFallbackSubNews } from '../data/_news';
+import { INews, ISubNews } from '../data/ITypes';
 
-interface INews {
-  title: string,
-  img?: string,
-  description: string
-};
-
-interface ISubNews {
-  title: string,
-  url?: string,
-  description: string
-};
-
+const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
 const News = () => {
 
   const [newsData, setNewsData] = useState<INews[]>();
   const [subNewsData, setSubNewsData] = useState<ISubNews[]>();
 
-  const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
   
   useEffect(() => {
     const res = async () => {
@@ -49,15 +38,15 @@ const News = () => {
         <div className="min-w-[80%] max-w-[90%] grid grid-cols-4 gap-2 m-10">
           <div className="col-span-3 grid grid-cols-2 gap-10">
             {
-              newsData ? newsData?.map(({title, img, description}, ind) => {
-                return <NewsCard key={ind} title={title} img={img} description={description} />
+              newsData ? newsData?.map((props, ind) => {
+                return <NewsCard key={ind} {...props} />
               }) : <span className="text-3xl text-theme ">Loading...</span>
             }
           </div>
           <div className="max-col-span-1 grid gap-4 ">
             {
-              subNewsData ? subNewsData?.map(({title, url, description}) => {
-                return <SubNewsCard key={title} title={title} url={url} description={description} />
+              subNewsData ? subNewsData?.map((props, ind) => {
+                return <SubNewsCard key={ind} {...props} />
               }) :  <span className="text-1xl text-theme ">Loading...</span>
             }
           </div>

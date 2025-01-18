@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Teams: React.FC = () => {
+const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+
+const Teams = () => {
 
   const [teamData, setTeamData] = useState({
     id: '',
@@ -23,7 +25,7 @@ const Teams: React.FC = () => {
 
   const handleCreateTeam = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/team/teams', teamData);  // Backend API URL
+      const response = await axios.post(`http://localhost:${PORT_NUMBER}/team/create`, teamData);  // Backend API URL
       console.log('Team created:', response.data);
       setError(null);
     } catch (err) {

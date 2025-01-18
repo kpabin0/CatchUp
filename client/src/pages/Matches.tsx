@@ -1,28 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { getFallbackMatches } from '../data/_matches'
-
-interface IMatchStats
-{
-  runs: number,
-  wickets: number,
-  fours: number,
-  sixes: number,
-  extras: number,
-  balls: number
-};
-
-interface IMatches
-{
-  date: string,
-  time: string,
-  venue: string,
-  stats: IMatchStats[]
-};
+import { IMatch } from '../data/ITypes';
 
 
 const Matches = () => {
 
-  const [matchesData, setMatchesData] = useState<IMatches[]>();
+  const [matchesData, setMatchesData] = useState<IMatch[]>();
   const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
   
   useEffect(() => {
@@ -42,8 +25,8 @@ const Matches = () => {
         <span className="text-3xl text-theme font-bold my-4 uppercase">Matches</span>
         <div className="max-w-[90%] min-w-[60%] grid grid-cols-2 gap-10 text-center my-10">
           {
-            matchesData ? matchesData?.map(({date, time, venue, stats}) => {
-              return <MatchesCard date={date} time={time} venue={venue} stats={stats} />
+            matchesData ? matchesData?.map((props, ind) => {
+              return <MatchesCard key={ind} {...props} />
             }) : <span className="text-3xl text-theme ">Loading...</span>
           }
         </div>
@@ -52,30 +35,22 @@ const Matches = () => {
 }
 
 
-const MatchesCard = ({date, time, venue, stats} : IMatches) => {
+const MatchesCard = ({matchid, tournamentid, teamid_1, teamid_2, extras_1, extras_2, venueid} : IMatch) => {
   return (
-    <div className="border border-theme ">
-      <h1 className="text-lg font-bold uppercase text-theme-w bg-theme text-center py-2">{date} <b className="text-sm font-light normal-case">(Time: {time} pm, {venue})</b></h1>
-      <div className="grid grid-cols-3 gap-6 p-3 px-4">
-        {
-          stats.map(({runs, wickets, fours, sixes, extras, balls}, ind) => {
-            return <StatsCard key={ind} runs={runs} wickets={wickets} fours={fours} sixes={sixes} extras={extras} balls={balls} />
-          })
-        }
+    <div className="w-full min-h-[10rem] p-2 relative flex flex-col justify-between items-center border border-theme hover:shadow-xl hover:-translate-y-1 rounded-sm transition-all duration-200">
+      { matchid % 2 === 0 ? <span className="absolute font-bold top-1 right-2 text-theme-cont">Live</span> : <></>}
+      <div className="w-full grid-cols-3">
+        <div className="w-full grid grid-cols-2 gap-6">
+          <span className="text-xl uppercase font-main-a font-extrabold inline-block text-theme">Team {teamid_1}</span>
+          <span className="text-xl uppercase font-main-a font-extrabold inline-block text-theme">Team {teamid_2}</span>
+        </div>
+        <span className="w-full text-xl block uppercase">Vs</span>
+        <div className="w-full grid grid-cols-2 gap-6">
+          <span className="text-md ">Extras: {extras_1}</span>
+          <span className="text-md ">Extras: {extras_2}</span>
+        </div>
       </div>
-    </div>
-  )
-}
-
-const StatsCard = ({runs, wickets, fours, sixes, extras, balls} : IMatchStats) => {
-  return (
-    <div className="flex flex-col justify-evenly items-start space-y-1">
-      <span className="text-sm">Runs: {runs}</span>
-      <span className="text-sm">Wicket: {wickets}</span>
-      <span className="text-sm">Fours: {fours}</span>
-      <span className="text-sm">Sixes: {sixes}</span>
-      <span className="text-sm">Extras: {extras}</span>
-      <span className="text-sm">Balls: {balls}</span>
+      <span className="w-full text-sm block">Venue: {venueid}</span>
     </div>
   )
 }

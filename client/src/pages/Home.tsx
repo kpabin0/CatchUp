@@ -3,11 +3,11 @@ import { motion } from "framer-motion"
 import { TbHandLoveYou } from "react-icons/tb";
 
 const _tempObject = [11, 22, 33];
+const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
 function Home() {
 
   const [reqData, setReqData] = useState();
-  const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
   useEffect(() => {
     const req =  async () => {

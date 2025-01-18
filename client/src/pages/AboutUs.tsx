@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { _about } from '../data/_about'
-import { getFallbackTournamentInfo } from '../data/_tournaments'
+import { getFallbackTournamentsInfo } from '../data/_tournaments'
+import { ITournamentInfo } from '../data/ITypes'
 
-interface ITournamentInfo   {
-    name: string,
-    start: string,
-    end: string,
-    venue: string,
-    description: string,
-};
+const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
 const AboutUs = () => {
   
     const [tournament, setTournament] = useState<ITournamentInfo[]>()
-    const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
     useEffect(() => {
         const res = async () => {
         return await fetch(`http://localhost:${PORT_NUMBER}/tournamentinfo`)
                         .then((res) => res.json())
                         .then((data) => { setTournament(data); console.log(data); return data })
-                        .catch((error) => { setTournament(getFallbackTournamentInfo()); console.log(error); });
+                        .catch((error) => { setTournament(getFallbackTournamentsInfo()); console.log(error); });
         }
         res();
         

@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-
-
-interface Tournament {
-  tid: number;
-  name: string;
-  start_date: string;
-  end_date: string;
-}
+import { ITournament } from "../../data/ITypes";
 
 const EditTournamentPage: React.FC = () => {
   const { tid } = useParams(); 
-  const [tournament, setTournament] = useState<Tournament | null>(null);
+  const [tournament, setTournament] = useState<ITournament | null>();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (tid) {
-     
-      axios
-        .get(`http://localhost:3001/tournaments/${tid}`)
-        .then((response) => {
+      // setTournament({tournamentid: 1, name: "None", start : "2025-2-1", end : "2026-3-4"})
+      // setLoading(false);
+
+      axios.get(`http://localhost:3001/tournaments/${tid}`)
+          .then((response) => {
           setTournament(response.data);
           setLoading(false); 
         })
@@ -50,7 +44,7 @@ const EditTournamentPage: React.FC = () => {
       
         const response = await axios.put(`http://localhost:3001/tournaments/${tid}`, tournament);
         console.log("Tournament updated:", response.data);
-        navigate("/tournament/all"); 
+        navigate("/tournaments/"); 
       } catch (error) {
         setError("Error updating tournament data.");
         console.error("Error updating tournament:", error);
@@ -64,59 +58,59 @@ const EditTournamentPage: React.FC = () => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <div className="w-[30rem] p-4 py-[2rem] bg-white shadow-xl rounded-md">
-        <h2 className="text-2xl font-bold text-center py-5 uppercase">Edit Tournament</h2>
+      <div className="w-[30rem] p-4 py-[2rem] bg-theme-w shadow-xl rounded-md">
+        <h2 className="text-2xl text-theme font-extrabold text-center py-5 uppercase">Edit Tournament</h2>
         {tournament && (
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="tid" className="block text-sm font-medium text-gray-700">Tournament ID</label>
+              <label htmlFor="tid" className="block text-sm font-medium text-theme">Tournament ID</label>
               <input
                 type="text"
                 id="tid"
                 name="tid"
-                value={tournament.tid}
+                value={tournament.tournamentid}
                 readOnly
-                className="mt-1 p-2 w-full border rounded"
+                className="mt-1 p-2 w-full border rounded outline-none"
               />
             </div>
 
             <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Tournament Name</label>
+              <label htmlFor="name" className="block text-sm font-medium text-theme">Tournament Name</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 value={tournament.name}
                 onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded"
+                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
               />
             </div>
 
             <div className="mb-4">
-              <label htmlFor="start_date" className="block text-sm font-medium text-gray-700">Tournament Start Date</label>
+              <label htmlFor="start" className="block text-sm font-medium text-theme">Tournament Start Date</label>
               <input
                 type="date"
-                id="start_date"
-                name="start_date"
-                value={tournament.start_date}
+                id="start"
+                name="start"
+                value={tournament.start}
                 onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded"
+                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
               />
             </div>
 
             <div className="mb-4">
-              <label htmlFor="end_date" className="block text-sm font-medium text-gray-700">Tournament End Date</label>
+              <label htmlFor="end" className="block text-sm font-medium text-theme">Tournament End Date</label>
               <input
                 type="date"
-                id="end_date"
-                name="end_date"
-                value={tournament.end_date}
+                id="end"
+                name="end"
+                value={tournament.end}
                 onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded"
+                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
               />
             </div>
 
-            <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white rounded mt-4">
+            <button type="submit" className="w-full py-2 px-4 bg-theme text-theme-w rounded mt-4">
               Save Changes
             </button>
           </form>

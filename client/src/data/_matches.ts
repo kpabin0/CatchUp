@@ -1,31 +1,21 @@
 // This file contain the fallback methods with data incase of fetch failure
 
+import { getArray } from "./utils"
+
 export function getFallbackMatches()
 {
     const matchCount = 5
-    const statsCount = 3
-    const tempMatch = Array(matchCount).fill(0).map((_, index) => index + 1)
-    const stats = Array(statsCount).fill(0).map((_, index) => index + 1)
+    const tempMatch = getArray(matchCount)
   
     return tempMatch.map((ind) => {
       return {
-        date: new Date().toLocaleDateString('en-US', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric',
-        }),
-        time: new Date().getHours().toString(),
-        venue: "Venue " + ind.toString(),
-        stats: stats.map((ind) => {
-                  return {
-                    runs: ind,
-                    wickets: ind,
-                    fours: ind,
-                    sixes: ind,
-                    extras: ind,
-                    balls: ind
-                  }
-                })
+        matchid: ind,
+        tournamentid: ind,
+        teamid_1: ind,
+        teamid_2: (ind + ind) % 10,
+        extras_1: ind,
+        extras_2: 2 * ind + 1,
+        venueid: ind
       }
     })
 }
