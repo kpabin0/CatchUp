@@ -14,7 +14,7 @@ const Register = () => {
     <section className="h-screen w-screen flex flex-col justify-center items-center">
         <img src="/assets/bg.png" alt="bg" className="absolute -z-50 brightness-75 h-full w-full bg-contain top-0 left-0" /> 
         
-        <div className="w-[40rem] flex flex-col justify-evenly items-center bg-theme-w shadow-2xl p-8 rounded-xl min-h-[60vh]">
+        <div className="w-[30rem] flex flex-col justify-evenly items-center bg-theme-w shadow-2xl p-8 rounded-xl min-h-[60vh]">
             <h2 className="w-full py-4 mb-8 text-center text-sm font-light bg-theme text-theme-w rounded-t-xl grid grid-cols-3">
                 <span className="col-span-2">Sign Up in <span className='uppercase text-4xl font-extrabold block'>Catchup</span></span>
                 <HiUserAdd className="m-auto text-theme-w w-20 h-20" />
@@ -46,29 +46,9 @@ const Register = () => {
                         required={true}
                     />
                 </div>
-                <TextInputField
-                    label="Address"
-                    name="address"
-                    required={true}
-                />
-
-                <div className="w-full">
-                    <label htmlFor="image" className="block text-sm font-medium py-2">
-                        Image
-                    </label>
-                    <input
-                        className="block w-full cursor-pointer min-h-[3rem]"
-                        id="file_input" type="file"
-                        placeholder="Select image"
-                        onChange={(e: any) => {
-                            const uploaded = e.target.files[0];
-                            alert("image uploaded" + uploaded);
-                        }}
-                    />
-                </div>
 
                 <button
-                    className=" w-[50%] mb-4 rounded-md border border-theme bg-theme-w px-12 py-3 text-theme transition hover:bg-theme hover:text-theme-w"
+                    className=" w-[100%] my-4 rounded-md border border-theme bg-theme-w px-12 py-3 text-theme transition hover:bg-theme hover:text-theme-w"
                 >
                     Create an account
                 </button>

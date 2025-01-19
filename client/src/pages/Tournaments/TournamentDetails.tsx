@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 interface Tournament {
   tournamentid: number;
   name: string;
-  start: string;
+  start_date: string;
   end_date: string;
 }
 
@@ -67,7 +67,7 @@ const TournamentDetails = () => {
                 <strong>Name:</strong> {tournament.name}
               </div>
               <div>
-                <strong>Start Date:</strong> {tournament.start}
+                <strong>Start Date:</strong> {tournament.start_date}
               </div>
               <div>
                 <strong>End Date:</strong> {tournament.end_date}

@@ -1,5 +1,6 @@
 // This file contains the global interface for ts used in this project
 
+// Following are the interface that is used in postgresql table
 export interface IVenue {
     venueid: number,
     name: string,
@@ -10,8 +11,8 @@ export interface IVenue {
 export interface ITournament {
     tournamentid: number,
     name: string,
-    start: string,
-    end: string
+    start_date: string,
+    end_date: string
 };
 
 export interface ITeam {
@@ -74,8 +75,8 @@ export interface ISubNews {
 
 export interface ITournamentInfo {
     name: string,
-    start: string,
-    end: string,
+    start_date: string,
+    end_date: string,
     venue: string,
     description: string,
 };
@@ -83,6 +84,79 @@ export interface ITournamentInfo {
 export interface ITournamentForm {
     tournamentid: number,
     name: string,
-    start: Date,
-    end: Date
+    start_date: Date,
+    end_date: Date
+};
+
+
+
+// For view specifics in the webpage 
+export interface ITeamMatchView {
+    name: string,
+    runs: number,
+    wickets: number,
+    over: number,
 }
+
+export interface IMatchHighlightView {
+    team_1: ITeamMatchView,
+    team_2: ITeamMatchView,
+    isLive: boolean
+    date?: string
+};
+
+export interface IBatsmanStats {
+    balls_played: number,
+    runs: number,
+    sixes: number,
+    fours: number,
+};
+
+export interface IBowlerStats {
+    balls_bowled: number,
+    runs_concieved: number,
+    wickets: number
+    maiden?: number,
+    extras?: number
+};
+
+export interface IPlayerBatsmanScore extends IBatsmanStats {
+    name: string,
+    description: string
+};
+
+export interface ITeamBatsmanScore {
+    batters: IPlayerBatsmanScore[]
+};
+
+export interface IPlayerBowlerScore extends IBowlerStats {
+    name: string
+};
+
+export interface ITeamBowlerScore {
+    bowlers: IPlayerBowlerScore[]
+};
+
+
+export interface IInnings extends ITeamBatsmanScore, ITeamBowlerScore {
+    
+};
+
+export interface IMatchView extends IMatchHighlightView {
+    innnings_1: IInnings,
+    innnings_2: IInnings
+};
+
+
+export interface IFixture extends IMatchHighlightView {
+
+};
+
+
+export interface ITournamentPointsTable {
+    team_name: string,
+    matches_playerd: number,
+    matches_won: number,
+    matches_tied: number,
+    points: number
+};

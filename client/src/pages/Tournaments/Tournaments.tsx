@@ -76,14 +76,14 @@ const Tournaments = () => {
   );
 };
 
-const TournamentCard = ({tournamentid, name, start, end, handleEdit, handleDelete} : ITournamentCard) => {
+const TournamentCard = ({tournamentid, name, start_date, end_date, handleEdit, handleDelete} : ITournamentCard) => {
   return (
       <li className="p-4 border rounded-lg shadow-sm hover:border-theme flex flex-row justify-between items-center">     
         <div className="flex flex-col">
           <strong>ID {tournamentid}</strong>
           <strong>Name: {name}</strong>
-          <span>Start Date: {new Date(start).toLocaleDateString()}</span>
-          <span>End Date: {new Date(end).toLocaleDateString()}</span>
+          <span>Start Date: {new Date(start_date).toLocaleDateString()}</span>
+          <span>End Date: {new Date(end_date).toLocaleDateString()}</span>
         </div>
         <div className="flex flex-col space-y-5">
           <button onClick={() => handleEdit(tournamentid)} className="bg-theme text-theme-w px-4 py-2 rounded">

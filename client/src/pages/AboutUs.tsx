@@ -52,11 +52,11 @@ const AboutUs = () => {
         
         <div className="my-10 grid grid-cols-1 gap-10 text-center">
           {
-            tournament ? tournament?.map(({name, start, end, venue, description}, ind) => {
+            tournament ? tournament?.map((props, ind) => {
               return (
                 <div className={"w-full py-10 px-[5%] grid grid-cols-2 gap-10 text-center " + (ind % 2 === 0 ? " bg-theme text-theme-w " : " bg-none text-theme")}>
                     <div className={"w-[30rem] h-[20rem] bg-theme-g " + (ind % 2 === 0 ? " order-2 " : " ")}></div>
-                    <TournamentInfoCard name={name} start={start} end={end} venue={venue} description={description} />
+                    <TournamentInfoCard {...props} />
                 </div>
               )
             }) : <span className="text-3xl text-theme ">Loading...</span>
@@ -67,13 +67,13 @@ const AboutUs = () => {
 }
 
 
-const TournamentInfoCard = ({name, start, end, venue, description} : ITournamentInfo) => {
+const TournamentInfoCard = ({name, start_date, end_date, venue, description} : ITournamentInfo) => {
     return (
         <>
         <div className="">
             <h1 className="text-xl font-bold uppercase text-center py-2 order-1">{name}</h1>
-            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Start Date:</b> {start}</span>
-            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">End Date:</b> {end}</span>
+            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Start Date:</b> {start_date}</span>
+            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">End Date:</b> {end_date}</span>
             <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Venue:</b> {venue}</span>
             <p className="font-extralight text-[0.80rem] text-center inline-block m-2">{description}</p>
         </div>

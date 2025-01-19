@@ -14,7 +14,7 @@ const EditTournament = () => {
 
   useEffect(() => {
     if (tid) {
-      // setTournament({tournamentid: 1, name: "None", start : "2025-2-1", end : "2026-3-4"})
+      // setTournament({tournamentid: 1, name: "None", start_date : "2025-2-1", end_date : "2026-3-4"})
       // setLoading(false);
 
       axios.get(`http://localhost:${PORT_NUMBER}/tournaments/${tid}`)
@@ -94,7 +94,7 @@ const EditTournament = () => {
                 type="date"
                 id="start"
                 name="start"
-                value={tournament.start}
+                value={tournament.start_date}
                 onChange={handleInputChange}
                 className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
               />
@@ -106,7 +106,7 @@ const EditTournament = () => {
                 type="date"
                 id="end"
                 name="end"
-                value={tournament.end}
+                value={tournament.end_date}
                 onChange={handleInputChange}
                 className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
               />

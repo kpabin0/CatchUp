@@ -46,8 +46,8 @@ const MatchesCard = ({matchid, tournamentid, teamid_1, teamid_2, extras_1, extra
         </div>
         <span className="w-full text-xl block uppercase">Vs</span>
         <div className="w-full grid grid-cols-2 gap-6">
-          <span className="text-md ">Extras: {extras_1}</span>
-          <span className="text-md ">Extras: {extras_2}</span>
+          <span className="text-2xl tracking-tighter font-bold">Runs/Wicket (Over.Over)</span>
+          <span className="text-2xl tracking-tighter font-bold">Runs/Wicket (Over.Over)</span>
         </div>
       </div>
       <span className="w-full text-sm block">Venue: {venueid}</span>

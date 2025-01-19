@@ -15,10 +15,10 @@ const schema = Yup.object().shape({
   name: Yup.string()
     .max(100, "Name must be at most 100 characters")
     .required("Name is required"),
-  start: Yup.date()
+  start_date: Yup.date()
     .required("Start date is required")
     .typeError("Invalid date format"),
-  end: Yup.date()
+  end_date: Yup.date()
     .required("End date is required")
     .typeError("Invalid date format")
     .min(Yup.ref("start"), "End date must be after the start date"),
@@ -127,21 +127,21 @@ const CreateTournamentForm = () => {
             <label className="block text-theme">Start Date:</label>
             <input
               type="date"
-              {...register("start")}
+              {...register("start_date")}
               className="w-full border rounded p-2"
             />
-            {errors.start && <span className="text-theme-cont">{errors.start.message}</span>}
+            {errors.start_date && <span className="text-theme-cont">{errors.start_date.message}</span>}
           </div>
 
           <div>
             <label className="block text-theme">End Date:</label>
             <input
               type="date"
-              {...register("end")}
+              {...register("end_date")}
               className="w-full border rounded p-2"
             />
-            {errors.end && (
-              <span className="text-theme-cont">{errors.end.message}</span>
+            {errors.end_date && (
+              <span className="text-theme-cont">{errors.end_date.message}</span>
             )}
           </div>
 
