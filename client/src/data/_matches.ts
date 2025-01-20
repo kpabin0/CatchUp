@@ -9,13 +9,19 @@ export function getFallbackMatches()
   
     return tempMatch.map((ind) => {
       return {
-        matchid: ind,
-        tournamentid: ind,
-        teamid_1: ind,
-        teamid_2: (ind + ind) % 10,
-        extras_1: ind,
-        extras_2: 2 * ind + 1,
-        venueid: ind
+        team_1: {
+          name: "Fallback - " + ind.toString(),
+          runs: ind * 2,
+          wickets: ind,
+          over: ind/2,
+        },
+        team_2: {
+          name: "Fallback - " + (ind + 1).toString(),
+          runs: ind * 4,
+          wickets: ind,
+          over: ind/2 - 0.2,
+        },
+        isLive: ind % 2 === 1 ? true : false
       }
     })
 }
