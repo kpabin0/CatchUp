@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom"
 import App from "../App"
 import Home from "../pages/Home"
-import Matches from "../pages/Matches"
+import Matches from "../pages/Matches/Matches"
 import News from "../pages/News"
 import Fixtures from "../pages/Fixtures"
 import NotFound from "../pages/NotFound"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
-import Teams from "../pages/Teams/Team"
+import TeamsForm from "../pages/Teams/TeamForm"
 import CreateTournamentForm from "../pages/Tournaments/TournamentForm"
 import Tournaments from "../pages/Tournaments/Tournaments"
 import EditTournament from "../pages/Tournaments/EditTournament"
@@ -29,7 +29,7 @@ const Routing = () => {
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/news" element={<News />} />
         <Route path="/fixtures" element={<Fixtures />} />
-        <Route path="/teams" element={<Teams/>} />
+        <Route path="/teams/create" element={<TeamsForm/>} />
         <Route>
           <Route path="/tournaments/" element={<Tournaments />} />
           <Route path="/tournaments/create" element={<CreateTournamentForm />} />
