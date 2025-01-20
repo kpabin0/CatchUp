@@ -155,7 +155,7 @@ export interface IFixture extends IMatchHighlightView {
 
 export interface ITournamentPointsTable {
     team_name: string,
-    matches_playerd: number,
+    matches_played: number,
     matches_won: number,
     matches_tied: number,
     points: number
