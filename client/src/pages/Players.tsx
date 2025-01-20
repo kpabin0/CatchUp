@@ -24,7 +24,7 @@ const Players = () => {
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
         <h1 className="font-bold text-3xl text-theme my-2">Players</h1>
-        <div className="grid grid-cols-3 gap-20 my-20">
+        <div className="grid xl:grid-cols-3 grid-cols-2 gap-y-20 gap-x-5 my-20">
             {
                 players?.map((props, ind) => {
                     return <PlayerCard key={ind} {...props} />
