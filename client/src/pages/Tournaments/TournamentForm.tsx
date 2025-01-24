@@ -1,11 +1,11 @@
 
 import React, { useState } from "react";
-
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axios from "axios";
 import { ITournamentForm } from "../../data/ITypes";
+import { backendBaseURL } from "../../data/utils";
 
 const schema = Yup.object().shape({
   tournamentid: Yup.number()
@@ -24,7 +24,6 @@ const schema = Yup.object().shape({
     .min(Yup.ref("start"), "End date must be after the start date"),
 });
 
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
 const CreateTournamentForm = () => {
   const {
@@ -43,7 +42,7 @@ const CreateTournamentForm = () => {
     console.log("Form Data:", data);
     try {
       const response = await axios.post(
-        `http://localhost:${PORT_NUMBER}/tournaments`,
+        backendBaseURL + `/tournaments`,
         data,
         {
           headers: {

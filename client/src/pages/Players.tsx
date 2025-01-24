@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getFallbackPlayers } from '../data/_players'
 import { IPlayer } from '../data/ITypes';
 import { Link } from 'react-router-dom';
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from '../data/utils';
 
 const Players = () => {
 
@@ -11,7 +10,7 @@ const Players = () => {
 
   useEffect(() => {
     const res = async () => {
-      return await fetch(`http://localhost:${PORT_NUMBER}/players`)
+      return await fetch(backendBaseURL + `/players`)
                     .then((res) => res.json())
                     .then((data) => { setPlayers(data); console.log(data); return data })
                     .catch((error) => { setPlayers(getFallbackPlayers()); console.log(error); });

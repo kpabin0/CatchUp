@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ITournament } from "../../data/ITypes";
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from "../../data/utils";
 
 const EditTournament = () => {
   const { tid } = useParams(); 
@@ -17,7 +16,7 @@ const EditTournament = () => {
       // setTournament({tournamentid: 1, name: "None", start_date : "2025-2-1", end_date : "2026-3-4"})
       // setLoading(false);
 
-      axios.get(`http://localhost:${PORT_NUMBER}/tournaments/${tid}`)
+      axios.get(backendBaseURL + `/tournaments/${tid}`)
           .then((response) => {
           setTournament(response.data);
           setLoading(false); 
@@ -44,7 +43,7 @@ const EditTournament = () => {
     if (tournament) {
       try {
       
-        const response = await axios.put(`http://localhost:3001/tournaments/${tid}`, tournament);
+        const response = await axios.put(backendBaseURL + `/tournaments/${tid}`, tournament);
         console.log("Tournament updated:", response.data);
         navigate("/tournaments/"); 
       } catch (error) {

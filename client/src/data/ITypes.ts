@@ -104,6 +104,12 @@ export interface ITournamentForm {
     end_date: Date
 };
 
+export interface IPersonCard {
+    name: string,
+    img?: string,
+    post: string,
+};
+
 
 
 // For view specifics in the webpage 

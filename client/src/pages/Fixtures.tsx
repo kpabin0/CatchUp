@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IFixture } from '../data/ITypes';
 import { getFallbackFixtures } from '../data/_fixtures';
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from '../data/utils';
 
 const Fixtures = () => {
 
@@ -10,7 +9,7 @@ const Fixtures = () => {
 
   useEffect(() => {
     const res = async () => {
-      return await fetch(`http://localhost:${PORT_NUMBER}/matches`)
+      return await fetch(backendBaseURL + `/matches`)
                     .then((res) => res.json())
                     .then((data) => { setFixtureData(data); console.log(data); return data })
                     .catch((error) => { setFixtureData(getFallbackFixtures()); console.log(error); });

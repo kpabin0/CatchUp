@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from '../data/utils';
 
 const Login = () => {
 
@@ -23,7 +22,7 @@ const Login = () => {
       e.preventDefault();
       try {
         console.log(formData);
-        const response = await axios.post(`http://localhost:${PORT_NUMBER}/auth/login`, formData);
+        const response = await axios.post(backendBaseURL + `/auth/login`, formData);
         alert(response.data.message || 'Login successful!');
         console.log(response.data); 
         navigate('/dashboard'); 

@@ -3,8 +3,7 @@ import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 import { getFallbackTournaments } from "../../data/_tournaments";
 import { ITournamentPointsTable } from "../../data/ITypes";
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from "../../data/utils";
 
 
 const Tournaments = () => {
@@ -20,7 +19,7 @@ const Tournaments = () => {
 
   const fetchTournaments = async () => {
     try {
-      const response = await axios.get(`http://localhost:${PORT_NUMBER}/tournaments`);
+      const response = await axios.get(backendBaseURL + `/tournaments`);
       setTournaments(response.data);
       setMessage(null);
     } catch (error: any) {
@@ -35,7 +34,7 @@ const Tournaments = () => {
   // const handleDelete = async (tournamentid: number) => {
   //   try {
   //     const response = await axios.delete(
-  //       `http://localhost:${PORT_NUMBER}/tournaments/delete/${tournamentid}`
+  //       backendBaseURL + `/tournaments/delete/${tournamentid}`
   //     );
   //     console.log(response.data); 
   //     setMessage("Tournament deleted successfully.");

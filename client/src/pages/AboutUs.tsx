@@ -2,15 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { _about } from '../data/_about'
 import { getFallbackTournamentsInfo } from '../data/_tournaments'
 import { ITournamentInfo } from '../data/ITypes'
-
-
-interface IPersonCard {
-    name: string,
-    img?: string,
-    post: string,
-};
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from '../data/utils';
+import { IPersonCard } from '../data/ITypes';
 
 const AboutUs = () => {
   
@@ -18,7 +11,7 @@ const AboutUs = () => {
 
     useEffect(() => {
         const res = async () => {
-        return await fetch(`http://localhost:${PORT_NUMBER}/tournamentinfo`)
+        return await fetch(backendBaseURL + `/tournamentinfo`)
                         .then((res) => res.json())
                         .then((data) => { setTournament(data); console.log(data); return data })
                         .catch((error) => { setTournament(getFallbackTournamentsInfo()); console.log(error); });

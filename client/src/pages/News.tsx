@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getFallbackNews, getFallbackSubNews } from '../data/_news';
 import { INews, ISubNews } from '../data/ITypes';
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from '../data/utils';
 
 const News = () => {
 
@@ -15,13 +14,13 @@ const News = () => {
     const res = async () => {
 
       // eslint-disable-next-line
-      const news =  await fetch(`http://localhost:${PORT_NUMBER}/news/`)
+      const news =  await fetch(backendBaseURL + `/news/`)
                     .then((res) => res.json())
                     .then((data) => { setNewsData(data); console.log(data); return data })
                     .catch((error) => { setNewsData(getFallbackNews()); console.log(error); });
                     
       // eslint-disable-next-line
-      const subNews =  await fetch(`http://localhost:${PORT_NUMBER}/subnews/`)
+      const subNews =  await fetch(backendBaseURL + `/subnews/`)
                     .then((res) => res.json())
                     .then((data) => { setSubNewsData(data); console.log(data); return data })
                     .catch((error) => { setSubNewsData(getFallbackSubNews()); console.log(error); });

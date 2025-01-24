@@ -5,8 +5,7 @@ import { HiUserAdd } from "react-icons/hi";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from '../data/utils';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -32,7 +31,7 @@ const Register = () => {
         }
       
         try {
-            const response = await axios.post(`http://localhost:${PORT_NUMBER}/auth/register`, {
+            const response = await axios.post(backendBaseURL + `/auth/register`, {
               name: formData.name,
               email: formData.email,
               password: formData.password,

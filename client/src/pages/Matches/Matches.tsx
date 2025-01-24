@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getFallbackMatches } from '../../data/_matches'
 import { IMatchHighlightView } from '../../data/ITypes';
 import { FixtureCard } from '../Fixtures';
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from '../../data/utils';
 
 const Matches = () => {
 
@@ -11,7 +10,7 @@ const Matches = () => {
   
   useEffect(() => {
     const res = async () => {
-      return await fetch(`http://localhost:${PORT_NUMBER}/matches`)
+      return await fetch(backendBaseURL + `/matches`)
                     .then((res) => res.json())
                     .then((data) => { setMatchesData(data); console.log(data); return data })
                     .catch((error) => { setMatchesData(getFallbackMatches()); console.log(error); });
