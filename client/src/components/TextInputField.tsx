@@ -1,12 +1,14 @@
 import React from 'react'
 
 interface TextInputProps {
-    type?: string,
-    label?: string,
-    name: string,
-    errMsg?: string,
-    required: boolean,
-}
+    type: string;
+    label: string;
+    name: string;
+    value: string; // Add value prop
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Add onChange prop
+    errMsg?: string;
+    required?: boolean;
+  }
 
 const TextInputField = ({ type = "text", label, name, errMsg, required }: TextInputProps) => {
 
@@ -26,3 +28,42 @@ const TextInputField = ({ type = "text", label, name, errMsg, required }: TextIn
 
 export default TextInputField
   
+
+
+// interface TextInputProps {
+//     type: string;
+//     label: string;
+//     name: string;
+//     value: string; // Add value prop
+//     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Add onChange prop
+//     errMsg?: string;
+//     required?: boolean;
+//   }
+  
+//   const TextInputField: React.FC<TextInputProps> = ({
+//     type,
+//     label,
+//     name,
+//     value,
+//     onChange,
+//     errMsg,
+//     required,
+//   }) => (
+//     <div className="flex flex-col">
+//       <label htmlFor={name} className="text-sm font-semibold mb-1">
+//         {label}
+//       </label>
+//       <input
+//         id={name}
+//         type={type}
+//         name={name}
+//         value={value} // Controlled input
+//         onChange={onChange} // Pass handler
+//         required={required}
+//         className="p-2 border rounded"
+//       />
+//       {errMsg && <p className="text-red-500 text-xs mt-1">{errMsg}</p>}
+//     </div>
+//   );
+  
+//   export default TextInputField;

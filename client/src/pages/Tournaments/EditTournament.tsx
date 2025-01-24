@@ -15,7 +15,7 @@ const EditTournament = () => {
       // setTournament({tournamentid: 1, name: "None", start : "2025-2-1", end : "2026-3-4"})
       // setLoading(false);
 
-      axios.get(`http://localhost:3001/tournaments/${tid}`)
+      axios.get(`http://localhost:8080/tournaments/${tid}`)
           .then((response) => {
           setTournament(response.data);
           setLoading(false); 
