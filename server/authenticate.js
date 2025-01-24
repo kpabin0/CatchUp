@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require('./pgdb');
+const dbpool = require('./pgdb');
 const router = express.Router();
 require("dotenv").config()
 
@@ -10,9 +10,9 @@ router.post("/register", async (req, res) => {
   try {
     console.log("Creating a new User:", req.body);
     // this is to grab the last userid 
-    let userid = (await pool.query("SELECT userid FROM users ORDER BY userid DESC LIMIT 1;")).rows[0].userid;
+    let userid = (await dbpool.query("SELECT userid FROM users ORDER BY userid DESC LIMIT 1;")).rows[0].userid;
     // console.log(userid)
-    const result = await pool.query(
+    const result = await dbpool.query(
       "INSERT INTO users (userid, name, email, password) VALUES ($1, $2, $3, $4)",
       [++userid, name, email, password]
     );
@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
 
   try {
     console.log("Log In of a User:", req.body);
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    const result = await dbpool.query("SELECT * FROM users WHERE email = $1", [email]);
     const user = result.rows[0];
     console.log(user)
 
@@ -46,18 +46,5 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Error logging in", error: error.message });
   }
 });
-
-router.get("/users", async (req, res) => {
-  console.log("called")
-  try {
-    const result = await pool.query("SELECT * FROM users;");
-    const user = result.rows;
-    console.log(user)
-    res.json("none")
-
-  } catch (error) {
-    res.status(500).json({ message: "Error logging in", error: error.message });
-  }}
-)
 
 module.exports = router;

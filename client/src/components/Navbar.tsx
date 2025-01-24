@@ -14,7 +14,7 @@ const Navbar = () => {
     <nav 
         className="sticky w-full top-0 left-0 p-2 px-6 mb-5 z-50 flex flex-row justify-between items-center bg-white shadow-sm"
     >
-        <Logo style="h-[2rem] w-[2rem]" linkEnable={true} />
+        <Logo ostyle="h-[2rem] w-[2rem]" linkEnable={true} />
         <NavItems />
         <div className="flex flex-row justify-evenly items-center">
             <Link to={"/login"} className=" bg-theme p-2 text-white rounded-[50%]">

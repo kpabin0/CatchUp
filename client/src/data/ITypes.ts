@@ -98,7 +98,7 @@ export interface ITournamentInfo {
 };
 
 export interface ITournamentForm {
-    tournamentid: number,
+    tournamentid?: number,
     name: string,
     start_date: Date,
     end_date: Date

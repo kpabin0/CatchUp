@@ -6,12 +6,9 @@ import * as Yup from "yup";
 import axios from "axios";
 import { ITournamentForm } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
+import { useNavigate } from "react-router-dom";
 
 const schema = Yup.object().shape({
-  tournamentid: Yup.number()
-    .integer()
-    .positive()
-    .required("Tournament ID is required"),
   name: Yup.string()
     .max(100, "Name must be at most 100 characters")
     .required("Name is required"),
@@ -21,7 +18,7 @@ const schema = Yup.object().shape({
   end_date: Yup.date()
     .required("End date is required")
     .typeError("Invalid date format")
-    .min(Yup.ref("start"), "End date must be after the start date"),
+    .min(Yup.ref("start_date"), "End date must be after the start date"),
 });
 
 
@@ -35,25 +32,20 @@ const CreateTournamentForm = () => {
     resolver: yupResolver(schema),
   });
 
+  const navigate = useNavigate()
+
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<ITournamentForm> = async (data: ITournamentForm) => {
     console.log("Form Data:", data);
     try {
-      const response = await axios.post(
-        backendBaseURL + `/tournaments`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(backendBaseURL + `/tournaments`, data);
       console.log("Tournament created successfully:", response.data);
       setSuccessMessage("Tournament created successfully!");
       setErrorMessage(null);
       reset();
+      navigate("/tournaments");
     } catch (error: any) {
       console.error("Error creating tournament:", error);
       setSuccessMessage(null);
@@ -99,24 +91,11 @@ const CreateTournamentForm = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 w-full mt-8">
           <div>
-            <label className="block text-theme">Tournament ID:</label>
-            <input
-              type="number"
-              {...register("tournamentid")}
-              className="w-full border rounded p-2"
-              placeholder="Enter Tournament ID"
-            />
-            {errors.tournamentid && (
-              <span className="text-theme-cont">{errors.tournamentid.message}</span>
-            )}
-          </div>
-
-          <div>
             <label className="block text-theme">Name:</label>
             <input
               type="text"
               {...register("name")}
-              className="w-full border rounded p-2"
+              className="w-full border rounded p-2 outline-theme"
               placeholder="Enter Tournament Name"
             />
             {errors.name && <span className="text-theme-cont">{errors.name.message}</span>}
@@ -127,7 +106,7 @@ const CreateTournamentForm = () => {
             <input
               type="date"
               {...register("start_date")}
-              className="w-full border rounded p-2"
+              className="w-full border rounded p-2 outline-theme"
             />
             {errors.start_date && <span className="text-theme-cont">{errors.start_date.message}</span>}
           </div>
@@ -137,14 +116,14 @@ const CreateTournamentForm = () => {
             <input
               type="date"
               {...register("end_date")}
-              className="w-full border rounded p-2"
+              className="w-full border rounded p-2 outline-theme"
             />
             {errors.end_date && (
               <span className="text-theme-cont">{errors.end_date.message}</span>
             )}
           </div>
 
-          <button type="submit" className="bg-theme text-theme-w px-4 py-2 rounded">
+          <button type="submit" className="bg-theme hover:bg-theme-alt text-theme-w px-4 py-2 rounded">
             Submit
           </button>
         </form>

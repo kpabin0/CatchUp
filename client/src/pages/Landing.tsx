@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import ThemeLink from '../components/ThemeLink'
-import { _navItems } from '../data/_navItems';
+import BasicDiv from '../components/BasicDiv';
 
 const Landing = () => {
 
@@ -23,21 +23,23 @@ const Landing = () => {
       setTextCount(textC);
       setActiveIndex(activeInd);
     }, 5000/_tournamentNames[activeInd].length);
-
+    
+    // eslint-disable-next-line
   }, [])
 
   useEffect(()=> {
     setCurrentTournament(_tournamentNames[activeIndex])
+
     // eslint-disable-next-line
   },[activeIndex])
 
 
   return (
     <section className="relative min-h-screen min-w-full flex flex-col justify-evenly items-center text-center">
-      <div>
+      <BasicDiv>
         <h1 className="font-main-a text-8xl my-10 font-bold uppercase text-theme">Catchup</h1>
         <h1 className="font-main-a text-5xl font-bold uppercase text-theme-w">{currentTournament?.substring(0, textCount) + "_"}</h1>
-      </div>
+      </BasicDiv>
       <ThemeLink label="Explore" url="/home" />
     </section>
   )

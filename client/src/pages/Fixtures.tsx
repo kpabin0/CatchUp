@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IFixture } from '../data/ITypes';
 import { getFallbackFixtures } from '../data/_fixtures';
 import { backendBaseURL } from '../data/utils';
+import BorderDiv from '../components/BorderDiv';
 
 const Fixtures = () => {
 
@@ -36,7 +37,7 @@ const Fixtures = () => {
 
 export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
   return (
-    <div className="w-full min-h-[10rem] p-2 relative flex flex-col justify-between items-center border border-theme hover:shadow-xl hover:-translate-y-1 rounded-sm transition-all duration-200">
+    <BorderDiv ostyle="w-full min-h-[10rem] justify-between text-black relative">
       { isLive ? <span className="absolute font-bold bottom-1 right-2 text-theme-cont animate-pulse">Live</span> : <></>}
       <div className="w-full grid-cols-3">
         <div className="w-full grid grid-cols-2 gap-6">
@@ -50,7 +51,7 @@ export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
         </div>
       </div>
       {date ? <span className="text-sm tracking-tighter font-light">{date}</span> : <></>}
-    </div>
+    </BorderDiv>
   )
 }
 

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 import { getFallbackTournaments } from "../../data/_tournaments";
-import { ITournamentPointsTable } from "../../data/ITypes";
+import { ITournament } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
+import { Link } from "react-router-dom";
 
 
 const Tournaments = () => {
-  const [tournaments, setTournaments] = useState<ITournamentPointsTable[]>([]);
+  const [tournaments, setTournaments] = useState<ITournament[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -53,41 +54,41 @@ const Tournaments = () => {
 
   return (
     <section className="w-full h-screen flex justify-center items-center">
-      <div className="p-6 flex flex-col items-center border-2 shadow-xl rounded-lg bg-white">
+      <div className="w-[80%] p-6 flex flex-col items-center border-2 shadow-xl rounded-lg bg-white">
         <h2 className="w-full py-6 text-2xl font-extrabold uppercase bg-theme text-theme-w text-center mb-5">All Tournaments</h2>
 
         {message && <div className="text-theme-green mb-4">{message}</div>}
         {error && <div className="text-theme-cont mb-4">{error}</div>}
 
-        <table className="text-center border border-theme">
-          <tr className="border border-theme">
+        <table className="w-full text-md text-center rtl:text-right table-fixed">
+          <thead>
+          <tr className="text-xl">
+            <th>Id</th>
             <th>Name</th>
-            <th>Matches Played</th>
-            <th>Matches Won</th>
-            <th>Matches Tied</th>
-            <th>Matches Loss</th>
-            <th>Points</th>
+            <th>Start</th>
+            <th>End</th>
           </tr>
+          </thead>
+          <tbody>
           {tournaments.map((tournament, ind) => {
             return (
               <TournamentCard key={ind} {...tournament} />
             )
           })}
+          </tbody>
         </table>
       </div>
     </section>
   )
 };
 
-const TournamentCard = ({team_name, matches_played, matches_won, matches_tied, points} : ITournamentPointsTable) => {
+const TournamentCard = ({tournamentid, name, start_date, end_date} : ITournament) => {
   return (
-    <tr className="my-2 py-2 text-sm">
-      <td>{team_name}</td>
-      <td>{matches_played}</td>
-      <td>{matches_won}</td>
-      <td>{matches_tied}</td>
-      <td>{matches_played - matches_won - matches_tied}</td>
-      <td>{points}</td>
+    <tr className="my-2 py-2">
+      <td>{tournamentid}</td>
+      <td><Link to={"/tournaments/"+tournamentid} className="hover:text-theme uppercase hover:underline">{name}</Link></td>
+      <td>{start_date}</td>
+      <td>{end_date}</td>
     </tr>
 
   )

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { backendBaseURL } from '../data/utils';
+import ThemeFormDiv from '../components/ThemeFormDiv';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -50,14 +51,14 @@ const Register = () => {
       
   return (
     <section className="h-screen w-screen flex flex-col justify-center items-center">
-        <img src="/assets/bg.png" alt="bg" className="absolute -z-50 brightness-75 h-full w-full bg-contain top-0 left-0" /> 
+        <img src="/assets/bg.png" alt="bg" className="absolute -z-50 brightness-75 h-full w-full top-0 left-0 object-cover" /> 
         
-        <div className="w-[30rem] flex flex-col justify-evenly items-center bg-theme-w shadow-2xl p-8 rounded-xl min-h-[60vh]">
+        <ThemeFormDiv ostyle="p-4">
             <h2 className="w-full py-4 mb-8 text-center text-sm font-light bg-theme text-theme-w rounded-t-xl grid grid-cols-3">
                 <span className="col-span-2">Sign Up in <span className='uppercase text-4xl font-extrabold block'>Catchup</span></span>
                 <HiUserAdd className="m-auto text-theme-w w-20 h-20" />
             </h2>
-            <form onSubmit={handleFormSubmit} className="w-full flex flex-col items-center text-md" noValidate={false}>
+            <form onSubmit={handleFormSubmit} className="w-[90%] flex flex-col items-center text-md" noValidate={false}>
                 <TextInputField
                     type="name"
                     label="Full Name"
@@ -101,7 +102,7 @@ const Register = () => {
                     <Link to="/login" className="text-theme font-bold underline">Log in</Link>.
                 </span>
             </form>
-        </div>
+        </ThemeFormDiv>
     </section>
   )
 }

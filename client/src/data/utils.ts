@@ -5,4 +5,4 @@ export function getArray(count : any)
 }
 
 
-export const backendBaseURL = "http://localhost:8080/" + process.env.REACT_APP_PORT_NUMBER;
+export const backendBaseURL = "http://localhost:" + process.env.REACT_APP_PORT_NUMBER;

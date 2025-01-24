@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion"
 import { TbHandLoveYou } from "react-icons/tb";
 
-function Home() {
+const Home = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-evenly items-center">

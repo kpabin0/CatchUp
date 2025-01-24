@@ -13,9 +13,6 @@ const EditTournament = () => {
 
   useEffect(() => {
     if (tid) {
-      // setTournament({tournamentid: 1, name: "None", start_date : "2025-2-1", end_date : "2026-3-4"})
-      // setLoading(false);
-
       axios.get(backendBaseURL + `/tournaments/${tid}`)
           .then((response) => {
           setTournament(response.data);
@@ -88,11 +85,11 @@ const EditTournament = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="start" className="block text-sm font-medium text-theme">Tournament Start Date</label>
+              <label htmlFor="start_date" className="block text-sm font-medium text-theme">Tournament Start Date</label>
               <input
                 type="date"
-                id="start"
-                name="start"
+                id="start_date"
+                name="start_date"
                 value={tournament.start_date}
                 onChange={handleInputChange}
                 className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
@@ -100,11 +97,11 @@ const EditTournament = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="end" className="block text-sm font-medium text-theme">Tournament End Date</label>
+              <label htmlFor="end_date" className="block text-sm font-medium text-theme">Tournament End Date</label>
               <input
                 type="date"
-                id="end"
-                name="end"
+                id="end_date"
+                name="end_date"
                 value={tournament.end_date}
                 onChange={handleInputChange}
                 className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"

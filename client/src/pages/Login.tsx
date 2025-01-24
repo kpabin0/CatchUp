@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { backendBaseURL } from '../data/utils';
+import ThemeFormDiv from '../components/ThemeFormDiv';
 
 const Login = () => {
 
@@ -40,7 +41,7 @@ const Login = () => {
         
         <img src="/assets/bg.png" alt="bg" className="absolute -z-50 brightness-75 h-full w-full top-0 left-0 object-cover" /> 
         
-        <div className="rounded-xl shadow-xl w-[25rem] h-[50vh] flex flex-col justify-between items-center bg-theme-w ">
+        <ThemeFormDiv>
             <h2 className="w-full py-8 text-center text-sm font-light bg-theme text-theme-w rounded-t-xl">
                 Welcome back to <span className='uppercase text-4xl font-extrabold block'>Catchup</span>
             </h2>
@@ -88,7 +89,7 @@ const Login = () => {
                 Register your account
             </Link>
             </p>
-        </div>
+        </ThemeFormDiv>
     </section>
   )
 }
