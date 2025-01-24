@@ -4,22 +4,13 @@ import { _navItems } from '../data/_navItems';
 
 const Landing = () => {
 
-  function getTournamentName()
-  {
-    const nameArr: string[] = []
-    const items = _navItems.filter((item) => item.label === "Tournaments");
-    items.forEach(({label, url}) => {
-      nameArr.push(label)
-    })
-    return nameArr;
-  }
-
-  const _tournamentNames = getTournamentName();
+  const _tournamentNames = ["Nepal Premier League", "Elite Cup", "Jay Nepal Cup"];
   const [textCount, setTextCount] = useState<number>(-1);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [currentTournament, setcurrentTournament] = useState<string>("");
+  const [currentTournament, setCurrentTournament] = useState<string>("");
 
-  useEffect(()=>  {
+
+  useEffect(() => {
     let textC = 0, activeInd = 0;
     setInterval(() => {
       textC++;
@@ -33,19 +24,19 @@ const Landing = () => {
       setActiveIndex(activeInd);
     }, 5000/_tournamentNames[activeInd].length);
 
-    // eslint-disable-next-line
-  },[])
+  }, [])
 
   useEffect(()=> {
-    setcurrentTournament(_tournamentNames[activeIndex].substring(0, textCount) + "_");
+    setCurrentTournament(_tournamentNames[activeIndex])
     // eslint-disable-next-line
-  },[textCount])
+  },[activeIndex])
+
 
   return (
     <section className="relative min-h-screen min-w-full flex flex-col justify-evenly items-center text-center">
       <div>
         <h1 className="font-main-a text-8xl my-10 font-bold uppercase text-theme">Catchup</h1>
-        <h1 className="font-main-a text-5xl font-bold uppercase text-theme-w">{currentTournament}</h1>
+        <h1 className="font-main-a text-5xl font-bold uppercase text-theme-w">{currentTournament?.substring(0, textCount) + "_"}</h1>
       </div>
       <ThemeLink label="Explore" url="/home" />
     </section>
