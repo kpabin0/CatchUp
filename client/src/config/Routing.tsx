@@ -17,11 +17,30 @@ import Register from "../pages/Register"
 import AboutUs from "../pages/AboutUs"
 import Players from "../pages/Players"
 import Player from "../pages/Player"
+import Dashboard from "../pages/Dashboard"
+import { useState, useEffect } from "react"
+import Sidebar from "../components/Sidebar"
 
 const Routing = () => {
+
+  const [isSideBar, setIsSideBar] = useState(true)
+ 
+  const handleResize = () => {
+    if (window.innerWidth < 780) {
+        setIsSideBar(true)
+    } else {
+        setIsSideBar(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+  }, [])
+
+
   return (
     <>
-    <Navbar />
+    {isSideBar ? <Sidebar /> : <Navbar />}
     <Routes>
         <Route path="/" element={<App />} />
         <Route path="/home" element={<Home />}/>
@@ -43,6 +62,8 @@ const Routing = () => {
           <Route path="/players" element={<Players />} />
           <Route path="/players/:tid/:pid" element={<Player />} />
         </Route>
+
+        <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="*" element={<NotFound />} />
     </Routes>

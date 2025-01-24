@@ -1,9 +1,20 @@
 import { useEffect, useState } from 'react'
 import ThemeLink from '../components/ThemeLink'
+import { _navItems } from '../data/_navItems';
 
 const Landing = () => {
 
-  const _tournamentNames = ["Nepal Premier League", "T20", "Another Tournament"];
+  function getTournamentName()
+  {
+    const nameArr: string[] = []
+    const items = _navItems.filter((item) => item.label === "Tournaments");
+    items.forEach(({label, url}) => {
+      nameArr.push(label)
+    })
+    return nameArr;
+  }
+
+  const _tournamentNames = getTournamentName();
   const [textCount, setTextCount] = useState<number>(-1);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [currentTournament, setcurrentTournament] = useState<string>("");

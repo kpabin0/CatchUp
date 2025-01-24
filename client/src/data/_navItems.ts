@@ -10,14 +10,18 @@ export const _navItems = [
     {
         label: "Tournaments",
         url: "/tournaments",
-        subItem: [
+        subItems: [
             {
-                label: "NPL",
+                label: "Nepal Premier League",
                 url: "/npl"
             },
             {
-                label: "T20",
-                url: "/t20"
+                label: "Elite Cup",
+                url: "/elitecup"
+            },
+            {
+                label: "Jay Nepal Cup",
+                url: "/jaynepalcup"
             }
         ]
     },
@@ -29,4 +33,16 @@ export const _navItems = [
         label: "Fixtures",
         url: "/fixtures"
     }
+];
+
+export const _loggedInUserItems = [
+    ..._navItems,
+    {
+        label: "Watchlist",
+        url: "/watchlist"
+    }
+];
+
+export const _loggedInAdminItems = [
+    ..._navItems,
 ]

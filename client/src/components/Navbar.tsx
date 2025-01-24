@@ -3,9 +3,10 @@ import { _navItems } from '../data/_navItems'
 import { FaUser } from 'react-icons/fa'
 import Logo from './Logo'
 
-interface INavItem {
+export interface INavItem {
     label: string,
-    url: string
+    url: string,
+    icon?: any,
 };
 
 const Navbar = () => {

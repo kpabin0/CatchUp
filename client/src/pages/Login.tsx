@@ -1,16 +1,40 @@
 import TextInputField from '../components/TextInputField';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
 
 const Login = () => {
 
-    const handleFormSubmit = () => {
-        alert("Form submitted");
-    }
-
+    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+  
+    const handleInputChange = (e:any) => {
+      console.log(e.target.value);
+      console.log(formData);
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    };
+  
+    const handleFormSubmit = async (e:any) => {
+      e.preventDefault();
+      try {
+        console.log(formData);
+        const response = await axios.post(`http://localhost:${PORT_NUMBER}/auth/login`, formData);
+        alert(response.data.message || 'Login successful!');
+        console.log(response.data); 
+        navigate('/dashboard'); 
+      } catch (error:any) {
+        setError(error.response?.data?.message || 'Login failed. Please try again.');
+      }
+    };
+  
     const handleForgotPassword = () => {
-        alert("Password forget");
-    }
-
+      alert('Redirect to Forgot Password Page');
+    };
 
   return (
     <section className="w-screen h-screen flex flex-col justify-center items-center ">
@@ -22,7 +46,8 @@ const Login = () => {
                 Welcome back to <span className='uppercase text-4xl font-extrabold block'>Catchup</span>
             </h2>
 
-            <form className="w-[90%]" onSubmit={() => handleFormSubmit()}>
+            <form className="w-[90%]" onSubmit={handleFormSubmit}>
+                {error && <span>{error}</span>}
             <div className="mt-2">
                 <TextInputField 
                     type="email"
@@ -30,6 +55,7 @@ const Login = () => {
                     name="email"
                     errMsg={false ? "email field required" : ""}
                     required={true}
+                    onInputChange={handleInputChange}
                 />
             </div>
 
@@ -40,6 +66,7 @@ const Login = () => {
                     name="password"
                     errMsg={false ? "password error" : ""}
                     required={true}
+                    onInputChange={handleInputChange}
                 />
             </div>
             <button

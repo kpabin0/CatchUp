@@ -1,5 +1,21 @@
 // This file contains the global interface for ts used in this project
 
+interface INavbase
+{
+    label: string,
+    url: string,
+    icon?: any,
+    style?: string,
+}
+
+export interface INavItem extends INavbase {
+    subItems?: INavbase[]
+};
+
+export interface ISideNavItem extends INavItem {
+
+}
+
 // Following are the interface that is used in postgresql table
 export interface IVenue {
     venueid: number,
