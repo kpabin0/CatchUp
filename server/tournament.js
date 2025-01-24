@@ -6,19 +6,19 @@ const dbpool = require('./pgdb');
 router.post("/", async (req, res) => {
     // console.log("post request recieved in tournament")
     try {
-        const { tournamentid, name, start, end } = req.body;
+        const { tournamentid, name, start_date, end_date } = req.body;
 
         console.log("Creating a new tournament:", req.body);
 
-        if (!tournamentid || !name || !start || !end) {
+        if (!tournamentid || !name || !start_date || !end_date) {
             return res.status(400).json({ error: "Missing required fields" });
         }
 
         const query = `
-            INSERT INTO tournaments (tournamentid, name, start, end)
+            INSERT INTO tournaments (tournamentid, name, start_date, end_date)
             VALUES ($1, $2, $3, $4) RETURNING *;
         `;
-        const newTournament = await dbpool.query(query, [tournamentid, name, start, end]);
+        const newTournament = await dbpool.query(query, [tournamentid, name, start_date, end_date]);
 
         console.log("Created tournament:", newTournament.rows[0]);
         res.json(newTournament.rows[0]);
@@ -65,17 +65,17 @@ router.put("/:tournamentid", async (req, res) => {
     // console.log("put request recieved in tournament /:id")
     try {
         const { tournamentid } = req.params;
-        const { name, start, end } = req.body;
+        const { name, start_date, end_date } = req.body;
 
         console.log(`Updating tournament with id: ${tournamentid}, new data:`, req.body);
 
         const updateQuery = `
             UPDATE tournaments 
-            SET name = $1, start = $2, end_date = $3 
+            SET name = $1, start_date = $2, end_date_date = $3 
             WHERE tournamentid = $4 RETURNING *;
         `;
 
-        const updatedTournament = await dbpool.query(updateQuery, [name, start, end, tournamentid]);
+        const updatedTournament = await dbpool.query(updateQuery, [name, start_date, end_date, tournamentid]);
 
         if (updatedTournament.rowCount === 0) {
             console.log(`Tournament not found for update with id: ${tournamentid}`);
