@@ -9,7 +9,6 @@ import ThemeFormDiv from "../components/ThemeFormDiv";
 
 const ResetPassword = () => {
     const [formData, setFormData] = useState({
-        name: '',
         email: '',
         password: '',
         confirmPassword: ''
