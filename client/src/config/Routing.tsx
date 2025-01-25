@@ -20,6 +20,7 @@ import Player from "../pages/Player"
 import Dashboard from "../pages/Dashboard"
 import { useState, useEffect } from "react"
 import Sidebar from "../components/Sidebar"
+import ResetPassword from "../pages/resetPassword"
 
 const Routing = () => {
 
@@ -49,6 +50,7 @@ const Routing = () => {
         <Route path="/news" element={<News />} />
         <Route path="/fixtures" element={<Fixtures />} />
         <Route path="/teams/create" element={<TeamsForm/>} />
+        <Route path="/resetpassword" element={<ResetPassword/>} />
         <Route>
           <Route path="/tournaments/" element={<Tournaments />} />
           <Route path="/tournaments/create" element={<CreateTournamentForm />} />

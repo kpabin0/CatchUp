@@ -142,3 +142,4 @@ const SideItem = ({label, url, style, icon} : ISideNavItem) => {
 }
 
 export default Sidebar
+
