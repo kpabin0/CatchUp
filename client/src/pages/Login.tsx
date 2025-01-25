@@ -1,61 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TextInputField from '../components/TextInputField';
-import { backendBaseURL } from '../data/utils';
+import { backendBaseURL, loggedInStatus } from '../data/utils';
+import FullBgCover from '../components/FullBgCover';
+
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false); 
-  const [isAdminChecked, setIsAdminChecked] = useState(false); 
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
+  }
   
-    if (name === 'email' && value === 'admin@gmail.com') {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-    }
-  };
-
-  const handleAdminCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsAdminChecked(e.target.checked);
-  };
-
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
 
-    try {   const response = await axios.post(backendBaseURL + `/auth/login`, formData);
-      
-      alert(response.data.message || 'Login successful!');
-      console.log('Login response:', response.data);
-      localStorage.setItem('token', response.data.token);
-      navigate('/dashboard'); 
-    } catch (error: any) {
+    try {   
+        const response = await axios.post(backendBaseURL + `/auth/login`, formData);
+        
+        alert(response.data.message || 'Login successful!');
+        // console.log('Login response:', response.data);
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('loggedIn', String(true));
+        window.location.reload()
+        navigate('/dashboard');
+      } 
+      catch (error: any) {
       console.error('Error during login:', error.response || error.message);
       setError(error.response?.data?.message || 'Login failed. Please try again.');
-    }
+      }
   };
 
   const handleForgotPassword = () => {
     navigate('/resetpassword');
   };
 
+  useEffect(() => {
+    if(loggedInStatus())
+    {
+      navigate("/home");
+    }
+
+  // eslint-disable-next-line
+  }, [])
+
   return (
     <section className="w-screen h-screen flex flex-col justify-center items-center">
-      <img
-        src="/assets/bg.png"
-        alt="bg"
-        className="absolute -z-50 brightness-75 h-full w-full bg-contain top-0 left-0"
-      />
+      <FullBgCover />
       
-   
       <div className="rounded-xl shadow-xl w-[25rem] h-[50vh] flex flex-col justify-between items-center bg-theme-w">
         <h2 className="w-full py-8 text-center text-sm font-light bg-theme text-theme-w rounded-t-xl">
           Welcome back to <span className="uppercase text-4xl font-extrabold block">Catchup</span>
@@ -89,22 +86,6 @@ const Login = () => {
               required
             />
           </div>
-
-     
-          {isAdmin && (
-            <div className="mt-2 flex items-center">
-              <input
-                type="checkbox"
-                id="admin-checkbox"
-                checked={isAdminChecked}
-                onChange={handleAdminCheckboxChange}
-                disabled={false} 
-              />
-              <label htmlFor="admin-checkbox" className="ml-2">
-                I am an admin
-              </label>
-            </div>
-          )}
 
          
           <button

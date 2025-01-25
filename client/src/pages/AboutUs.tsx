@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { _about } from '../data/_about'
-import { getFallbackTournamentsInfo } from '../data/_tournaments'
-import { ITournamentInfo } from '../data/ITypes'
+import { ITournament } from "../data/ITypes";
 import { backendBaseURL } from '../data/utils';
 import { IPersonCard } from '../data/ITypes';
 import BasicDiv from '../components/BasicDiv';
 
 const AboutUs = () => {
   
-    const [tournament, setTournament] = useState<ITournamentInfo[]>()
+    const [tournaments, setTournaments] = useState<ITournament[]>([]);
 
     useEffect(() => {
         const res = async () => {
-        return await fetch(backendBaseURL + `/tournamentinfo`)
+        return await fetch(backendBaseURL + `/tournaments`)
                         .then((res) => res.json())
-                        .then((data) => { setTournament(data); console.log(data); return data })
-                        .catch((error) => { setTournament(getFallbackTournamentsInfo()); console.log(error); });
+                        .then((data) => { setTournaments(data); console.log(data); return data })
+                        .catch((error) => { console.log(error); });
         }
         res();
         
@@ -42,11 +41,11 @@ const AboutUs = () => {
             </div>
         </BasicDiv>
         <hr className="w-full my-10 border border-theme"/>
-        <div className="my-10 grid grid-cols-1 gap-10 text-center">
+        <div className="w-full grid grid-cols-1 gap-10 text-center">
           {
-            tournament ? tournament?.map((props, ind) => {
+            tournaments ? tournaments.map((props, ind) => {
               return (
-                <BasicDiv style={"w-full py-10 px-[5%] grid grid-cols-2 gap-10 text-center " + (ind % 2 === 0 ? " bg-theme text-theme-w " : " bg-none text-theme")}>
+                <BasicDiv ostyle={"w-full py-10 px-[5%] grid grid-cols-2 gap-10 text-center " + (ind % 2 === 0 ? " bg-theme text-theme-w " : " bg-none text-theme")}>
                     <div className={"w-[30rem] h-[20rem] bg-theme-g " + (ind % 2 === 0 ? " order-2 " : " ")}></div>
                     <TournamentInfoCard {...props} />
                 </BasicDiv>
@@ -59,27 +58,24 @@ const AboutUs = () => {
 }
 
 
-const TournamentInfoCard = ({name, start_date, end_date, venue, description} : ITournamentInfo) => {
+const TournamentInfoCard = ({tournamentid, name, start_date, end_date} : ITournament) => {
     return (
-        <>
         <BasicDiv>
-            <h1 className="text-xl font-bold uppercase text-center py-2">{name}</h1>
+            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Id:</b> {tournamentid}</span>
+            <h1 className="text-xl font-bold uppercase text-center py-2">Name: {name}</h1>
             <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Start Date:</b> {start_date}</span>
             <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">End Date:</b> {end_date}</span>
-            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Venue:</b> {venue}</span>
-            <p className="font-extralight text-[0.80rem] text-center inline-block m-2">{description}</p>
         </BasicDiv>
-        </>
     )
 }  
 
 const PersonCard = ({name, img, post} : IPersonCard) => {
     return (
-        <div className="min-w-[20rem] min-h-[20rem] flex flex-col justify-between items-center hover:bg-theme hover:text-white pb-5">
+        <BasicDiv ostyle="min-w-[20rem] min-h-[20rem] p-0 hover:bg-theme hover:text-theme-w pb-5">
             <div className="w-full h-[15rem] bg-theme-g">{img?<img src={img} alt={name} /> : <></>}</div>
             <span className="font-bold text-xl">{name}</span>
             <span className="font-light text-sm">{post}</span>
-        </div>
+        </BasicDiv>
     )
 }
 

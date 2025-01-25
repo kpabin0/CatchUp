@@ -1,22 +1,13 @@
-import { motion } from "framer-motion"
-import { TbHandLoveYou } from "react-icons/tb";
+import BasicDiv from "../components/BasicDiv";
 
 const Home = () => {
 
   return (
-    <div className="w-screen h-screen flex flex-col justify-evenly items-center">
-      <motion.h1
-        className="text-theme text-6xl font-bold uppercase font-mono"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-            duration: 0.4,
-            scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
-        }}
-      >
-        Catchup <TbHandLoveYou className="inline-block" />
-      </motion.h1>
-    </div>
+    <section className="min-w-screen min-h-screen flex flex-col justify-center items-center">
+      <BasicDiv>
+        <span className="uppercase text-6xl text-theme font-extrabold">Catchup</span>
+      </BasicDiv>
+    </section>
   );
 }
 

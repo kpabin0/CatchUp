@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { getFallbackNews, getFallbackSubNews } from '../data/_news';
 import { INews, ISubNews } from '../data/ITypes';
 import { backendBaseURL } from '../data/utils';
 import BasicDiv from '../components/BasicDiv';
+import Loading from '../components/Loading';
 
 const News = () => {
 
@@ -18,13 +18,13 @@ const News = () => {
       const news =  await fetch(backendBaseURL + `/news/`)
                     .then((res) => res.json())
                     .then((data) => { setNewsData(data); console.log(data); return data })
-                    .catch((error) => { setNewsData(getFallbackNews()); console.log(error); });
+                    .catch((error) => { console.log(error); });
                     
       // eslint-disable-next-line
       const subNews =  await fetch(backendBaseURL + `/subnews/`)
                     .then((res) => res.json())
                     .then((data) => { setSubNewsData(data); console.log(data); return data })
-                    .catch((error) => { setSubNewsData(getFallbackSubNews()); console.log(error); });
+                    .catch((error) => { console.log(error); });
 
     }
 
@@ -38,17 +38,17 @@ const News = () => {
         <div className="w-[80%] flex flex-col xl:flex-row justify-evenly items-center flex-wrap">
           <div className="flex flex-row flex-wrap justify-evenly items-center">
             {
-              newsData ? newsData?.map((props, ind) => {
+              newsData ? newsData.map((props, ind) => {
                 return <NewsCard key={ind} {...props} />
-              }) : <span className="text-3xl text-theme ">Loading...</span>
+              }) : <Loading text="news" />
             }
           </div>
           <hr className="w-full border border-theme my-10"/>
           <BasicDiv ostyle="space-y-2 my-4">
             {
-              subNewsData ? subNewsData?.map((props, ind) => {
+              subNewsData ? subNewsData.map((props, ind) => {
                 return <SubNewsCard key={ind} {...props} />
-              }) :  <span className="text-1xl text-theme ">Loading...</span>
+              }) : <Loading text="subnews" />
             }
           </BasicDiv>
         </div>

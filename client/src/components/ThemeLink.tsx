@@ -2,15 +2,15 @@ import { motion } from "framer-motion"
 
 interface IThemeLink {
     label : string,
-    style? : string,
+    ostyle? : string,
     url?: string
 };
 
-const ThemeLink = ({label, style, url} : IThemeLink) => {
+const ThemeLink = ({label, ostyle, url} : IThemeLink) => {
   return (
     <motion.a
         href={url ? url : "#"}
-        className={"bg-theme hover:bg-theme-alt p-2 px-4 text-white rounded-md transition-all duration-200 " + (style ? style : "")}
+        className={"bg-theme hover:bg-theme-alt p-2 px-4 text-white rounded-md transition-all duration-200 " + (ostyle ? ostyle : "")}
         initial={{ scale: 0.5 }}
         whileInView={{ scale: 1 }}
         viewport={{once : false}}
