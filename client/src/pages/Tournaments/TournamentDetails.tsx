@@ -3,10 +3,16 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { backendBaseURL } from "../../data/utils";
 import { ITournament } from "../../data/ITypes";
+import BorderDiv from "../../components/BorderDiv";
+import BasicDiv from "../../components/BasicDiv";
+import { checkAdminStatus } from "../../data/utils";
+import ThemeLink from "../../components/ThemeLink";
+import Loading from "../../components/Loading";
 
 const TournamentDetails = () => {
   const { tid } = useParams<{ tid: string }>();
   console.log("Tournament ID from URL:", tid);  
+  const [isAdmin, setIsAdmin] = useState(false); 
 
   const [tournament, setTournament] = useState<ITournament | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -41,17 +47,24 @@ const TournamentDetails = () => {
     }
   }, [tid]);
 
+
+  useEffect(() => {
+    setIsAdmin(checkAdminStatus());
+  }, []);
+
   return (
     <section className="w-full h-screen flex justify-center items-center">
-      <div className="w-[30rem] p-4 py-10 flex flex-col items-center shadow-xl">
+      <BorderDiv ostyle="w-[30rem] p-4 py-10 shadow-xl">
+          
         <h2 className="text-2xl font-bold text-theme text-center py-5 uppercase">
           Tournament Details
         </h2>
 
-        {error && <div className="text-red-500">{error}</div>}
+        {error && <div className="text-theme-cont">{error}</div>}
 
         {tournament ? (
-          <div className="w-full">
+          <>
+          <BasicDiv ostyle="w-full">
             <div className="space-y-4">
               <div>
                 <strong>Tournament ID:</strong> {tournament.tournamentid}
@@ -66,11 +79,13 @@ const TournamentDetails = () => {
                 <strong>End Date:</strong> {tournament.end_date}
               </div>
             </div>
-          </div>
+          </BasicDiv>
+          {isAdmin && <ThemeLink ostyle="m-4" label="Edit" url={`/tournaments/edit/${tournament?.tournamentid}`} />}
+          </>
         ) : (
-          <div>Loading tournament data...</div>
+          <Loading />
         )}
-      </div>
+      </BorderDiv>
     </section>
   );
 };

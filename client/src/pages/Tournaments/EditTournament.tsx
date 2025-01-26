@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ITournament } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
+import Loading from "../../components/Loading";
 
 const EditTournament = () => {
   const { tid } = useParams(); 
@@ -51,8 +52,8 @@ const EditTournament = () => {
   };
 
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (loading) return <Loading />;
+  if (error) return <div className="text-theme-cont">{error}</div>;
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
