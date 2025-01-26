@@ -70,17 +70,51 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/users", async (req, res) => {
+
+router.post("/reset", async (req, res) => {
+  const { email, newPassword } = req.body;
 
   try {
-    let result = (await dbpool.query("SELECT userid FROM users ORDER BY userid DESC LIMIT 1;")).rows[0].userid;
-    // const user = result.rows[0].userid;
-    let user = result;
+      console.log("Received reset request:", email);
 
-    console.log(user)
-  }catch { console.log("failed")}
-    res.json("done")
+      const result = await dbpool.query("SELECT * FROM users WHERE email = $1", [email]);
+      const user = result.rows[0];
+
+      if (!user) {
+          console.log("User not found:", email);
+          return res.status(400).json({ message: "User not found" });
+      }
+
+   
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      console.log("Hashed password:", hashedPassword);
+
+      await dbpool.query("UPDATE users SET password = $1 WHERE email = $2", [hashedPassword, email]);
+
+      
+      console.log("New password has been set for user:", email);
+     
+
+      res.json({ message: "Password reset successfully!" });
+  } catch (error) {
+      console.error("Error resetting password:", error);
+      res.status(500).json({ message: "Error resetting password", error: error.message });
+  }
 });
+
+// router.get("/users", async (req, res) => {
+
+//   try {
+//     let result = (await dbpool.query("SELECT userid FROM users ORDER BY userid DESC LIMIT 1;")).rows[0].userid;
+//     // const user = result.rows[0].userid;
+//     let user = result;
+
+//     console.log(user)
+//   }catch { console.log("failed")}
+//     res.json("done")
+// });
+
+
 
 module.exports = router;
 
