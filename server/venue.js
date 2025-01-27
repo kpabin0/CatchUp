@@ -50,7 +50,7 @@ router.delete("/:venueid", async (req, res) => {
             return res.status(404).json({ error: "Venue not found" });
         }
 
-        await pool.query("DELETE FROM matches WHERE venueid = $1", [venueid]);
+        await pool.query("DELETE FROM venues WHERE venueid = $1", [venueid]);
 
         const result = await pool.query("DELETE FROM venues WHERE venueid = $1 RETURNING *", [venueid]);
         console.log("Deleted venue:", result.rows[0]);
