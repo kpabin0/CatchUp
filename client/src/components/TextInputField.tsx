@@ -1,78 +1,52 @@
-import { motion } from "framer-motion"
+
+import { motion } from "framer-motion";
 
 interface TextInputProps {
-    type?: string,
-    label?: string,
-    name: string,
-    errMsg?: string,
-    required: boolean,
-    onInputChange?: (e : any) => void
+  type?: string;
+  label?: string;
+  name: string;
+  value?: string; 
+  errMsg?: string;
+  required: boolean;
+  onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; 
 }
 
-const TextInputField = ({ type = "text", label, name, errMsg, required, onInputChange }: TextInputProps) => {
+const TextInputField = ({
+  type = "text",
+  label,
+  name,
+  value, 
+  errMsg,
+  required,
+  onInputChange,
+}: TextInputProps) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, translateY: 30 }}
+      whileInView={{ opacity: 1, translateY: 0 }}
+      viewport={{ once: false }}
+      transition={{
+        duration: 0.5,
+        delay: 0.1,
+      }}
+      className="w-full my-2"
+    >
+      {label && (
+        <label htmlFor={name} className="block text-sm text-theme font-medium">
+          {label}
+        </label>
+      )}
+      <input
+        name={name}
+        type={type}
+        value={value} 
+        required={required}
+        onChange={onInputChange}
+        className="block w-full rounded-md py-1.5 border-[0.15rem] border-theme-gray outline-none focus:border-b-theme sm:leading-6 px-2 transition-colors duration-200"
+      />
+      {errMsg && <span className="text-theme-cont">{errMsg}</span>}
+    </motion.div>
+  );
+};
 
-    return (
-        <motion.div 
-            initial={{ opacity: 0, translateY: 30 }}
-            whileInView={{ opacity: 1, translateY: 0 }}
-            viewport={{once : false}}
-            transition={{
-                duration: 0.5,
-                delay: 0.1
-            }}
-            className="w-full my-2"
-        >
-        {label ? <label htmlFor={name} className="block text-sm text-theme font-medium">{label}</label> : <></>}
-        <input
-            name={name}
-            type={type}
-            required={required}
-            onChange={onInputChange}
-            className="block w-full rounded-md py-1.5 border-[0.15rem] border-theme-gray outline-none focus:border-b-theme sm:leading-6 px-2 transition-colors duration-200"
-        />
-        {errMsg ? <span className="text-theme-cont">{errMsg}</span> : <></>}
-        </motion.div>
-    )
-}
-
-export default TextInputField
-  
-
-
-// interface TextInputProps {
-//     type: string;
-//     label: string;
-//     name: string;
-//     value: string; // Add value prop
-//     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Add onChange prop
-//     errMsg?: string;
-//     required?: boolean;
-//   }
-  
-//   const TextInputField: React.FC<TextInputProps> = ({
-//     type,
-//     label,
-//     name,
-//     value,
-//     onChange,
-//     errMsg,
-//     required,
-//   }) => (
-//     <div className="flex flex-col">
-//       <label htmlFor={name} className="text-sm font-semibold mb-1">
-//         {label}
-//       </label>
-//       <input
-//         id={name}
-//         type={type}
-//         name={name}
-//         value={value} // Controlled input
-//         onChange={onChange} // Pass handler
-//         required={required}
-//         className="p-2 border rounded"
-//       />
-//       {errMsg && <p className="text-red-500 text-xs mt-1">{errMsg}</p>}
-//     </div>
-//   );
-  
-//   export default TextInputField;
+export default TextInputField;

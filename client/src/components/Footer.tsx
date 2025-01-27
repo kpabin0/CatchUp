@@ -13,7 +13,7 @@ interface ISocialMediaItem  {
 const Footer = () => {
   return (
     <>
-    <BasicDiv ostyle="w-full h-[25rem] m-0 bg-theme hover:bg-theme flex flex-col justify-evenly items-center">
+    <BasicDiv ostyle="w-full h-[25rem] m-0 bg-theme">
         <div className="text-sm font-bold text-theme-w">
             <span className="inline-block">Want to stay up to date</span>
             <Link to={"/subscribe"} className="bg-white text-theme inline-block p-2 px-4 rounded-xl mx-3 hover:bg-gray-200">Subscribe to Newsletter</Link>

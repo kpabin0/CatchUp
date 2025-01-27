@@ -20,10 +20,14 @@ import Player from "../pages/Player"
 import Dashboard from "../pages/Dashboard"
 import { useState, useEffect } from "react"
 import Sidebar from "../components/Sidebar"
+import { checkAdminStatus, loggedInStatus } from "../data/utils"
+import ResetPassword from "../pages/ResetPassword"
 
 const Routing = () => {
 
-  const [isSideBar, setIsSideBar] = useState(true)
+  const [isSideBar, setIsSideBar] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
  
   const handleResize = () => {
     if (window.innerWidth < 780) {
@@ -35,20 +39,25 @@ const Routing = () => {
 
   useEffect(() => {
     window.addEventListener("resize", handleResize)
+    setIsLoggedIn(loggedInStatus())
+    setIsAdmin(checkAdminStatus())
   }, [])
 
 
   return (
     <>
-    {isSideBar ? <Sidebar /> : <Navbar />}
+    {isSideBar || isAdmin || isLoggedIn ? <Sidebar /> : <Navbar />}
     <Routes>
         <Route path="/" element={<App />} />
         <Route path="/home" element={<Home />}/>
-        <Route path="/matches" element={<Matches />}/>
+        <Route>
+          <Route path="/matches" element={<Matches />} />
+        </Route>
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/news" element={<News />} />
         <Route path="/fixtures" element={<Fixtures />} />
         <Route path="/teams/create" element={<TeamsForm/>} />
+        <Route path="/resetpassword" element={<ResetPassword/>} />
         <Route>
           <Route path="/tournaments/" element={<Tournaments />} />
           <Route path="/tournaments/create" element={<CreateTournamentForm />} />

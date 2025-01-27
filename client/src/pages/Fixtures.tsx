@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { IFixture } from '../data/ITypes';
-import { getFallbackFixtures } from '../data/_fixtures';
 import { backendBaseURL } from '../data/utils';
 import BorderDiv from '../components/BorderDiv';
+import Loading from '../components/Loading';
 
 const Fixtures = () => {
 
@@ -12,8 +12,8 @@ const Fixtures = () => {
     const res = async () => {
       return await fetch(backendBaseURL + `/matches`)
                     .then((res) => res.json())
-                    .then((data) => { setFixtureData(data); console.log(data); return data })
-                    .catch((error) => { setFixtureData(getFallbackFixtures()); console.log(error); });
+                    .then((data) => { setFixtureData(data); console.log(data); return data; })
+                    .catch((error) => { console.log(error); });
     }
     res();
     
@@ -23,11 +23,11 @@ const Fixtures = () => {
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
       <span className="text-3xl text-theme font-bold my-4 uppercase">Fixtures</span>
-      <div className="max-w-[90%] min-w-[60%] grid grid-cols-2 gap-5 text-center my-10">
+      <div className="max-w-[90%] min-w-[60%] flex flex-row flex-wrap justify-evenly items-center">
         {
           fixtureData ? fixtureData.map((props, ind) => {
             return <FixtureCard key={ind} {...props} />
-          }) : <span className="text-3xl text-theme ">Loading...</span>
+          }) : <Loading text="Fixtures" />
         }
       </div>
       

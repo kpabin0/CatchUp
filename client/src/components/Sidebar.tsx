@@ -3,6 +3,7 @@ import { _loggedInAdminItems, _loggedInUserItems, _navItems } from '../data/_nav
 import { useEffect, useState } from 'react'
 import { TbMenu, TbHome, TbCricket, TbTrophy, TbNews, TbBallTennis, TbLogout, TbPlus, TbEdit, TbLogin, TbBinoculars } from "react-icons/tb";
 import { ISideNavItem } from '../data/ITypes';
+import { checkAdminStatus, loggedInStatus } from '../data/utils';
 
 const iconStyle = 'inline-block m-2 h-5 w-5'
 
@@ -38,30 +39,35 @@ function getIcon(name : string)
 
 const Sidebar = () => {
     const [shouldOpen, setShouldOpen] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
     const [sideNavItems, setSideNavItems] = useState<ISideNavItem[]>();
 
     const handleLogInOut = () => {
-        alert(isLoggedIn ? "LogOut" : "LogIn" + " logic");
         if(!isLoggedIn)
         {
-            navigate("/login")
+            console.log("Not Logged in")
         }
         else
         {
+            localStorage.setItem("loggedIn", String(false))
             setIsLoggedIn(!isLoggedIn)
         }
-        // setIsLoggedIn(!isLoggedIn);
+        navigate("/login")
     }
 
     useEffect(() => {
+        setIsLoggedIn(loggedInStatus())
+        setIsAdmin(checkAdminStatus())
+        // eslint-disable-next-line
+    }, [])
+  
+    useEffect(() => {
         setSideNavItems(!isLoggedIn ? _navItems : !isAdmin ? _loggedInUserItems : _loggedInAdminItems)
 
-    // eslint-disable-next-line
-    }, [])
+    }, [isLoggedIn, isAdmin])
 
 
   return (
@@ -69,13 +75,12 @@ const Sidebar = () => {
         className="fixed top-0 left-0 z-50 flex flex-col justify-between items-center"
     >
         <div 
-            // onClick={() => setShouldOpen(false)}
             className={"w-[20rem] h-screen py-20 text-center bg-theme-w-alt flex flex-col justify-center transition-transform duration-300 shadow-xl " 
                         + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}
         >
         {
-            sideNavItems?.map(({label, url, subItems}, ind) => {
-                return <SideItemWrapper key={ind} label={label} url={url} subItems={subItems} />
+            sideNavItems?.map(({label, url}, ind) => {
+                return <SideItem key={ind} label={label} url={url} icon={getIcon(label)} />
             })
         }
         <button onClick={handleLogInOut}
@@ -98,37 +103,6 @@ const Sidebar = () => {
   )
 }
 
-const SideItemWrapper = ({label, url, subItems} : ISideNavItem) => {
-    const [isSubItemActive, setIsSubItemActive] = useState(false);
-
-    return (
-        <>
-        {
-            subItems ?
-                <>
-                <Link 
-                    to={url} 
-                    className={`w-full text-md py-5 text-theme uppercase font-bold hover:bg-theme hover:text-theme-w `}
-                >
-                    {getIcon(label)}
-                    {label}
-                    <TbPlus onClick={() => setIsSubItemActive(!isSubItemActive)} className={`inline-block p-2 w-10 h-10 mx-2 hover:scale-125 ` + (!isSubItemActive ? 'rotate-0' : 'rotate-45')} />
-                </Link>
-                <div className={"w-full flex-col transition-transform duration-300 " + (isSubItemActive ? "flex scale-100 " : "absolute opacity-0 scale-0 ")}>
-                    {
-                        subItems?.map(({label, url}) => {
-                            return <SideItem label={label} url={url} style={"text-[0.7rem] p-2 "} icon={getIcon(label)} />
-                        })
-                    }
-                </div> 
-                </>: 
-                <SideItem label={label} url={url} icon={getIcon(label)} />
-        }
-
-        </>
-    )
-}
-
 const SideItem = ({label, url, style, icon} : ISideNavItem) => {
     return (
         <Link 
@@ -142,3 +116,4 @@ const SideItem = ({label, url, style, icon} : ISideNavItem) => {
 }
 
 export default Sidebar
+
