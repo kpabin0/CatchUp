@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 const BorderDiv = (props : any) => {
   return (
     <motion.div
-        className={"border border-theme p-2 m-2 rounded-sm hover:shadow-xl hover:rotate-180 transition-all duration-300 " + (props.ostyle ? props.ostyle : "")}
+        className={"flex flex-col justify-evenly items-center border border-theme p-2 m-2 rounded-sm hover:shadow-xl hover:rotate-180 transition-all duration-300 " + (props.ostyle ? props.ostyle : "")}
         initial={{ opacity: 0, translateY: 50 }}
         whileInView={{ opacity: 1, translateY: 0 }}
         viewport={{once : false}}
