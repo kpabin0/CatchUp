@@ -11,17 +11,18 @@ export function getFallbackTournaments()
     return tempTour.map((ind) => {
         return {
             tournamentid: ind,
-            name: "Fallback Tournament " + ind.toString(),
-            start: new Date().toLocaleDateString('en-US', {
+            name: "Fallback Tournament Name " + ind.toString(),
+            start_date: new Date().toLocaleDateString('en-US', {
                 day: '2-digit',
                 month: 'long',
                 year: 'numeric',
             }),
-            end: new Date().toLocaleDateString('en-US', {
+            end_date: new Date().toLocaleDateString('en-US', {
                 day: '2-digit',
                 month: 'long',
                 year: 'numeric',
-            })}
+            }),
+        }
     })
 }
 
@@ -32,12 +33,12 @@ export function getFallbackTournamentsInfo()
     return tempTour.map((ind) => {
         return {
         name: "Fallback Tournament Name " + ind.toString(),
-        start: new Date().toLocaleDateString('en-US', {
+        start_date: new Date().toLocaleDateString('en-US', {
             day: '2-digit',
             month: 'long',
             year: 'numeric',
         }),
-        end: new Date().toLocaleDateString('en-US', {
+        end_date: new Date().toLocaleDateString('en-US', {
             day: '2-digit',
             month: 'long',
             year: 'numeric',

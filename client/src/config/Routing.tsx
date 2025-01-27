@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom"
 import App from "../App"
 import Home from "../pages/Home"
-import Matches from "../pages/Matches"
+import Matches from "../pages/Matches/Matches"
 import News from "../pages/News"
 import Fixtures from "../pages/Fixtures"
 import NotFound from "../pages/NotFound"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
-import Teams from "../pages/Teams/Team"
+import TeamsForm from "../pages/Teams/TeamForm"
 import CreateTournamentForm from "../pages/Tournaments/TournamentForm"
 import Tournaments from "../pages/Tournaments/Tournaments"
 import EditTournament from "../pages/Tournaments/EditTournament"
@@ -17,11 +17,30 @@ import Register from "../pages/Register"
 import AboutUs from "../pages/AboutUs"
 import Players from "../pages/Players"
 import Player from "../pages/Player"
+import Dashboard from "../pages/Dashboard"
+import { useState, useEffect } from "react"
+import Sidebar from "../components/Sidebar"
 
 const Routing = () => {
+
+  const [isSideBar, setIsSideBar] = useState(true)
+ 
+  const handleResize = () => {
+    if (window.innerWidth < 780) {
+        setIsSideBar(true)
+    } else {
+        setIsSideBar(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+  }, [])
+
+
   return (
     <>
-    <Navbar />
+    {isSideBar ? <Sidebar /> : <Navbar />}
     <Routes>
         <Route path="/" element={<App />} />
         <Route path="/home" element={<Home />}/>
@@ -29,7 +48,7 @@ const Routing = () => {
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/news" element={<News />} />
         <Route path="/fixtures" element={<Fixtures />} />
-        <Route path="/teams" element={<Teams/>} />
+        <Route path="/teams/create" element={<TeamsForm/>} />
         <Route>
           <Route path="/tournaments/" element={<Tournaments />} />
           <Route path="/tournaments/create" element={<CreateTournamentForm />} />
@@ -43,6 +62,8 @@ const Routing = () => {
           <Route path="/players" element={<Players />} />
           <Route path="/players/:tid/:pid" element={<Player />} />
         </Route>
+
+        <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="*" element={<NotFound />} />
     </Routes>

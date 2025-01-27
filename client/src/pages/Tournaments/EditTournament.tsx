@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ITournament } from "../../data/ITypes";
+import { backendBaseURL } from "../../data/utils";
 
 const EditTournament = () => {
   const { tid } = useParams(); 
@@ -12,6 +13,7 @@ const EditTournament = () => {
 
   useEffect(() => {
     if (tid) {
+      axios.get(backendBaseURL + `/tournaments/${tid}`)
       // setTournament({tournamentid: 1, name: "None", start : "2025-2-1", end : "2026-3-4"})
       // setLoading(false);
 
@@ -42,7 +44,7 @@ const EditTournament = () => {
     if (tournament) {
       try {
       
-        const response = await axios.put(`http://localhost:3001/tournaments/${tid}`, tournament);
+        const response = await axios.put(backendBaseURL + `/tournaments/${tid}`, tournament);
         console.log("Tournament updated:", response.data);
         navigate("/tournaments/"); 
       } catch (error) {
@@ -87,24 +89,24 @@ const EditTournament = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="start" className="block text-sm font-medium text-theme">Tournament Start Date</label>
+              <label htmlFor="start_date" className="block text-sm font-medium text-theme">Tournament Start Date</label>
               <input
                 type="date"
-                id="start"
-                name="start"
-                value={tournament.start}
+                id="start_date"
+                name="start_date"
+                value={tournament.start_date}
                 onChange={handleInputChange}
                 className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
               />
             </div>
 
             <div className="mb-4">
-              <label htmlFor="end" className="block text-sm font-medium text-theme">Tournament End Date</label>
+              <label htmlFor="end_date" className="block text-sm font-medium text-theme">Tournament End Date</label>
               <input
                 type="date"
-                id="end"
-                name="end"
-                value={tournament.end}
+                id="end_date"
+                name="end_date"
+                value={tournament.end_date}
                 onChange={handleInputChange}
                 className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
               />

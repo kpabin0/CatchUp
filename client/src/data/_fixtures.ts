@@ -2,7 +2,7 @@
 
 import { getArray } from "./utils"
 
-export function getFallbackMatches()
+export function getFallbackFixtures()
 {
     const matchCount = 5
     const tempMatch = getArray(matchCount)
@@ -21,7 +21,8 @@ export function getFallbackMatches()
           wickets: ind,
           over: ind/2 - 0.2,
         },
-        isLive: ind % 2 === 1 ? true : false
+        isLive: ind % 2 === 1 ? true : false,
+        date: "2025-10-2"
       }
     })
 }

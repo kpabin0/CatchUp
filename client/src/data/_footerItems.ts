@@ -19,16 +19,8 @@ export const _socialHandles = [
 
 export const _otherLinks = [
     {
-        label: "Summary",
-        url: "/summary"
-    },
-    {
-        label: "Matchstats",
-        url: "/matchstats"
-    },
-    {
-        label: "Venues",
-        url: "/venues"
+        label: "Teams",
+        url: "/teams"
     },
     {
         label: "Players",

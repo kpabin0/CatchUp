@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getFallbackPlayers } from '../data/_players'
 import { IPlayer } from '../data/ITypes';
 import { Link } from 'react-router-dom';
-
-const PORT_NUMBER = process.env.REACT_APP_PORT_NUMBER;
+import { backendBaseURL } from '../data/utils';
 
 const Players = () => {
 
@@ -11,7 +10,7 @@ const Players = () => {
 
   useEffect(() => {
     const res = async () => {
-      return await fetch(`http://localhost:${PORT_NUMBER}/players`)
+      return await fetch(backendBaseURL + `/players`)
                     .then((res) => res.json())
                     .then((data) => { setPlayers(data); console.log(data); return data })
                     .catch((error) => { setPlayers(getFallbackPlayers()); console.log(error); });
@@ -24,7 +23,7 @@ const Players = () => {
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
         <h1 className="font-bold text-3xl text-theme my-2">Players</h1>
-        <div className="grid grid-cols-3 gap-20 my-20">
+        <div className="grid xl:grid-cols-3 grid-cols-2 gap-y-20 gap-x-5 my-20">
             {
                 players?.map((props, ind) => {
                     return <PlayerCard key={ind} {...props} />
