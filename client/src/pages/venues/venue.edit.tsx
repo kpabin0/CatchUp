@@ -15,8 +15,7 @@ const EditVenue = () => {
 
   useEffect(() => {
     if (venueid) {
-      axios
-        .get(`${backendBaseURL}/venues/${venueid}`)
+      axios.get(`${backendBaseURL}/venues/${venueid}`)
         .then((response) => {
           setVenue(response.data); 
           setLoading(false);
@@ -45,11 +44,11 @@ const EditVenue = () => {
         const response = await axios.put(`${backendBaseURL}/venues/${venueid}`, venue);
         console.log("Venue updated:", response.data);
         setSuccessMessage("Venue updated successfully!");
-        setError(null); // Clear any previous errors
+        setError(null); 
       } catch (error) {
         setError("Error updating venue data.");
         console.error("Error updating venue:", error);
-        setSuccessMessage(null); // Clear the success message if there's an error
+        setSuccessMessage(null); 
       }
     }
   };
@@ -75,7 +74,7 @@ const EditVenue = () => {
   
         {venue && (
           <form onSubmit={handleSubmit}>
-            {/* Form fields */}
+        
             <div className="mb-4">
                <label htmlFor="venueid" className="block text-sm font-medium text-theme">
                  Venue ID
