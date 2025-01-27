@@ -17,47 +17,9 @@ const Register = () => {
       });
       const navigate = useNavigate();
     
-      const handleInputChange = (e: any) => {
-        const { name, value } = e.target;
-        // console.log(formData)
-        setFormData({ ...formData, [name]: value });
-      };
-    
-      const handleFormSubmit = async (e: any) => {
-        e.preventDefault();
-      
-        if (formData.password !== formData.confirmPassword) {
-          alert("Passwords do not match!");
-          return;
-        }
-      
-        try {
-            const response = await axios.post(backendBaseURL + `/auth/register`, {
-              name: formData.name,
-              email: formData.email,
-              password: formData.password,
-            });
-          
-            alert(response.data.message || "Registration successful!");
-            setTimeout(() => navigate('/login'), 1000);
-          } catch (error: any) {
-            console.error("Error registering user:", error.response || error.message);
-            const errorMessage = error.response?.data?.message || "An error occurred during registration.";
-            alert(errorMessage);
-          }
-          
-      };
-      
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
-  const navigate = useNavigate();
-
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
+    // console.log(formData)
     setFormData({ ...formData, [name]: value });
   };
 
@@ -70,18 +32,17 @@ const Register = () => {
     }
   
     try {
-        const response = await axios.post('http://localhost:8080/auth/register', {
+        const response = await axios.post(backendBaseURL + `/auth/register`, {
           name: formData.name,
           email: formData.email,
           password: formData.password,
         });
       
         alert(response.data.message || "Registration successful!");
-        navigate('/login');
+        setTimeout(() => navigate('/login'), 1000);
       } catch (error: any) {
         console.error("Error registering user:", error.response || error.message);
-        const errorMessage =
-          error.response?.data?.message || "An error occurred during registration.";
+        const errorMessage = error.response?.data?.message || "An error occurred during registration.";
         alert(errorMessage);
       }
       

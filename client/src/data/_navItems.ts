@@ -16,6 +16,12 @@ export const _navItems = [
         ]
     },
     {
+        label: "Venues",
+        url: "/venues",
+        subItems: [
+        ]
+    },
+    {
         label: "News",
         url: "/news"
     },

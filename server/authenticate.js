@@ -102,18 +102,6 @@ router.post("/reset", async (req, res) => {
   }
 });
 
-// router.get("/users", async (req, res) => {
-
-//   try {
-//     let result = (await dbpool.query("SELECT userid FROM users ORDER BY userid DESC LIMIT 1;")).rows[0].userid;
-//     // const user = result.rows[0].userid;
-//     let user = result;
-
-//     console.log(user)
-//   }catch { console.log("failed")}
-//     res.json("done")
-// });
-
 
 
 module.exports = router;

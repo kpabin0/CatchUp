@@ -15,9 +15,7 @@ router.post("/", async (req, res) => {
         }
 
         let tournamentid = (await dbpool.query("SELECT tournamentid FROM tournaments ORDER BY tournamentid DESC LIMIT 1;")).rows[0].tournamentid;
-        const query = `
-            INSERT INTO tournaments (tournamentid, name, start_date, end_date)
-            VALUES ($1, $2, $3, $4) RETURNING *;
+        const query = `INSERT INTO tournaments (tournamentid, name, start_date, end_date)VALUES ($1, $2, $3, $4) RETURNING *;
         `;
         const newTournament = await dbpool.query(query, [++tournamentid, name, start_date, end_date]);
 

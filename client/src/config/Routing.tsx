@@ -22,7 +22,10 @@ import { useState, useEffect } from "react"
 import Sidebar from "../components/Sidebar"
 import { checkAdminStatus, loggedInStatus } from "../data/utils"
 import ResetPassword from "../pages/ResetPassword"
-
+import VenueCreateForm from "../pages/venues/venue.form"
+import Venue from "../pages/venues/venue.all"
+import EditVenue from "../pages/venues/venue.edit"
+import VenueDetails from "../pages/venues/venue.details"
 const Routing = () => {
 
   const [isSideBar, setIsSideBar] = useState(false)
@@ -63,6 +66,15 @@ const Routing = () => {
           <Route path="/tournaments/create" element={<CreateTournamentForm />} />
           <Route path="/tournaments/edit/:tid" element={<EditTournament />} />
           <Route path="/tournaments/:tid" element={<TournamentDetails />} />
+        </Route>
+        <Route>
+      
+         
+          <Route path="/venues" element={< Venue/>} />
+          <Route path="/venues/create" element={< VenueCreateForm/>} />
+          <Route path="/venues/edit/:venueid" element={< EditVenue/>} />
+          <Route path="/venues/:venueid" element={< VenueDetails/>} />
+   
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
