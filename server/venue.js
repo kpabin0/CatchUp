@@ -74,6 +74,7 @@ try{
         console.log(`Venue not found for update with id: ${venueid}`);
         return res.status(404).json({ error: " Venue not found for update" });
     }
+    res.json(updatedVenue.rows[0]);
 }  
  catch (error) {
     console.error("Error updating venue:", error);
