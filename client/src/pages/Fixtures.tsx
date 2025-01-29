@@ -47,7 +47,7 @@ export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
         <span className="w-full text-xl block uppercase">Vs</span>
         <div className="w-full grid grid-cols-2 gap-6">
           <span className="text-3xl tracking-tighter font-extrabold">{team_1.runs} / {team_1.wickets} ({team_1.over})</span>
-          <span className="text-3xl tracking-tighter font-extrabold">{team_2.runs} /3{team_2.wickets} ({team_2.over})</span>
+          <span className="text-3xl tracking-tighter font-extrabold">{team_2.runs} / {team_2.wickets} ({team_2.over})</span>
         </div>
       </div>
       {date ? <span className="text-sm tracking-tighter font-light">{date}</span> : <></>}

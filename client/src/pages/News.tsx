@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { INews, ISubNews } from '../data/ITypes';
-import { backendBaseURL } from '../data/utils';
+import { backendBaseURL, getArray } from '../data/utils';
 import BasicDiv from '../components/BasicDiv';
 import Loading from '../components/Loading';
+import ThemeLink from '../components/ThemeLink';
+
+const tempArr = getArray(5);
 
 const News = () => {
 
@@ -35,20 +38,20 @@ const News = () => {
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
         <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
-        <div className="w-[80%] flex flex-col xl:flex-row justify-evenly items-center flex-wrap">
-          <div className="flex flex-row flex-wrap justify-evenly items-center">
+        
+        <div className="w-[90%] grid grid-cols-3">
+          <div className="col-span-2 p-10 grid md:grid-cols-2 gap-10">
             {
               newsData ? newsData.map((props, ind) => {
                 return <NewsCard key={ind} {...props} />
-              }) : <Loading text="news" />
+              }) : tempArr.map((ind) => <NewsCard title='title' img='' description='desc' />)
             }
           </div>
-          <hr className="w-full border border-theme my-10"/>
-          <BasicDiv ostyle="space-y-2 my-4">
+          <BasicDiv ostyle="w-[90%] mx-auto self-start space-y-2 mt-10">
             {
               subNewsData ? subNewsData.map((props, ind) => {
                 return <SubNewsCard key={ind} {...props} />
-              }) : <Loading text="subnews" />
+              }) : tempArr.map((ind) => <SubNewsCard title='subtitle' url='' description='desc' />)
             }
           </BasicDiv>
         </div>
@@ -58,12 +61,17 @@ const News = () => {
 
 const NewsCard = ({title, img, description} : INews) => {
   return (
-    <BasicDiv ostyle="p-2 space-y-6 justify-center">
-      <h1 className="text-xl font-main-a font-bold">{title}</h1>
-      <div className="rounded-xl w-[20rem] h-[15rem] bg-theme-g">
-        { img ? <img className="rounded-xl w-full h-full" src={img} alt={title} /> : <></>}
+    <BasicDiv ostyle="bg-white border rounded-lg shadow-md overflow-hidden">
+      <img
+        src={"#"}
+        alt={"news"}
+        className="w-full h-48 object-cover bg-theme-g"
+      />
+      <div className="p-4">
+        <h3 className="text-xl font-semibold text-theme-g mb-2">Headline</h3>
+        <p className="text-sm text-theme-g mb-4">description</p>
       </div>
-      <p className="font-light">{description}</p>
+      <span className="self-end pb-2"><ThemeLink label='Read More' url={`/news/${title}`} /></span>
     </BasicDiv>
   )
 }

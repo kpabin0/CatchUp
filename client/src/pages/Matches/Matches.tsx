@@ -3,6 +3,7 @@ import { IMatchHighlightView } from '../../data/ITypes';
 import { FixtureCard } from '../Fixtures';
 import { backendBaseURL } from '../../data/utils';
 import Loading from '../../components/Loading';
+import BorderDiv from '../../components/BorderDiv';
 
 const Matches = () => {
 
@@ -34,5 +35,15 @@ const Matches = () => {
   )
 }
 
+// later pass the props accordingly
+export const MatchCard = ({}) => {
+  return (
+    <BorderDiv ostyle="bg-theme-w p-2 py-5 rounded-lg shadow-lg text-center">
+      <h3 className="text-xl font-semibold text-theme uppercase mb-2">team1 vs team2</h3>
+      <p className="">fixture date | fixture time</p>
+      <p className="text-theme-cont">Venue: venue</p>
+    </BorderDiv>
+  )
+}
 
 export default Matches
