@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('./pgdb');
+const dbpool = require('./pgdb');
 
 router.post("/create", async (req, res) => {
     const { name, seats, location } = req.body; 
@@ -11,12 +11,12 @@ router.post("/create", async (req, res) => {
             return res.status(400).json({ error: "Missing required fields" });
         } else {
             
-            const result = await pool.query("SELECT venueid FROM venues ORDER BY venueid DESC LIMIT 1;");
+            const result = await dbpool.query("SELECT venueid FROM venues ORDER BY venueid DESC LIMIT 1;");
             const venueid = result.rows.length > 0 ? result.rows[0].venueid + 1 : 1;
             
         
             const query = `INSERT INTO venues (venueid, name, seats, location) VALUES ($1, $2, $3, $4);`;
-            const newVenue = await pool.query(query, [venueid, name, seats, location]);
+            const newVenue = await dbpool.query(query, [venueid, name, seats, location]);
             console.log("Created venue:", newVenue.rows[0]);
             res.json(newVenue.rows[0]);
         }
@@ -30,7 +30,7 @@ router.post("/create", async (req, res) => {
 
 router.get("/", async (req, res) => {
     try {
-        const allVenues = await pool.query("SELECT * FROM venues");
+        const allVenues = await dbpool.query("SELECT * FROM venueses");
         console.log("Fetched all venues:", allVenues.rows);
         res.json(allVenues.rows);
     } catch (error) {
@@ -45,14 +45,14 @@ router.delete("/:venueid", async (req, res) => {
 
     try {
        
-        const venueCheckResult = await pool.query("SELECT * FROM venues WHERE venueid = $1", [venueid]);
+        const venueCheckResult = await dbpool.query("SELECT * FROM venues WHERE venueid = $1", [venueid]);
         if (venueCheckResult.rows.length === 0) {
             return res.status(404).json({ error: "Venue not found" });
         }
 
-        await pool.query("DELETE FROM venues WHERE venueid = $1", [venueid]);
+        await dbpool.query("DELETE FROM venues WHERE venueid = $1", [venueid]);
 
-        const result = await pool.query("DELETE FROM venues WHERE venueid = $1 RETURNING *", [venueid]);
+        const result = await dbpool.query("DELETE FROM venues WHERE venueid = $1 RETURNING *", [venueid]);
         console.log("Deleted venue:", result.rows[0]);
         res.json(result.rows[0]);
     } catch (error) {
@@ -68,7 +68,7 @@ try{
    
     const {  name, seats, location } = req.body;    
     console.log("Updating venue with id:", venueid);
-    const updatedVenue = await pool.query("UPDATE venues SET name = $1, seats = $2, location = $3 WHERE venueid = $4 RETURNING *", [name, seats, location, venueid]);
+    const updatedVenue = await dbpool.query("UPDATE venues SET name = $1, seats = $2, location = $3 WHERE venueid = $4 RETURNING *", [name, seats, location, venueid]);
     console.log("Updated venue:", updatedVenue.rows[0]);   
     if (updatedVenue.rowCount === 0) {
         console.log(`Venue not found for update with id: ${venueid}`);
@@ -88,7 +88,7 @@ router.get("/:venueid", async (req, res) => {
     const { venueid } = req.params;
     console.log("Fetching venue with id:", venueid);
     try{
-        const venue = await pool.query("SELECT * FROM venues WHERE venueid = $1", [venueid]);
+        const venue = await dbpool.query("SELECT * FROM venues WHERE venueid = $1", [venueid]);
         if (venue.rows.length === 0) {
             console.log(`Venue not found with id: ${venueid}`);
             return res.status(404).json({ error: "Venue not found" });
