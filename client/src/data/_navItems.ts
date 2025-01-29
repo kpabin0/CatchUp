@@ -1,3 +1,5 @@
+import { _otherLinks } from "./_footerItems";
+
 export const _navItems = [
     {
         label: "Home",
@@ -16,12 +18,6 @@ export const _navItems = [
         ]
     },
     {
-        label: "Venues",
-        url: "/venues",
-        subItems: [
-        ]
-    },
-    {
         label: "News",
         url: "/news"
     },
@@ -36,10 +32,12 @@ export const _loggedInUserItems = [
     {
         label: "Watchlist",
         url: "/watchlist"
-    }
+    },
+    ..._otherLinks
 ];
 
 export const _loggedInAdminItems = [
-    ..._navItems,
+    ..._loggedInUserItems.filter((item) => item.label !== "Home").filter((item) => item.label !== "Watchlist"),
+
 ]
 

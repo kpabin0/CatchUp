@@ -4,6 +4,9 @@ import axios from "axios";
 import { IVenue } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
 import Loading from "../../components/Loading";
+import TextInputField from "../../components/TextInputField";
+import Message from "../../components/Message";
+import ThemeFormDiv from "../../components/ThemeFormDiv";
 
 const EditVenue = () => {
   const { venueid } = useParams(); 
@@ -28,7 +31,7 @@ const EditVenue = () => {
     }
   }, [venueid]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: any) => {
     if (venue) {
       setVenue({
         ...venue,
@@ -37,7 +40,7 @@ const EditVenue = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (venue) {
       try {
@@ -50,98 +53,71 @@ const EditVenue = () => {
         console.error("Error updating venue:", error);
         setSuccessMessage(null); 
       }
+      setTimeout(() => {  navigate("/venues") }, 1000);
     }
   };
   
 
   if (loading) return <Loading />;
-  if (error) return <div className="text-theme-cont">{error}</div>;
+  if (error) return <div className="w-full h-screen text-center text-theme-cont">{error}</div>;
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <div className="w-[30rem] p-4 py-[2rem] bg-theme-w shadow-xl rounded-md">
-        <h2 className="text-2xl text-theme font-extrabold text-center py-5 uppercase">
+      <ThemeFormDiv ostyle="justify-evenly border">
+
+        {successMessage && <Message message={successMessage} type="success" onClose={() => setSuccessMessage("")} />}
+        {error && <Message message={error} type="error" onClose={() => setError("")} />}
+
+        <h2 className="text-2xl text-theme font-extrabold text-center pb-5 uppercase">
           Edit Venue
         </h2>
   
-        {successMessage && (
-          <div className="text-green-600 text-center mb-4">{successMessage}</div>
-        )}
-  
-        {error && (
-          <div className="text-red-600 text-center mb-4">{error}</div>
-        )}
-  
-        {venue && (
-          <form onSubmit={handleSubmit}>
-        
-            <div className="mb-4">
-               <label htmlFor="venueid" className="block text-sm font-medium text-theme">
-                 Venue ID
-               </label>
-              <input
-                type="text"
-                id="venueid"
-                name="venueid"
-                value={venue.venueid}
-                readOnly
-                className="mt-1 p-2 w-full border rounded outline-none"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-theme">
-                Venue Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={venue.name}
-                onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
-              />
-            </div>
-            
-            <div className="mb-4">
-               <label htmlFor="seats" className="block text-sm font-medium text-theme">
-                 Number of Seats
-               </label>
-               <input
-                type="number"
-                id="seats"
-                name="seats"
-                value={venue.seats}
-                onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
-              />
-            </div>
+        {venue ?
+          <form onSubmit={handleSubmit} className="w-[90%]">
+            <TextInputField
+              type="text"
+              label="Venue ID"
+              name="venueid"
+              value={venue.venueid.toString()}
+              readOnly={true}
+            />
+            <TextInputField 
+              type="text"
+              label="Venue Name"
+              name="name"
+              value={venue.name}
+              placeholder="Enter venue name"
+              required={true}
+              onInputChange={handleInputChange}
+            />
+            <TextInputField 
+              type="number"
+              label="Number of Seats"
+              name="seats"
+              value={venue.seats.toString()}
+              placeholder="Enter number of seats"
+              required={true}
+              onInputChange={handleInputChange}
+            />
+            <TextInputField 
+              type="text"
+              label="Location"
+              name="location"
+              value={venue.location}
+              placeholder="Enter location"
+              required={true}
+              onInputChange={handleInputChange}
+            />
 
-            <div className="mb-4">
-              <label htmlFor="location" className="block text-sm font-medium text-theme">
-                Location
-              </label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                value={venue.location}
-                onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
-              />
-            </div>
-
-  
-          
-  
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-theme text-theme-w rounded mt-4"
+              className="w-full py-2 px-4 bg-theme hover:bg-theme-alt text-theme-w rounded mt-4"
             >
               Save Changes
             </button>
-          </form>
-        )}
-      </div>
+          </form> : <Loading />
+        }
+      </ThemeFormDiv>
     </div>
   );
   

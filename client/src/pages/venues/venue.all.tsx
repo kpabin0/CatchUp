@@ -2,16 +2,24 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { IVenue } from "../../data/ITypes";
 import { backendBaseURL, checkAdminStatus } from "../../data/utils";
-import { Link } from "react-router-dom";
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
-import { FaTrash } from "react-icons/fa"; 
+import { FaEdit, FaTrash } from "react-icons/fa"; 
+import { useNavigate } from "react-router-dom";
+import Message from "../../components/Message";
+
+interface IVenueCard extends IVenue {
+  handleEdit: (id: number) => void,
+  handleDelete: (id: number) => void,
+  isAdmin: boolean
+};
 
 const Venue = () => {
   const [venues, setVenues] = useState<IVenue[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsAdmin(checkAdminStatus());
@@ -42,6 +50,10 @@ const Venue = () => {
     }
   };
 
+  const handleEdit = async (venueid: number) => {
+    navigate(`/venues/edit/${venueid}`);
+  }
+
   return (
     <section className="w-full h-screen flex justify-center items-center">
       <BorderDiv ostyle="w-[80%] p-6 shadow-xl">
@@ -49,8 +61,8 @@ const Venue = () => {
           All Venues
         </h2>
 
-        {message && <div className="text-theme-green mb-4">{message}</div>}
-        {error && <div className="text-theme-cont mb-4">{error}</div>}
+        {message && <Message message={message} type="success" onClose={() => setMessage(null)} />}
+        {error && <Message message={error} type="error" onClose={() => setError(null)} />}
 
         <table className="w-full text-md text-center rtl:text-right table-fixed">
           <thead>
@@ -59,7 +71,7 @@ const Venue = () => {
               <th>Name</th>
               <th>Seats</th>
               <th>Location</th>
-              {isAdmin && <th>Actions</th>} {/* Add Actions column for delete icon */}
+              {isAdmin && <th>Actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -68,8 +80,9 @@ const Venue = () => {
                 <VenueCard
                   key={ind}
                   {...venue}
-                  isAdmin={isAdmin}
+                  handleEdit={handleEdit}
                   handleDelete={handleDelete}
+                  isAdmin={isAdmin}
                 />
               );
             })}
@@ -91,31 +104,27 @@ const VenueCard = ({
   name,
   seats,
   location,
-  isAdmin,
+  handleEdit,
   handleDelete,
-}: IVenue & { isAdmin: boolean; handleDelete: (venueid: number) => void }) => {
+  isAdmin
+}: IVenueCard )=> {
   return (
     <tr className="my-2 py-2">
       <td>{venueid}</td>
-      <td>
-        <Link
-          to={`/venues/${venueid}`}
-          className="hover:text-theme uppercase hover:underline"
-        >
-          {name}
-        </Link>
-      </td>
+      <td>{name}</td>
       <td>{seats}</td>
       <td>{location}</td>
 
       {isAdmin && (
         <td>
-          <button
+          <FaEdit 
+            onClick={() => handleEdit(venueid)}
+            className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme hover:text-theme-w text-theme"
+            />
+          <FaTrash 
             onClick={() => handleDelete(venueid)}
-            className="text-red-500 hover:text-red-700"
-          >
-            <FaTrash /> {/* Display trash icon */}
-          </button>
+            className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont text-theme-cont hover:text-theme-w"
+          />
         </td>
       )}
     </tr>

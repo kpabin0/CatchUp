@@ -4,6 +4,7 @@ import axios from "axios";
 import { ITournament } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
 import Loading from "../../components/Loading";
+import TextInputField from "../../components/TextInputField";
 
 const EditTournament = () => {
   const { tid } = useParams(); 
@@ -65,53 +66,34 @@ const EditTournament = () => {
         <h2 className="text-2xl text-theme font-extrabold text-center py-5 uppercase">Edit Tournament</h2>
         {tournament && (
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="tid" className="block text-sm font-medium text-theme">Tournament ID</label>
-              <input
-                type="text"
-                id="tid"
-                name="tid"
-                value={tournament.tournamentid}
-                readOnly
-                className="mt-1 p-2 w-full border rounded outline-none"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-theme">Tournament Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={tournament.name}
-                onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="start_date" className="block text-sm font-medium text-theme">Tournament Start Date</label>
-              <input
-                type="date"
-                id="start_date"
-                name="start_date"
-                value={tournament.start_date}
-                onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="end_date" className="block text-sm font-medium text-theme">Tournament End Date</label>
-              <input
-                type="date"
-                id="end_date"
-                name="end_date"
-                value={tournament.end_date}
-                onChange={handleInputChange}
-                className="mt-1 p-2 w-full border rounded outline-none focus:border-b-theme"
-              />
-            </div>
+            <TextInputField
+              label="Tournament ID"
+              type="text"
+              name="tid"
+              value={tournament.tournamentid.toString()}
+              readOnly={true}
+            />
+            <TextInputField
+              label="Tournament Name"
+              type="text"
+              name="name"
+              value={tournament.name}
+              onInputChange={handleInputChange}
+            />
+            <TextInputField
+              label="Tournament Start"
+              type="date"
+              name="start_date"
+              value={tournament.start_date}
+              onInputChange={handleInputChange}
+            />
+            <TextInputField
+              label="Tournament End"
+              type="date"
+              name="end_date"
+              value={tournament.end_date}
+              onInputChange={handleInputChange}
+            />
 
             <button type="submit" className="w-full py-2 px-4 bg-theme text-theme-w rounded mt-4">
               Save Changes

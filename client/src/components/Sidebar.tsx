@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { _loggedInAdminItems, _loggedInUserItems, _navItems } from '../data/_navItems'
 import { useEffect, useState } from 'react'
-import { TbMenu, TbHome, TbCricket, TbTrophy, TbNews, TbBallTennis, TbLogout, TbPlus, TbEdit, TbLogin, TbBinoculars } from "react-icons/tb";
+import { TbMenu, TbHome, TbCricket, TbTrophy, TbNews, TbBallTennis, TbLogout, TbPlus, TbEdit, TbLogin, TbBinoculars, TbBrandTeams, TbUser, TbHome2, TbQuestionMark } from "react-icons/tb";
 import { ISideNavItem } from '../data/ITypes';
 import { checkAdminStatus, loggedInStatus } from '../data/utils';
+import Logo from './Logo';
 
 const iconStyle = 'inline-block m-2 h-5 w-5'
 
@@ -23,6 +24,14 @@ function getIcon(name : string)
             return <TbBallTennis className={iconStyle} />
         case "Watchlist":
             return <TbBinoculars className={iconStyle} />
+        case "Teams":
+            return <TbBrandTeams className={iconStyle} />
+        case "Players":
+            return <TbUser className={iconStyle} />
+        case "Venues":
+            return <TbHome2 className={iconStyle} />
+        case "About Us":
+            return <TbQuestionMark className={iconStyle} />
 
         case "Create Team":
         case "Create Tournament":
@@ -38,7 +47,7 @@ function getIcon(name : string)
 }
 
 const Sidebar = () => {
-    const [shouldOpen, setShouldOpen] = useState(true);
+    const [shouldOpen, setShouldOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
@@ -56,6 +65,7 @@ const Sidebar = () => {
             setIsLoggedIn(!isLoggedIn)
         }
         navigate("/login")
+        window.location.reload()
     }
 
     useEffect(() => {
@@ -71,19 +81,19 @@ const Sidebar = () => {
 
 
   return (
-    <nav 
-        className="fixed top-0 left-0 z-50 flex flex-col justify-between items-center"
-    >
+    <nav className="fixed top-0 left-0 z-50 flex flex-col justify-between items-center">
         <div 
             className={"w-[20rem] h-screen py-20 text-center bg-theme-w-alt flex flex-col justify-center transition-transform duration-300 shadow-xl " 
                         + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}
         >
+        <Logo ostyle="h-[2rem] mx-auto my-4" />
         {
             sideNavItems?.map(({label, url}, ind) => {
                 return <SideItem key={ind} label={label} url={url} icon={getIcon(label)} />
             })
         }
-        <button onClick={handleLogInOut}
+        <button 
+            onClick={handleLogInOut}
             className="w-full space-x-4 text-md py-5 text-theme uppercase font-bold hover:bg-theme hover:text-theme-w"
             >
         {
@@ -107,7 +117,7 @@ const SideItem = ({label, url, style, icon} : ISideNavItem) => {
     return (
         <Link 
             to={url} 
-            className={`w-full text-md py-5 text-theme uppercase font-bold hover:bg-theme hover:text-theme-w ${style}`}
+            className={`w-full text-md py-4 text-theme uppercase font-bold hover:bg-theme hover:text-theme-w ${style}`}
         >
             {icon ? icon : <></>}
             {label}

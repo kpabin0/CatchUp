@@ -2,13 +2,16 @@
 import { motion } from "framer-motion";
 
 interface TextInputProps {
-  type?: string;
-  label?: string;
-  name: string;
-  value?: string; 
-  errMsg?: string;
-  required: boolean;
-  onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; 
+  type?: string,
+  label?: string,
+  name: string,
+  value?: string,
+  placeholder?: string,
+  errMsg?: string,
+  required?: boolean,
+  readOnly?: boolean,
+  ostyle? : string,
+  onInputChange?: (e: any) => void,
 }
 
 const TextInputField = ({
@@ -16,8 +19,11 @@ const TextInputField = ({
   label,
   name,
   value, 
+  placeholder,
   errMsg,
   required,
+  readOnly,
+  ostyle,
   onInputChange,
 }: TextInputProps) => {
   return (
@@ -29,7 +35,7 @@ const TextInputField = ({
         duration: 0.5,
         delay: 0.1,
       }}
-      className="w-full my-2"
+      className={"w-full my-2 " + (ostyle ? ostyle : "")}
     >
       {label && (
         <label htmlFor={name} className="block text-sm text-theme font-medium">
@@ -40,9 +46,11 @@ const TextInputField = ({
         name={name}
         type={type}
         value={value} 
+        placeholder={placeholder}
         required={required}
         onChange={onInputChange}
-        className="block w-full rounded-md py-1.5 border-[0.15rem] border-theme-gray outline-none focus:border-b-theme sm:leading-6 px-2 transition-colors duration-200"
+        readOnly={readOnly}
+        className="block w-full rounded-md py-1.5 border-[0.15rem] border-theme-gray outline-none focus:border-b-theme sm:leading-6 px-2 transition-colors duration-200 "
       />
       {errMsg && <span className="text-theme-cont">{errMsg}</span>}
     </motion.div>

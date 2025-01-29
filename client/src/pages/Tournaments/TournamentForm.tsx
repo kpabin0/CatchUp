@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { ITournamentForm } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
 import { useNavigate } from "react-router-dom";
+import Message from "../../components/Message";
 
 const schema = Yup.object().shape({
   name: Yup.string()
@@ -91,29 +92,8 @@ const CreateTournamentForm = () => {
           Create Tournament
         </h2>
 
-        {successMessage && (
-          <div className="bg-theme-green text-theme-w p-4 rounded-md mb-4 flex items-center justify-between">
-            <span>{successMessage}</span>
-            <button
-              className="text-theme-w font-bold ml-4"
-              onClick={() => setSuccessMessage(null)}
-            >
-              X
-            </button>
-          </div>
-        )}
-
-        {errorMessage && (
-          <div className="bg-theme-cont text-theme-w p-4 rounded-md mb-4 flex items-center justify-between">
-            <span>{errorMessage}</span>
-            <button
-              className="text-theme-w font-bold ml-4"
-              onClick={() => setErrorMessage(null)}
-            >
-              X
-            </button>
-          </div>
-        )}
+        {successMessage && <Message message={successMessage} type="success" onClose={() => setSuccessMessage(null)} />}
+        {errorMessage && <Message message={errorMessage} type="error" onClose={() => setErrorMessage(null)} />}
 
         {isAdmin ? (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 w-full mt-8">
