@@ -4,16 +4,22 @@ import { ITournament } from "../data/ITypes";
 import { backendBaseURL } from '../data/utils';
 import { IPersonCard } from '../data/ITypes';
 import BasicDiv from '../components/BasicDiv';
+import Loading from '../components/Loading';
 
 const AboutUs = () => {
   
-    const [tournaments, setTournaments] = useState<ITournament[]>([]);
+    const [tournaments, setTournaments] = useState<ITournament[]>();
+    const [person, setPerson] = useState<IPersonCard[]>();
 
     useEffect(() => {
         const res = async () => {
-        return await fetch(backendBaseURL + `/tournaments`)
+        await fetch(backendBaseURL + `/tournaments`)
                         .then((res) => res.json())
                         .then((data) => { setTournaments(data); console.log(data); return data })
+                        .catch((error) => { console.log(error); });
+        await fetch(backendBaseURL + `/about`)
+                        .then((res) => res.json())
+                        .then((data) => { setPerson(data); console.log(data); return data })
                         .catch((error) => { console.log(error); });
         }
         res();
@@ -32,11 +38,11 @@ const AboutUs = () => {
             <span className="text-md text-theme my-2">Address {_about.address}</span>
             <div className="grid grid-cols-3 gap-5 mt-20">
                 {
-                    _about.personals.map((props, ind) => {
+                    person ? person.map((props, ind) => {
                         return (
                             <PersonCard key={ind} {...props} />
                         )
-                    })
+                    }) : <Loading />
                 }
             </div>
         </BasicDiv>
@@ -71,7 +77,7 @@ const TournamentInfoCard = ({tournamentid, name, start_date, end_date} : ITourna
 
 const PersonCard = ({name, img, post} : IPersonCard) => {
     return (
-        <BasicDiv ostyle="min-w-[20rem] min-h-[20rem] p-0 hover:bg-theme hover:text-theme-w pb-5">
+        <BasicDiv ostyle="min-w-[20rem] min-h-[20rem] hover:bg-theme hover:text-theme-w pb-5">
             <div className="w-full h-[15rem] bg-theme-g">{img?<img src={img} alt={name} /> : <></>}</div>
             <span className="font-bold text-xl">{name}</span>
             <span className="font-light text-sm">{post}</span>

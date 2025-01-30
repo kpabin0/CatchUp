@@ -10,7 +10,7 @@ const Fixtures = () => {
 
   useEffect(() => {
     const res = async () => {
-      return await fetch(backendBaseURL + `/matches`)
+      return await fetch(backendBaseURL + `/matches/highlight`)
                     .then((res) => res.json())
                     .then((data) => { setFixtureData(data); console.log(data); return data; })
                     .catch((error) => { console.log(error); });
@@ -36,19 +36,18 @@ const Fixtures = () => {
 }
 
 export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
+  const teams = [team_1, team_2]
   return (
-    <BorderDiv ostyle="w-full min-h-[10rem] justify-between text-black relative">
-      { isLive ? <span className="absolute font-bold bottom-1 right-2 text-theme-cont animate-pulse">Live</span> : <></>}
-      <div className="w-full grid-cols-3">
-        <div className="w-full grid grid-cols-2 gap-6">
-          <span className="text-xl uppercase font-main-a font-extrabold inline-block text-theme">{team_1.name}</span>
-          <span className="text-xl uppercase font-main-a font-extrabold inline-block text-theme">{team_2.name}</span>
-        </div>
-        <span className="w-full text-xl block uppercase">Vs</span>
-        <div className="w-full grid grid-cols-2 gap-6">
-          <span className="text-3xl tracking-tighter font-extrabold">{team_1.runs} / {team_1.wickets} ({team_1.over})</span>
-          <span className="text-3xl tracking-tighter font-extrabold">{team_2.runs} / {team_2.wickets} ({team_2.over})</span>
-        </div>
+    <BorderDiv ostyle="min-h-[10rem] bg-theme-w p-2 py-5 rounded-lg shadow-lg text-center relative">
+      { isLive ? <span className="absolute font-bold bottom-1 right-2 text-sm text-theme-cont animate-pulse">Live</span> : <></>}
+      <span>vs</span>
+      <div className="grid grid-cols-2 gap-10">
+        {teams.map((t) => {
+          return <div>
+                    <h1 className='text-theme uppercase font-bold'>{t.name}</h1>
+                    <span className="text-3xl tracking-tighter font-extrabold">{t.runs} / {t.wickets} ({t.over})</span>
+                </div>
+        })}
       </div>
       {date ? <span className="text-sm tracking-tighter font-light">{date}</span> : <></>}
     </BorderDiv>

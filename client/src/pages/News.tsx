@@ -39,19 +39,19 @@ const News = () => {
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
         <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
         
-        <div className="w-[90%] grid grid-cols-3">
-          <div className="col-span-2 p-10 grid md:grid-cols-2 gap-10">
+        <div className="max-w-[95%] min-w-[80%] grid grid-cols-3">
+          <div className="col-span-2 p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
             {
               newsData ? newsData.map((props, ind) => {
                 return <NewsCard key={ind} {...props} />
-              }) : tempArr.map((ind) => <NewsCard title='title' img='' description='desc' />)
+              }) : <Loading text="news" />
             }
           </div>
-          <BasicDiv ostyle="w-[90%] mx-auto self-start space-y-2 mt-10">
+          <BasicDiv ostyle="w-[100%] mx-auto self-start space-y-2 mt-10">
             {
               subNewsData ? subNewsData.map((props, ind) => {
                 return <SubNewsCard key={ind} {...props} />
-              }) : tempArr.map((ind) => <SubNewsCard title='subtitle' url='' description='desc' />)
+              }) : <Loading text="subnews" />
             }
           </BasicDiv>
         </div>
@@ -65,11 +65,11 @@ const NewsCard = ({title, img, description} : INews) => {
       <img
         src={"#"}
         alt={"news"}
-        className="w-full h-48 object-cover bg-theme-g"
+        className="w-36 h-36 object-cover bg-theme-g"
       />
-      <div className="p-4">
-        <h3 className="text-xl font-semibold text-theme-g mb-2">Headline</h3>
-        <p className="text-sm text-theme-g mb-4">description</p>
+      <div className="w-full p-2">
+        <h3 className="text-xl font-semibold text-theme-g mb-2">{title}</h3>
+        <p className="text-sm text-theme-g mb-4">{description}</p>
       </div>
       <span className="self-end pb-2"><ThemeLink label='Read More' url={`/news/${title}`} /></span>
     </BasicDiv>

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
-import ThemeDiv from '../components/ThemeDiv';
-import BasicDiv from '../components/BasicDiv';
-import { KeyValSpan1 } from '../components/KeyValueSpan';
+import ThemeDiv from '../../components/ThemeDiv';
+import BasicDiv from '../../components/BasicDiv';
+import { KeyValSpan1 } from '../../components/KeyValueSpan';
 
 const Player = () => {
 

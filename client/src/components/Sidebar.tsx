@@ -81,7 +81,7 @@ const Sidebar = () => {
 
 
   return (
-    <nav className="fixed top-0 left-0 z-50 flex flex-col justify-between items-center">
+    <nav className={"fixed top-0 left-0 flex flex-col justify-between items-center " + (shouldOpen ? "w-fit" : "w-0")}>
         <div 
             className={"w-[20rem] h-screen py-20 text-center bg-theme-w-alt flex flex-col justify-center transition-transform duration-300 shadow-xl " 
                         + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}

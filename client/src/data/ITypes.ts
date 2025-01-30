@@ -111,6 +111,13 @@ export interface IPersonCard {
 };
 
 
+export interface IMatchForm {
+    team_1: string,
+    team_2: string,
+    isLive?: boolean | null,
+    date: Date
+};
+
 
 // For view specifics in the webpage 
 export interface ITeamMatchView {

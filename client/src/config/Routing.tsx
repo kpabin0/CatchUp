@@ -15,8 +15,8 @@ import TournamentDetails from "../pages/Tournaments/TournamentDetails"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
 import AboutUs from "../pages/AboutUs"
-import Players from "../pages/Players"
-import Player from "../pages/Player"
+import Players from "../pages/Players/Players"
+import Player from "../pages/Players/Player"
 import Dashboard from "../pages/Dashboard"
 import { useState, useEffect } from "react"
 import Sidebar from "../components/Sidebar"
@@ -25,6 +25,8 @@ import ResetPassword from "../pages/ResetPassword"
 import VenueCreateForm from "../pages/venues/venue.form"
 import Venue from "../pages/venues/venue.all"
 import EditVenue from "../pages/venues/venue.edit"
+import CreateMatchForm from "../pages/Matches/MatchesForm"
+import CreatePlayerForm from "../pages/Players/PlayerForm"
 
 const Routing = () => {
 
@@ -55,6 +57,7 @@ const Routing = () => {
       <Route path="/home" element={isAdmin ? <Dashboard /> : isLoggedIn ? <Home /> : <Login />}/>
       <Route>
         <Route path="/matches" element={<Matches />} />
+        <Route path="/matches/create" element={<CreateMatchForm />} />
       </Route>
       <Route path="/tournaments" element={<Tournaments />} />
       <Route path="/news" element={<News />} />
@@ -77,6 +80,7 @@ const Routing = () => {
       <Route path="/aboutus" element={<AboutUs />} />
       <Route>
         <Route path="/players" element={<Players />} />
+        <Route path="/players/create" element={<CreatePlayerForm />} />
         <Route path="/players/:tid/:pid" element={<Player />} />
       </Route>
 
