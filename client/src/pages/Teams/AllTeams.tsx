@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { backendBaseURL, checkAdminStatus } from "../../data/utils";
 import { Link } from "react-router-dom";
-import { FaTrash } from "react-icons/fa"; 
+import { FaTrash,FaEdit } from "react-icons/fa"; 
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
 import { ITeam } from "../../data/ITypes";
-
+import { useNavigate } from "react-router-dom";
 
 const AllTeams = () => {
   const [teams, setTeams] = useState<ITeam[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsAdmin(checkAdminStatus());
@@ -31,12 +32,16 @@ const AllTeams = () => {
 
   const deleteTeam = async (teamid: number) => {
     try {
-      console.log("Deleting venue with id: ", teamid);
-      await axios.delete(backendBaseURL+`/team/${teamid}`);
+      console.log("Deleting team with id: ", teamid);
+      await axios.delete(`${backendBaseURL}/team/${teamid}`);
       setTeams(teams.filter((team) => team.teamid !== teamid));
     } catch (error: any) {
       console.error("Error deleting team:", error.response.data);
     }
+  };
+
+  const handleEdit = (teamid: number) => {
+    navigate(`/teams/edit/${teamid}`);
   };
 
   return (
@@ -64,6 +69,7 @@ const AllTeams = () => {
                 {...team}
                 isAdmin={isAdmin}
                 onDelete={deleteTeam}
+                onEdit={handleEdit}  
               />
             ))}
           </tbody>
@@ -86,9 +92,10 @@ const AllTeams = () => {
 interface TeamCardProps extends ITeam {
   isAdmin: boolean;
   onDelete: (teamid: number) => void;
+  onEdit: (teamid: number) => void; // Add onEdit as a prop
 }
 
-const TeamCard = ({ teamid, name, description, isAdmin, onDelete }: TeamCardProps) => {
+const TeamCard = ({ teamid, name, description, isAdmin, onDelete, onEdit }: TeamCardProps) => {
   return (
     <tr className="my-2 py-2">
       <td>{teamid}</td>
@@ -103,12 +110,14 @@ const TeamCard = ({ teamid, name, description, isAdmin, onDelete }: TeamCardProp
       <td>{description}</td>
       {isAdmin && (
         <td>
-          <button
+          <FaEdit
+            onClick={() => onEdit(teamid)}
+            className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme hover:text-theme-w text-theme"
+          />
+          <FaTrash
             onClick={() => onDelete(teamid)}
-            className="text-red-500 hover:text-red-700 transition"
-          >
-            <FaTrash /> 
-          </button>
+            className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont text-theme-cont hover:text-theme-w"
+          />
         </td>
       )}
     </tr>
@@ -116,4 +125,6 @@ const TeamCard = ({ teamid, name, description, isAdmin, onDelete }: TeamCardProp
 };
 
 export default AllTeams;
+
+
 

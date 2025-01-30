@@ -40,7 +40,7 @@ const Landing = () => {
         <h1 className="font-main-a text-8xl my-10 font-bold uppercase text-theme">Catchup</h1>
         <h1 className="font-main-a text-5xl font-bold uppercase text-theme-w">{currentTournament?.substring(0, textCount) + "_"}</h1>
       </BasicDiv>
-      <ThemeLink label="Explore" url="/home" />
+      <span><ThemeLink label="Explore" url="/home" /></span>
     </section>
   )
 }

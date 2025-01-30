@@ -25,7 +25,7 @@ import ResetPassword from "../pages/ResetPassword"
 import VenueCreateForm from "../pages/venues/venue.form"
 import Venue from "../pages/venues/venue.all"
 import EditVenue from "../pages/venues/venue.edit"
-import VenueDetails from "../pages/venues/venue.details"
+import EditTeam from "../pages/Teams/Editteam"
 import AllTeams from "../pages/Teams/AllTeams"
 import TeamDetails from "../pages/Teams/team.details"
 const Routing = () => {
@@ -53,49 +53,44 @@ const Routing = () => {
     <>
     {isSideBar || isAdmin || isLoggedIn ? <Sidebar /> : <Navbar />}
     <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/home" element={<Home />}/>
-        <Route>
-          <Route path="/matches" element={<Matches />} />
-        </Route>
-        <Route path="/tournaments" element={<Tournaments />} />
-        <Route path="/news" element={<News />} />
-        <Route path="/fixtures" element={<Fixtures />} />
-        <Route path="/teams/create" element={<TeamsForm/>} />
-        <Route path="/resetpassword" element={<ResetPassword/>} />
-        <Route>
-          <Route path="/tournaments/" element={<Tournaments />} />
-          <Route path="/tournaments/create" element={<CreateTournamentForm />} />
-          <Route path="/tournaments/edit/:tid" element={<EditTournament />} />
-          <Route path="/tournaments/:tid" element={<TournamentDetails />} />
-        </Route>
+      <Route path="/" element={<App />} />
+      <Route path="/home" element={isAdmin ? <Dashboard /> : isLoggedIn ? <Home /> : <Login />}/>
+      <Route>
+        <Route path="/matches" element={<Matches />} />
+      </Route>
+      <Route path="/tournaments" element={<Tournaments />} />
+      <Route path="/news" element={<News />} />
+      <Route path="/fixtures" element={<Fixtures />} />
+      <Route path="/teams/create" element={<TeamsForm/>} />
+      <Route path="/resetpassword" element={<ResetPassword/>} />
+      <Route>
+        <Route path="/tournaments/" element={<Tournaments />} />
+        <Route path="/tournaments/create" element={<CreateTournamentForm />} />
+        <Route path="/tournaments/edit/:tid" element={<EditTournament />} />
+        <Route path="/tournaments/:tid" element={<TournamentDetails />} />
+      </Route>
         <Route path="/teams/create" element={<TeamsForm/>} />
         <Route path="/teams" element={<AllTeams/>}/>
         <Route path="/teams/:teamid" element={<TeamDetails/>}/>
+        <Route path="/teams/edit/:teamid" element={<EditTeam/>}/>
         <Route>
           
         </Route>
 
-        <Route>
-      
-         
-          <Route path="/venues" element={< Venue/>} />
-          <Route path="/venues/create" element={< VenueCreateForm/>} />
-          <Route path="/venues/edit/:venueid" element={< EditVenue/>} />
-          <Route path="/venues/:venueid" element={< VenueDetails/>} />
-   
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/aboutus" element={<AboutUs />} />
-        <Route>
-          <Route path="/players" element={<Players />} />
-          <Route path="/players/:tid/:pid" element={<Player />} />
-        </Route>
+      <Route>
+        <Route path="/venues" element={< Venue/>} />
+        <Route path="/venues/create" element={< VenueCreateForm/>} />
+        <Route path="/venues/edit/:venueid" element={< EditVenue/>} />
+      </Route>
+      <Route path="/login" element={isAdmin ? <Dashboard /> : isLoggedIn ? <Home /> : <Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/aboutus" element={<AboutUs />} />
+      <Route>
+        <Route path="/players" element={<Players />} />
+        <Route path="/players/:tid/:pid" element={<Player />} />
+      </Route>
 
-        <Route path="/dashboard" element={<Dashboard />} />
-
-        <Route path="*" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
     <Footer />
     </>

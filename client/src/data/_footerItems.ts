@@ -27,6 +27,10 @@ export const _otherLinks = [
         url: "/players"
     },
     {
+        label: "Venues",
+        url: "/venues"
+    },
+    {
         label: "About Us",
         url: "/aboutus"
     },

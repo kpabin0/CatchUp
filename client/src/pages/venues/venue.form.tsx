@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { IVenue } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
+import TextInputField from "../../components/TextInputField";
+import ThemeFormDiv from "../../components/ThemeFormDiv";
+import { useNavigate } from "react-router-dom";
+import Message from "../../components/Message";
+
 const VenueCreateForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,9 +14,9 @@ const VenueCreateForm = () => {
   });
 
   const [responseMessage, setResponseMessage] = useState("");
+  const navigate = useNavigate();
 
-
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -21,12 +25,13 @@ const VenueCreateForm = () => {
   };
 
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      
       const response = await axios.post(backendBaseURL+`/venues/create`, formData);
       setResponseMessage(`Venue created successfully: ${JSON.stringify(response.data)}`);
+      console.log(e);
+      navigate("/venues");
     } catch (error:any) {
       console.error("Error creating venue:", error);
       setResponseMessage(error.response?.data?.error || "Something went wrong.");
@@ -34,71 +39,49 @@ const VenueCreateForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-5 border rounded-lg shadow-lg bg-white">
-      <h1 className="text-xl font-bold mb-5">Create a New Venue</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        
-        <div>
-          <label className="block font-medium mb-2" htmlFor="name">
-            Venue Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            placeholder="Enter venue name"
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
+    <div className="w-full h-screen flex justify-center items-center">
+      <ThemeFormDiv ostyle="py-6 border justify-evenly">
+      {responseMessage && <Message message={responseMessage} type="success" onClose={() => setResponseMessage("")} />}
+      
+      <h1 className="text-xl font-bold mb-5 text-theme">Create a New Venue</h1>
+      <form onSubmit={handleSubmit} className="w-[90%] space-y-4">
 
-        <div>
-          <label className="block font-medium mb-2" htmlFor="seats">
-            Number of Seats
-          </label>
-          <input
-            type="number"
-            id="seats"
-            name="seats"
-            value={formData.seats}
-            onChange={handleInputChange}
-            placeholder="Enter number of seats"
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block font-medium mb-2" htmlFor="location">
-            Location
-          </label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleInputChange}
-            placeholder="Enter location"
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
+        <TextInputField 
+          type="text"
+          label="Venue Name"
+          name="name"
+          value={formData.name}
+          placeholder="Enter venue name"
+          required={true}
+          onInputChange={handleInputChange}
+        />
+        <TextInputField 
+          type="number"
+          label="Number of Seats"
+          name="seats"
+          value={formData.seats}
+          placeholder="Enter number of seats"
+          required={true}
+          onInputChange={handleInputChange}
+        />
+        <TextInputField 
+          type="text"
+          label="Location"
+          name="location"
+          value={formData.location}
+          placeholder="Enter location"
+          required={true}
+          onInputChange={handleInputChange}
+        />
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
+          className="w-full bg-theme text-white py-2 rounded hover:bg-theme-alt transition"
         >
           Create Venue
         </button>
       </form>
-
-      {responseMessage && (
-        <div className="mt-4 p-3 border rounded bg-gray-100">
-          <p className="text-sm">{responseMessage}</p>
-        </div>
-      )}
+      </ThemeFormDiv>
     </div>
   );
 };

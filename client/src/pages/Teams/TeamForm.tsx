@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { backendBaseURL } from '../../data/utils';
+import TextInputField from '../../components/TextInputField';
+import Message from '../../components/Message';
 
 const Teams = () => {
 
@@ -33,40 +35,42 @@ const Teams = () => {
 
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
+      {error && <Message message={error} type="error" onClose={() => setError(null)} />}
       <h1 className="text-3xl mb-4 text-theme uppercase font-extrabold">Add Team</h1>
       <div className="grid grid-cols-3 gap-10">
-        <input
+        <TextInputField 
+          label="Team id"
           type="number"
           name="teamid"
           placeholder="Team ID"
           value={teamData.teamid}
-          onChange={handleInputChange}
-          className="p-2 border-2 outline-none focus:border-b-theme rounded"
+          onInputChange={handleInputChange}
         />
-        <input
+        <TextInputField 
+          label="Team Name"
           type="text"
           name="name"
           placeholder="Team Name"
           value={teamData.name}
-          onChange={handleInputChange}
-          className="p-2 col-span-2 border-2 outline-none focus:border-b-theme rounded"
+          onInputChange={handleInputChange}
+          ostyle="col-span-2"
         />
-        <input
+        <TextInputField
+          label="Team Description" 
           type="text"
           name="description"
           placeholder="Description"
           value={teamData.description}
-          onChange={handleInputChange}
-          className="p-2 col-span-3 border-2 outline-none focus:border-b-theme rounded"
+          onInputChange={handleInputChange}
+          ostyle="col-span-3"
         />
-        </div>
-        {error && <p className="text-theme-cont">{error}</p>}
-        <button
-          onClick={handleCreateTeam}
-          className="px-4 py-2 bg-theme text-theme-w rounded hover:bg-theme-alt"
-        >
-          Create Team
-        </button>
+      </div>
+      <button
+        onClick={handleCreateTeam}
+        className="px-4 py-2 bg-theme text-theme-w rounded hover:bg-theme-alt"
+      >
+        Create Team
+      </button>
     </section>
   );
 };

@@ -4,6 +4,7 @@ import axios from 'axios';
 import TextInputField from '../components/TextInputField';
 import { backendBaseURL, loggedInStatus } from '../data/utils';
 import FullBgCover from '../components/FullBgCover';
+import Message from '../components/Message';
 
 
 const Login = () => {
@@ -60,8 +61,7 @@ const Login = () => {
 
         <form className="w-[90%]" onSubmit={handleFormSubmit}>
          
-          {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-
+        {error && <Message message={error} type="error" onClose={() => setError("")} />}
        
           <div className="mt-2">
             <TextInputField

@@ -5,6 +5,7 @@ import { backendBaseURL, checkAdminStatus } from "../../data/utils";
 import { Link } from "react-router-dom";
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
+import Message from "../../components/Message";
 
 
 const Tournaments = () => {
@@ -38,8 +39,8 @@ const Tournaments = () => {
           All Tournaments
         </h2>
 
-        {message && <div className="text-theme-green mb-4">{message}</div>}
-        {error && <div className="text-theme-cont mb-4">{error}</div>}
+        {message && <Message message={message} type="success" onClose={() => setMessage(null)} />}
+        {error && <Message message={error} type="error" onClose={() => setError(null)} />}
 
         <table className="w-full text-md text-center rtl:text-right table-fixed">
           <thead>

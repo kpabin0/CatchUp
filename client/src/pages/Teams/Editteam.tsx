@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { IVenue } from "../../data/ITypes";
+import { ITeam } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
 import Loading from "../../components/Loading";
 import TextInputField from "../../components/TextInputField";
 import Message from "../../components/Message";
 import ThemeFormDiv from "../../components/ThemeFormDiv";
 
-const EditVenue = () => {
-  const { venueid } = useParams(); 
-  const [venue, setVenue] = useState<IVenue | null>(null);
+const EditTeam = () => {
+  const { teamid } = useParams(); 
+  const [team, setTeam] = useState<ITeam | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (venueid) {
-      axios.get(`${backendBaseURL}/team/${venueid}`)
+    if (teamid) {
+      axios.get(`${backendBaseURL}/team/${teamid}`)
         .then((response) => {
-          setVenue(response.data); 
+          setTeam(response.data); 
           setLoading(false);
         })
         .catch((error) => {
@@ -29,12 +29,12 @@ const EditVenue = () => {
           console.error("Error fetching venue data:", error);
         });
     }
-  }, [venueid]);
+  }, [teamid]);
 
   const handleInputChange = (e: any) => {
-    if (venue) {
-      setVenue({
-        ...venue,
+    if (team) {
+      setTeam({
+        ...team,
         [e.target.name]: e.target.value,
       });
     }
@@ -42,18 +42,18 @@ const EditVenue = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (venue) {
+    if (team) {
       try {
-        const response = await axios.put(`${backendBaseURL}/venues/${venueid}`, venue);
-        console.log("Venue updated:", response.data);
-        setSuccessMessage("Venue updated successfully!");
+        const response = await axios.put(`${backendBaseURL}/team/${teamid}`, team);
+        console.log("Team updated:", response.data);
+        setSuccessMessage("Team updated successfully!");
         setError(null); 
       } catch (error) {
-        setError("Error updating venue data.");
-        console.error("Error updating venue:", error);
+        setError("Error updating team data.");
+        console.error("Error updating team:", error);
         setSuccessMessage(null); 
       }
-      setTimeout(() => {  navigate("/venues") }, 1000);
+      setTimeout(() => {  navigate("/teams") }, 1000);
     }
   };
   
@@ -69,42 +69,34 @@ const EditVenue = () => {
         {error && <Message message={error} type="error" onClose={() => setError("")} />}
 
         <h2 className="text-2xl text-theme font-extrabold text-center pb-5 uppercase">
-          Edit Venue
+          Edit Team
         </h2>
   
-        {venue ?
+        {team ?
           <form onSubmit={handleSubmit} className="w-[90%]">
             <TextInputField
               type="text"
-              label="Venue ID"
-              name="venueid"
-              value={venue.venueid.toString()}
+              label="Team ID"
+              name="teamid"
+              value={team.teamid.toString()}
               readOnly={true}
             />
             <TextInputField 
               type="text"
-              label="Venue Name"
+              label="Team Name"
               name="name"
-              value={venue.name}
-              placeholder="Enter venue name"
+              value={team.name}
+              placeholder="Enter team name"
               required={true}
               onInputChange={handleInputChange}
             />
-            <TextInputField 
-              type="number"
-              label="Number of Seats"
-              name="seats"
-              value={venue.seats.toString()}
-              placeholder="Enter number of seats"
-              required={true}
-              onInputChange={handleInputChange}
-            />
+         
             <TextInputField 
               type="text"
-              label="Location"
-              name="location"
-              value={venue.location}
-              placeholder="Enter location"
+              label="description"
+              name="description"
+              value={team.description}
+              placeholder="Enter desciption"
               required={true}
               onInputChange={handleInputChange}
             />
@@ -123,6 +115,6 @@ const EditVenue = () => {
   
 };
 
-export default EditVenue;
+export default EditTeam;
 
 
