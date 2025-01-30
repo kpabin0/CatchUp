@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const dbpool = require('./pgdb');
+const dbpool = require('../config/pgdb');
 
 
 router.post("/", async (req, res) => {
@@ -27,6 +27,22 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/hot", async (req, res) => {
+    const { count } = req.params;
+    // console.log("get request recieved in tournament")
+    try {
+        const allTournaments = await dbpool.query("SELECT * FROM tournaments");
+        const retCount = count ? count : 4;
+        console.log("Fetched all tournaments:", allTournaments.rows);
+        if(allTournaments.rows.length > retCount)
+            res.json(allTournaments.rows.slice(allTournaments.rows.length - retCount - 1, allTournaments.rows.length - 1));
+        else
+            res.json(allTournaments.rows);
+    } catch (err) {
+        console.error("Error fetching tournaments:", err.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 router.get("/", async (req, res) => {
     // console.log("get request recieved in tournament")

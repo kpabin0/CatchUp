@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const dbpool = require('./pgdb');
+const dbpool = require('../config/pgdb');
 
 router.post("/create", async (req, res) => {
     const { name, seats, location } = req.body; 
@@ -30,7 +30,7 @@ router.post("/create", async (req, res) => {
 
 router.get("/", async (req, res) => {
     try {
-        const allVenues = await dbpool.query("SELECT * FROM venueses");
+        const allVenues = await dbpool.query("SELECT * FROM venues");
         console.log("Fetched all venues:", allVenues.rows);
         res.json(allVenues.rows);
     } catch (error) {
