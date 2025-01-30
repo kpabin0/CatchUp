@@ -10,6 +10,12 @@ export const _navItems = [
         ]
     },
     {
+        label: "Teams",
+        url: "/teams",
+        subItems: [
+        ]
+    },
+    {
         label: "Tournaments",
         url: "/tournaments",
         subItems: [

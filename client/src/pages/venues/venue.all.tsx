@@ -59,7 +59,7 @@ const Venue = () => {
               <th>Name</th>
               <th>Seats</th>
               <th>Location</th>
-              {isAdmin && <th>Actions</th>} {/* Add Actions column for delete icon */}
+              {isAdmin && <th>Actions</th>} 
             </tr>
           </thead>
           <tbody>
@@ -114,7 +114,7 @@ const VenueCard = ({
             onClick={() => handleDelete(venueid)}
             className="text-red-500 hover:text-red-700"
           >
-            <FaTrash /> {/* Display trash icon */}
+            <FaTrash /> 
           </button>
         </td>
       )}

@@ -5,7 +5,7 @@ import { backendBaseURL } from '../../data/utils';
 const Teams = () => {
 
   const [teamData, setTeamData] = useState({
-    id: '',
+    teamid: '',
     name: '',
     description: ''
   });
@@ -25,8 +25,8 @@ const Teams = () => {
       const response = await axios.post(backendBaseURL + `/team/create`, teamData);  // Backend API URL
       console.log('Team created:', response.data);
       setError(null);
-    } catch (err) {
-      console.error('Error creating team:', err);
+    } catch (error:any) {
+      console.error('Error creating team:', error.response);
       setError('Failed to create team. Please try again.');
     }
   };
@@ -37,9 +37,9 @@ const Teams = () => {
       <div className="grid grid-cols-3 gap-10">
         <input
           type="number"
-          name="id"
+          name="teamid"
           placeholder="Team ID"
-          value={teamData.id}
+          value={teamData.teamid}
           onChange={handleInputChange}
           className="p-2 border-2 outline-none focus:border-b-theme rounded"
         />
