@@ -18,7 +18,7 @@ const EditTeam = () => {
 
   useEffect(() => {
     if (teamid) {
-      axios.get(`${backendBaseURL}/team/${teamid}`)
+      axios.get(`${backendBaseURL}/teams/${teamid}`)
         .then((response) => {
           setTeam(response.data); 
           setLoading(false);
@@ -44,7 +44,7 @@ const EditTeam = () => {
     e.preventDefault();
     if (team) {
       try {
-        const response = await axios.put(`${backendBaseURL}/team/${teamid}`, team);
+        const response = await axios.put(`${backendBaseURL}/teams/${teamid}`, team);
         console.log("Team updated:", response.data);
         setSuccessMessage("Team updated successfully!");
         setError(null); 

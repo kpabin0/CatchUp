@@ -21,7 +21,7 @@ const AllTeams = () => {
 
   const fetchTeams = async () => {
     try {
-      const response = await axios.get(`${backendBaseURL}/team`);
+      const response = await axios.get(`${backendBaseURL}/teams`);
       setTeams(response.data);
       setError(null);
     } catch (error: any) {
@@ -33,7 +33,7 @@ const AllTeams = () => {
   const deleteTeam = async (teamid: number) => {
     try {
       console.log("Deleting team with id: ", teamid);
-      await axios.delete(`${backendBaseURL}/team/${teamid}`);
+      await axios.delete(`${backendBaseURL}/teams/${teamid}`);
       setTeams(teams.filter((team) => team.teamid !== teamid));
     } catch (error: any) {
       console.error("Error deleting team:", error.response.data);

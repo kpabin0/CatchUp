@@ -8,6 +8,7 @@ import BasicDiv from "../../components/BasicDiv";
 import { checkAdminStatus } from "../../data/utils";
 import ThemeLink from "../../components/ThemeLink";
 import Loading from "../../components/Loading";
+import Message from "../../components/Message";
 
 const TeamDetails = () => {
   const { teamid } = useParams<{ teamid: string }>();
@@ -15,7 +16,7 @@ const TeamDetails = () => {
 
   const [team, setTeam] = useState<ITeam | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const[message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
  
@@ -29,13 +30,13 @@ const TeamDetails = () => {
       try {
         console.log("Fetching venue with ID:", teamid);
      
-        const response = await axios.get(backendBaseURL+`/team/${teamid}`);
+        const response = await axios.get(backendBaseURL+`/teams/${teamid}`);
         console.log("API Response:", response.data);
-        setMessage("Tournament created successfully!");
+        setMessage("Tournament fetched successfully!");
         if (response.data) {
           setTeam(response.data);
         } else {
-          setError("Venue not found.");
+          setError("Teams not found.");
         }
       } catch (error: any) {
         setError("Error fetching venue data.");
@@ -60,7 +61,8 @@ const TeamDetails = () => {
           Team Details
         </h2>
 
-        {error && <div className="text-theme-cont">{error}</div>}
+        {message && <Message message={message} type="success" onClose={() => setMessage(null)} />}
+        {error && <Message message={error} type="error" onClose={() => setError(null)} />}
 
         {team ? (
           <>
@@ -82,7 +84,7 @@ const TeamDetails = () => {
               <ThemeLink
                 ostyle="m-4"
                 label="Edit"
-                url={`/venues/edit/${team?.teamid}`}
+                url={`/teams/edit/${team?.teamid}`}
               />
             )}
           </>

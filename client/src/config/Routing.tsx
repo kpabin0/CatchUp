@@ -72,13 +72,12 @@ const Routing = () => {
         <Route path="/tournaments/edit/:tid" element={<EditTournament />} />
         <Route path="/tournaments/:tid" element={<TournamentDetails />} />
       </Route>
+      <Route>
         <Route path="/teams/create" element={<TeamsForm/>} />
         <Route path="/teams" element={<AllTeams/>}/>
         <Route path="/teams/:teamid" element={<TeamDetails/>}/>
         <Route path="/teams/edit/:teamid" element={<EditTeam/>}/>
-        <Route>
-          
-        </Route>
+      </Route>
 
       <Route>
         <Route path="/venues" element={< Venue/>} />
