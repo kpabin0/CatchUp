@@ -7,7 +7,7 @@ import Message from '../../components/Message';
 const Teams = () => {
 
   const [teamData, setTeamData] = useState({
-    id: '',
+    teamid: '',
     name: '',
     description: ''
   });
@@ -27,8 +27,8 @@ const Teams = () => {
       const response = await axios.post(backendBaseURL + `/team/create`, teamData);  // Backend API URL
       console.log('Team created:', response.data);
       setError(null);
-    } catch (err) {
-      console.error('Error creating team:', err);
+    } catch (error:any) {
+      console.error('Error creating team:', error.response);
       setError('Failed to create team. Please try again.');
     }
   };
@@ -41,9 +41,9 @@ const Teams = () => {
         <TextInputField 
           label="Team id"
           type="number"
-          name="id"
+          name="teamid"
           placeholder="Team ID"
-          value={teamData.id}
+          value={teamData.teamid}
           onInputChange={handleInputChange}
         />
         <TextInputField 
