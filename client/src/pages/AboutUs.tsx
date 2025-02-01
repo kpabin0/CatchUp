@@ -36,13 +36,13 @@ const AboutUs = () => {
             <h1 className="font-bold text-xl text-theme-alt my-2">{_about.quote}</h1>
             <h1 className="text-xl text-theme-g my-2">Established in : {_about.establishedIn}</h1>
             <span className="text-md text-theme my-2">Address {_about.address}</span>
-            <div className="grid grid-cols-3 gap-5 mt-20">
+            <div className="flex flex-row justify-evenly items-center space-x-5 mt-20">
                 {
                     person ? person.map((props, ind) => {
                         return (
                             <PersonCard key={ind} {...props} />
                         )
-                    }) : <Loading />
+                    }) : <Loading text="personals" />
                 }
             </div>
         </BasicDiv>
@@ -56,7 +56,7 @@ const AboutUs = () => {
                     <TournamentInfoCard {...props} />
                 </BasicDiv>
               )
-            }) : <span className="text-3xl text-theme ">Loading...</span>
+            }) : <Loading />
           }
         </div>
     </section>

@@ -37,15 +37,15 @@ const News = () => {
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
         <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
         
-        <div className="max-w-[95%] min-w-[80%] grid grid-cols-3">
-          <div className="col-span-2 p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid xl:grid-cols-3 grid-cols-1 gap-x-10">
+          <div className="w-full xl:col-span-2 p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
             {
               newsData ? newsData.map((props, ind) => {
                 return <NewsCard key={ind} {...props} />
               }) : <Loading text="news" />
             }
           </div>
-          <BasicDiv ostyle="w-[100%] mx-auto self-start space-y-2 mt-10">
+          <BasicDiv ostyle="w-full mx-auto xl:self-start space-y-2 mt-10">
             {
               subNewsData ? subNewsData.map((props, ind) => {
                 return <SubNewsCard key={ind} {...props} />
