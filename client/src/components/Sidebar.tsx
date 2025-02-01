@@ -81,11 +81,9 @@ const Sidebar = () => {
 
 
   return (
-    <nav className={"fixed top-0 left-0 flex flex-col justify-between items-center " + (shouldOpen ? "w-fit" : "w-0")}>
-        <div 
-            className={"w-[20rem] h-screen py-20 text-center bg-theme-w-alt flex flex-col justify-center transition-transform duration-300 shadow-xl " 
-                        + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}
-        >
+    <>
+    <nav className={"fixed top-0 left-0 w-[20rem] h-screen flex flex-col justify-center items-center bg-theme-w-alt z-40 shadow-xl transition-transform duration-300 "  + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}>
+        <div className="w-full py-20 text-center flex flex-col justify-center">
         <Logo ostyle="h-[2rem] mx-auto my-4" />
         {
             sideNavItems?.map(({label, url}, ind) => {
@@ -102,14 +100,15 @@ const Sidebar = () => {
         </button>
         </div>
 
-        <button 
-            onClick={() => setShouldOpen(!shouldOpen)}
-            className={'absolute top-0 left-0 rounded-[50%] m-2 p-2 text-theme-w bg-theme'} 
-        >
-            <TbMenu className='w-5 h-5' />
-        </button>
 
     </nav>
+    <button 
+        onClick={() => setShouldOpen(!shouldOpen)}
+        className={'absolute top-0 left-0 z-50 rounded-[50%] m-2 p-2 text-theme-w bg-theme'} 
+    >
+        <TbMenu className='w-5 h-5' />
+    </button>
+    </>
   )
 }
 
