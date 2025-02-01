@@ -7,6 +7,7 @@ import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
 import Message from "../../components/Message";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useInfoHandler } from "../../customhook/info";
 
 interface ITournamentCard extends ITournament {
   handleEdit: (id: number) => void,
@@ -16,8 +17,7 @@ interface ITournamentCard extends ITournament {
 
 const Tournaments = () => {
   const [tournaments, setTournaments] = useState<ITournament[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
+  const { info, setInfo } = useInfoHandler();
   const [isAdmin, setIsAdmin] = useState(false); 
 
   const navigate = useNavigate();
@@ -32,22 +32,21 @@ const Tournaments = () => {
     try {
       const response = await axios.get(backendBaseURL + `/tournaments`);
       setTournaments(response.data);
-      setMessage(null);
+      setInfo(["Tournament fetched successfully", "success"])
     } catch (error: any) {
-      setError("Error fetching tournaments.");
-      setError(null);
+      setInfo(["Error fetching tournaments.", "error"]);
       console.error(error);
     }
   };
 
   const handleDelete = async (tid: number) => {
     try {
-      console.log("Deleting tournament with id: ", tid);
       const response = await axios.delete(backendBaseURL + `/tournaments/${tid}`);
-      setMessage("tournament deleted successfully!");
+      console.log("Tournament deleted", response.data);
+      setInfo(["tournament deleted successfully!", "success"]);
       fetchTournaments();
     } catch (error: any) {
-      setError("Error deleting tournament.");
+      setInfo(["Error deleting tournament.", "error"]);
       console.error(error.response.data);
     }
   };
@@ -62,9 +61,8 @@ const Tournaments = () => {
         <h2 className="w-full py-6 text-2xl font-extrabold uppercase bg-theme text-theme-w text-center mb-5">
           All Tournaments
         </h2>
+        {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
 
-        {message && <Message message={message} type="success" onClose={() => setMessage(null)} />}
-        {error && <Message message={error} type="error" onClose={() => setError(null)} />}
 
         <table className="w-full text-md text-center rtl:text-right table-fixed">
           <thead>
@@ -78,13 +76,11 @@ const Tournaments = () => {
           </thead>
           <tbody>
             {tournaments.map((tournament, ind) => {
-              return <TournamentCard 
-                      key={ind} 
-                      {...tournament}
-                      handleEdit={handleEdit}
-                      handleDelete={handleDelete}
-                      isAdmin={isAdmin}
-                      />;
+              return <TournamentCard key={ind} {...tournament} 
+                        handleEdit={handleEdit} 
+                        handleDelete={handleDelete} 
+                        isAdmin={isAdmin}
+                      />
             })}
           </tbody>
         </table>

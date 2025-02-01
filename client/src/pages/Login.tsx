@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import TextInputField from '../components/TextInputField';
+import TextInputField from '../components/ThemeInputField';
 import { backendBaseURL, loggedInStatus } from '../data/utils';
 import FullBgCover from '../components/FullBgCover';
 import Message from '../components/Message';

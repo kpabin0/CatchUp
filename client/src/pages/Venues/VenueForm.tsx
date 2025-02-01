@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { ITeamForm } from '../../data/ITypes';
-import TextInputField from '../../components/ThemeInputField';
+import React, { useEffect, useState } from "react";
+import { IVenueForm } from "../../data/ITypes";
+import TextInputField from "../../components/ThemeInputField";
 
-interface ITeamFormCard {
-  d?: ITeamForm,
-  onSubmit: (d: ITeamForm) => void
+interface IVenueFormCard {
+  d?: IVenueForm | null,
+  onSubmit: (d: IVenueForm) => void
 };
 
 
-const TeamFormCard = ({d, onSubmit}: ITeamFormCard) => {
+const VeneueFormCard = ({d, onSubmit}: IVenueFormCard) => {
 
-  const [data, setData] = useState<ITeamForm>({
-    teamid: 0,
-    name: '',
-    description: ''
+  const [data, setData] = useState<IVenueForm>({
+    venueid: 0,
+    name: "",
+    seats: 0,
+    location: "",
   })
 
   useEffect(() => {
@@ -38,20 +39,21 @@ const TeamFormCard = ({d, onSubmit}: ITeamFormCard) => {
   const formReset = (e: React.FormEvent) => {
     e.preventDefault();
     setData({
-      teamid: data.teamid,
-      name: '',
-      description: ''
+        venueid: 0,
+        name: "",
+        seats: 0,
+        location: "",
     })
   }
 
   return (
     <form onSubmit={formSubmit} onReset={formReset} className="">
       <TextInputField
-        label="Team id"
+        label="Venue id"
         type="number"
-        name="teamid"
-        value={data.teamid?.toString()}
-        placeholder="Team id (not required)"
+        name="venueid"
+        value={data.venueid?.toString()}
+        placeholder="Venue id (not required)"
         onInputChange={onInputChange}
         readOnly={true}
       />
@@ -60,19 +62,29 @@ const TeamFormCard = ({d, onSubmit}: ITeamFormCard) => {
         type="text"
         name="name"
         value={data.name}
-        placeholder="Enter Team Name"
+        placeholder="Enter Venue Name"
         onInputChange={onInputChange}
         required={true}
       />
       <TextInputField
-        label="Description"
-        type="text"
-        name="description"
-        value={data.description}
-        placeholder="Enter team description"
+        label="Seat Capacity"
+        type="number"
+        name="seats"
+        value={data.seats.toString()}
+        placeholder="Enter seats"
         onInputChange={onInputChange}
         required={true}
       />
+      <TextInputField
+        label="Location"
+        type="text"
+        name="location"
+        value={data.location}
+        placeholder="Enter location"
+        onInputChange={onInputChange}
+        required={true}
+      />
+
 
       <button
         type="submit"
@@ -89,5 +101,5 @@ const TeamFormCard = ({d, onSubmit}: ITeamFormCard) => {
     </form>
   );
 };
-export default TeamFormCard;
-  
+
+export default VeneueFormCard;

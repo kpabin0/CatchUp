@@ -3,21 +3,20 @@ const router =express.Router()
 const dbpool = require("../config/pgdb")
 
 router.post("/create", async(req,res)=>{
-    const {teamid,name,description}=req.body;
+    const { name, description } = req.body;
    
-    console.log("Received from frontned", req.body)
-    if (!teamid || !name || !description) {
+    console.log("Received from frontend", req.body)
+    if (!name || !description) {
         return res.status(400).json({ error: "Missing required fields" });
     }
     try{
-        const  result =await dbpool.query('SELECT teamid from teams ORDER BY teamid DESC LIMIT 1;');
-        const teamid=result.rows.length > 0 ? result.rows[0].teamid + 1 : 1;
+        const  result = await dbpool.query('SELECT teamid from teams ORDER BY teamid DESC LIMIT 1;');
+        const teamid = result.rows.length > 0 ? result.rows[0].teamid + 1 : 1;
 
-        const query=`INSERT INTO teams (teamid, name, description) VALUES ($1, $2, $3 ) RETURNING *`;
-        const newTeam= await dbpool.query(query,[teamid,name,description])
+        const query = `INSERT INTO teams (teamid, name, description) VALUES ($1, $2, $3 ) RETURNING *`;
+        const newTeam = await dbpool.query(query,[teamid,name,description])
         console.log("New Team created",newTeam.rows[0])
         res.json(newTeam.rows[0]);
-
     }
 
     catch(error){
@@ -30,9 +29,9 @@ router.post("/create", async(req,res)=>{
 
 router.get("/", async(req,res)=>{
 try{
-const allteams= await dbpool.query("SELECT * from teams")
-console.log("Fetching all the teams", allteams.rows)
-res.json(allteams.rows)
+    const allteams = await dbpool.query("SELECT * from teams")
+    console.log("Fetching all the teams", allteams.rows)
+    res.json(allteams.rows)
 
 }
 catch(error){
@@ -91,7 +90,6 @@ router.put("/:teamid", async (req, res) => {
 
 
 router.get("/:teamid", async(req,res)=>{
-
 
     const { teamid } = req.params;
     console.log("Fetching team with id:", teamid);

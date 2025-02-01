@@ -1,61 +1,61 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { backendBaseURL, getArray } from "../../data/utils";
-import { ITournament } from "../../data/ITypes";
+import { ITeam } from "../../data/ITypes";
 import BasicDiv from "../../components/BasicDiv";
 import { checkAdminStatus } from "../../data/utils";
-import ThemeDiv from "../../components/ThemeDiv";
-import { MatchCard } from "../Matches/Matches";
-import { useInfoHandler } from "../../customhook/info";
 import Loading from "../../components/Loading";
 import Message from "../../components/Message";
+import { useInfoHandler } from "../../customhook/info";
+import ThemeDiv from "../../components/ThemeDiv";
+import { MatchCard } from "../Matches/Matches";
 // import ThemeLink from "../../components/ThemeLink";
 
-const tempArr = getArray(5)
+const tempArr = getArray(5);
 
-const TournamentDetails = () => {
-  const { tid } = useParams<{ tid: string }>();
-  const [isAdmin, setIsAdmin] = useState(false); 
+const TeamDetails = () => {
+    const { teamid } = useParams<{ teamid: string }>();
+    console.log("Team ID from URL:", teamid);
 
-  const [tournament, setTournament] = useState<ITournament | null>(null);
-  const { info, setInfo } = useInfoHandler()
+    const [team, setTeam] = useState<ITeam | null>(null);
+    const { info, setInfo } = useInfoHandler();
+    const [isAdmin, setIsAdmin] = useState(false);
 
-  const navigate = useNavigate()
-
+ 
   useEffect(() => {
-    const fetchTournament = async () => {
-        console.log("Fetching tournament with ID:", tid);  
-        await axios.get(backendBaseURL + `/tournaments/${tid}`)
-                    .then(res => {
-                      setTournament(res.data);
-                      setInfo(["Tournament fetched successfully", "success"])
-                    })
-                    .catch(error => {
-                      setInfo(["Error fetching tournament data.", "error"]);
-                      console.error("Error fetching tournament:", error);
-                      navigate("/notfound");
-                    })
-    }
+    const fetchVenue = async () => {
+      try {
+        console.log("Fetching venue with ID:", teamid);
+        const response = await axios.get(backendBaseURL+`/teams/${teamid}`);
+        setTeam(response.data);
+        console.log("API Response:", response.data);
+        setInfo(["Team fetched successfully", "success"])
+      } catch (error: any) {
+        setInfo(["Error fetching team data", "error"]);
+        console.error("Error fetching venue:", error.response);
+      }
+    };
 
-    fetchTournament();
-  }, []);
+    fetchVenue();
+  }, [teamid]);
 
-
+ 
   useEffect(() => {
     setIsAdmin(checkAdminStatus());
   }, []);
 
   return (
-    tournament ?
+    team ?
     <section className="bg-gray-100 min-h-screen">
       <BasicDiv ostyle="min-h-[40vh] bg-theme text-theme-w">
-        <h1 className="text-5xl font-bold">{tournament.name}</h1>
-        <p className="mt-4 text-lg">Tournament Id: {tournament.tournamentid} | Start: {tournament.start_date.split("T")[0]} | End: {tournament.end_date.split("T")[0]}</p>
+        <h1 className="text-5xl font-bold">{team.name}</h1>
+        <p className="mt-4 text-lg">Team Id: {team.teamid}</p>
+        <p className="mt-4 text-md">"{team.description}"</p>
       </BasicDiv>
-      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
+      <span>{info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}</span>
 
-      {/* {isAdmin && <ThemeLink label="edit" url={`/tournament/edit/${tid}`} />} */}
+      {/* {isAdmin && <ThemeLink label="edit" url={`/team/edit/${teamid}`} />} */}
 
       <BasicDiv ostyle="py-16">
         <div className="container mx-auto text-center">
@@ -99,4 +99,4 @@ const TournamentDetails = () => {
   );
 };
 
-export default TournamentDetails;
+export default TeamDetails;

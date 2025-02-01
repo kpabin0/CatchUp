@@ -1,7 +1,7 @@
 
 import { motion } from "framer-motion";
 
-interface TextInputProps {
+interface IThemeInputField {
   type?: string,
   label?: string,
   name: string,
@@ -14,7 +14,7 @@ interface TextInputProps {
   onInputChange?: (e: any) => void,
 }
 
-const TextInputField = ({
+const ThemeInputField = ({
   type = "text",
   label,
   name,
@@ -25,7 +25,7 @@ const TextInputField = ({
   readOnly,
   ostyle,
   onInputChange,
-}: TextInputProps) => {
+}: IThemeInputField) => {
   return (
     <motion.div
       initial={{ opacity: 0, translateY: 30 }}
@@ -57,4 +57,4 @@ const TextInputField = ({
   );
 };
 
-export default TextInputField;
+export default ThemeInputField;

@@ -1,13 +1,27 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom'
 import ThemeDiv from '../../components/ThemeDiv';
 import BasicDiv from '../../components/BasicDiv';
-import { KeyValSpan1 } from '../../components/KeyValueSpan';
+import { IPlayer } from '../../data/ITypes';
+import { backendBaseURL } from '../../data/utils';
 
 const Player = () => {
 
     const { tid, pid } = useParams();
 
-    console.log(tid, pid)
+    const [player, setPlayer] = useState<IPlayer>()
+
+    useEffect(() => {
+      const res = async () => {
+        await axios.get(backendBaseURL + `/players/${pid}`)
+                      .then((res) => { setPlayer(res.data); console.log(res.data); return res.data; })
+                      .catch((error) => { console.log(error); });
+      }
+      res();
+      
+    // eslint-disable-next-line
+    }, [])
 
   return (
     <section className="min-h-screen min-w-full flex flex-row justify-evenly items-center relative">
@@ -15,21 +29,9 @@ const Player = () => {
           <img src={"/assets/player.png"} alt={"img"} />
         </ThemeDiv>
         <BasicDiv ostyle="space-y-2 uppercase text-left">
-          <h1 className="font-bold text-3xl text-theme">Player Name</h1>
+          <h1 className="font-bold text-3xl text-theme">{player?.name}</h1>
           <span className="block">Team: {tid}</span>
           <span className="block">Player Number: {pid}</span>
-          <div className="space-x-2 underline font-bold">
-            <span className='text-theme'>Match1</span>
-            <span>Match2</span>
-          </div>
-          <KeyValSpan1 k="balls played" v="10" />
-          <KeyValSpan1 k="balls bowled" v="10" />
-          <KeyValSpan1 k="runs" v="10" />
-          <KeyValSpan1 k="runs concieved" v="10" />
-          <KeyValSpan1 k="wickets" v="10" />
-          <KeyValSpan1 k="sixes" v="10" />
-          <KeyValSpan1 k="fours" v="10" />
-          <KeyValSpan1 k="playing status" v="yes" />
         </BasicDiv>
     </section>
   )

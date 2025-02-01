@@ -7,6 +7,7 @@ import ThemeLink from "../../components/ThemeLink";
 import { FaEdit, FaTrash } from "react-icons/fa"; 
 import { useNavigate } from "react-router-dom";
 import Message from "../../components/Message";
+import { useInfoHandler } from "../../customhook/info";
 
 interface IVenueCard extends IVenue {
   handleEdit: (id: number) => void,
@@ -14,12 +15,11 @@ interface IVenueCard extends IVenue {
   isAdmin: boolean
 };
 
-const Venue = () => {
-  const [venues, setVenues] = useState<IVenue[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false); 
-  const navigate = useNavigate();
+const Venues = () => {
+    const [venues, setVenues] = useState<IVenue[]>([]);
+    const { info, setInfo } = useInfoHandler();
+    const [isAdmin, setIsAdmin] = useState(false); 
+    const navigate = useNavigate();
 
   useEffect(() => {
     setIsAdmin(checkAdminStatus());
@@ -30,10 +30,10 @@ const Venue = () => {
     try {
       const response = await axios.get(backendBaseURL + `/venues`);
       setVenues(response.data);
-      setMessage(null);
+      setInfo(["venue fetched successfully", "success"])
     } catch (error: any) {
-      setError("Error fetching venues.");
-      console.error(error);
+        setInfo(["Error fetching venues.", "error"]);
+        console.error(error);
     }
   };
 
@@ -42,11 +42,12 @@ const Venue = () => {
     try {
       console.log("Deleting venue with id: ", venueid);
       const response = await axios.delete(backendBaseURL + `/venues/${venueid}`);
-      setMessage("Venue deleted successfully!");
+      setInfo(["venue deleted successfully!", "success"]);
+
       fetchVenues();
     } catch (error: any) {
-      setError("Error deleting venue.");
-      console.error(error.response.data);
+        setInfo(["Error deleting venue.", "error"]);
+        console.error(error.response.data);
     }
   };
 
@@ -61,8 +62,7 @@ const Venue = () => {
           All Venues
         </h2>
 
-        {message && <Message message={message} type="success" onClose={() => setMessage(null)} />}
-        {error && <Message message={error} type="error" onClose={() => setError(null)} />}
+        {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
 
         <table className="w-full text-md text-center rtl:text-right table-fixed">
           <thead>
@@ -131,4 +131,4 @@ const VenueCard = ({
   );
 };
 
-export default Venue;
+export default Venues;

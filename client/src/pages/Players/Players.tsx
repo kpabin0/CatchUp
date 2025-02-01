@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { IPlayer } from '../../data/ITypes';
 import { Link } from 'react-router-dom';
-import { backendBaseURL } from '../../data/utils';
+import { backendBaseURL, checkAdminStatus } from '../../data/utils';
 import Loading from '../../components/Loading';
 import BasicDiv from '../../components/BasicDiv';
 import { KeyValSpan1 } from '../../components/KeyValueSpan';
+import axios from 'axios';
+import ThemeLink from '../../components/ThemeLink';
 
 const Players = () => {
 
-  const [players, setPlayers] = useState<IPlayer[]>()
+  const [players, setPlayers] = useState<IPlayer[]>();
+  const [isAdmin, setIsAdmin] = useState(false); 
 
   useEffect(() => {
     const res = async () => {
-      return await fetch(backendBaseURL + `/players`)
-                    .then((res) => res.json())
-                    .then((data) => { setPlayers(data); console.log(data); return data; })
+      await axios.get(backendBaseURL + `/players`)
+                    .then((res) => { setPlayers(res.data); return res.data; })
                     .catch((error) => { console.log(error); });
     }
     res();
+    setIsAdmin(checkAdminStatus())
     
   // eslint-disable-next-line
   }, [])
@@ -28,13 +31,14 @@ const Players = () => {
         <h1 className="text-4xl font-bold uppercase">Players</h1>
         <p className="mt-4 text-lg">Total Player Count: {players ? players.length : 0}</p>
       </BasicDiv>
-      <div className="max-w-[90%] min-w-[80%] grid grid-cols-4 gap-5 my-20">
+      <div className="max-w-[90%] min-w-[80%] flex flex-row justify-evenly items-center flex-wrap my-20">
         {
           players ? players.map((player, ind) => (
             <PlayerCard key={ind} {...player} />
           )) : <Loading />
         }
       </div>
+      <span className='mb-10'>{isAdmin && <ThemeLink label="Create Player" url="players/create" />}</span>
     </section>
   )
 }

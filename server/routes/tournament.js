@@ -3,7 +3,7 @@ const router = express.Router();
 const dbpool = require('../config/pgdb');
 
 
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
     // console.log("post request recieved in tournament")
     try {
         const { name, start_date, end_date } = req.body;

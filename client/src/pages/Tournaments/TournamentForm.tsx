@@ -1,152 +1,102 @@
 import React, { useEffect, useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode"; 
 import { ITournamentForm } from "../../data/ITypes";
-import { backendBaseURL } from "../../data/utils";
-import { useNavigate } from "react-router-dom";
-import Message from "../../components/Message";
+import TextInputField from "../../components/ThemeInputField";
 
-const schema = Yup.object().shape({
-  name: Yup.string()
-    .max(100, "Name must be at most 100 characters")
-    .required("Name is required"),
-  start_date: Yup.date()
-    .required("Start date is required")
-    .typeError("Invalid date format"),
-  end_date: Yup.date()
-    .required("End date is required")
-    .typeError("Invalid date format")
-    .min(Yup.ref("start_date"), "End date must be after the start date"),
-});
+interface ITournamentFormCard {
+  d?: ITournamentForm | null,
+  onSubmit: (d: ITournamentForm) => void
+};
 
-const CreateTournamentForm = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ITournamentForm>({
-    resolver: yupResolver(schema),
-  });
 
-  const navigate = useNavigate();
+const TournamentFormCard = ({d, onSubmit}: ITournamentFormCard) => {
 
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false); 
-  
+  const [data, setData] = useState<ITournamentForm>({
+    tournamentid: 100,
+    name: "",
+    start_date: new Date().toISOString().split('T')[0],
+    end_date: new Date().toISOString().split('T')[0]
+  })
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("No token found. Redirecting to login...");
-      navigate("/login"); 
-      return;
+    if(d) {
+      setData(d);
     }
 
-    try {
-      const decoded: any = jwtDecode(token); // Decode the JWT token
-      console.log("Decoded Token:", decoded);
-      if (decoded.isAdmin) {
-        setIsAdmin(true);
-        console.log("User is an admin");
-      } else {
-        console.log("User is not an admin. isAdmin:", decoded.isAdmin);
-        navigate("/unauthorized"); 
-      }
-    } catch (error) {
-      console.error("Invalid token:", error);
-      navigate("/login");
-    }
-  }, [navigate]);
+  }, []);
 
-  const onSubmit: SubmitHandler<ITournamentForm> = async (data: ITournamentForm) => {
-    console.log("Form Data:", data);
-    try {
-      const response = await axios.post(backendBaseURL + `/tournaments`, data);
-      console.log("Tournament created successfully:", response.data);
-      setSuccessMessage("Tournament created successfully!");
-      setErrorMessage(null);
-      reset();
-      navigate("/tournaments");
-    } catch (error: any) {
-      console.error("Error creating tournament:", error);
-      setSuccessMessage(null);
-      setErrorMessage("Error creating tournament.");
-      if (error.response) {
-        console.error("Response error:", error.response.data);
-      } else if (error.request) {
-        console.error("Request error:", error.request);
-      } else {
-        console.error("General error message:", error.message);
-      }
-    }
-  };
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setData({
+        ...data,
+        [e.target.name]: e.target.value
+      });
+  }  
+
+  const formSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(data);
+  }
+
+  const formReset = (e: React.FormEvent) => {
+    e.preventDefault();
+    setData({
+      tournamentid: data.tournamentid,
+      name: "",
+      start_date: "",
+      end_date: ""
+    })
+  }
 
   return (
-    <section className="w-full h-screen flex justify-center items-center">
-      <div className="w-[30rem] p-4 bg-theme-w shadow-xl rounded-md border">
-        <h2 className="w-full py-6 text-2xl font-extrabold uppercase bg-theme text-theme-w text-center mb-5">
-          Create Tournament
-        </h2>
+    <form onSubmit={formSubmit} onReset={formReset} className="">
+      <TextInputField
+        label="Tournament id"
+        type="number"
+        name="tournamentid"
+        value={data.tournamentid?.toString()}
+        placeholder="Tournament id (not required)"
+        onInputChange={onInputChange}
+        readOnly={true}
+      />
+      <TextInputField
+        label="Name"
+        type="text"
+        name="name"
+        value={data.name}
+        placeholder="Enter Tournament Name"
+        onInputChange={onInputChange}
+        required={true}
+      />
+      <TextInputField
+        label="Start Date"
+        type="date"
+        name="start_date"
+        value={data.start_date}
+        onInputChange={onInputChange}
+        required={true}
+      />
+      <TextInputField
+        label="End Date"
+        type="date"
+        name="end_date"
+        value={data.end_date}
+        onInputChange={onInputChange}
+        required={true}
+      />
 
-        {successMessage && <Message message={successMessage} type="success" onClose={() => setSuccessMessage(null)} />}
-        {errorMessage && <Message message={errorMessage} type="error" onClose={() => setErrorMessage(null)} />}
-
-        {isAdmin ? (
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 w-full mt-8">
-            <div>
-              <label className="block text-theme">Name:</label>
-              <input
-                type="text"
-                {...register("name")}
-                className="w-full border rounded p-2 outline-theme"
-                placeholder="Enter Tournament Name"
-              />
-              {errors.name && <span className="text-theme-cont">{errors.name.message}</span>}
-            </div>
-
-            <div>
-              <label className="block text-theme">Start Date:</label>
-              <input
-                type="date"
-                {...register("start_date")}
-                className="w-full border rounded p-2 outline-theme"
-              />
-              {errors.start_date && (
-                <span className="text-theme-cont">{errors.start_date.message}</span>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-theme">End Date:</label>
-              <input
-                type="date"
-                {...register("end_date")}
-                className="w-full border rounded p-2 outline-theme"
-              />
-              {errors.end_date && (
-                <span className="text-theme-cont">{errors.end_date.message}</span>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              className="bg-theme hover:bg-theme-alt text-theme-w px-4 py-2 rounded mt-4"
-            >
-              Create Tournament
-            </button>
-          </form>
-        ) : (
-          <div className="text-center text-theme-cont">
-            You do not have permission to create a tournament. Access is restricted to admins only.
-          </div>
-        )}
-      </div>
-    </section>
+      <button
+        type="submit"
+        className="bg-theme hover:bg-theme-alt text-theme-w px-4 py-2 rounded mt-4"
+      >
+        Submit
+      </button>
+      <button
+        type="reset"
+        className="mx-2 bg-theme hover:bg-theme-alt text-theme-w px-4 py-2 rounded mt-4"
+      >
+        Clear
+      </button>
+    </form>
   );
 };
 
-export default CreateTournamentForm;
+export default TournamentFormCard;

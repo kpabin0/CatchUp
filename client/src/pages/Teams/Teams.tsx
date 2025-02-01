@@ -8,7 +8,7 @@ import ThemeLink from "../../components/ThemeLink";
 import { ITeam } from "../../data/ITypes";
 import { useNavigate } from "react-router-dom";
 
-const AllTeams = () => {
+const Teams = () => {
   const [teams, setTeams] = useState<ITeam[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -124,7 +124,7 @@ const TeamCard = ({ teamid, name, description, isAdmin, onDelete, onEdit }: Team
   );
 };
 
-export default AllTeams;
+export default Teams;
 
 
 

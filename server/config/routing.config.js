@@ -9,6 +9,7 @@ const subnewsRoutes = require('../routes/subnews')
 const teamsRoutes = require('../routes/teams')
 const tournamentsRoutes = require('../routes/tournament');
 const venuesRoutes = require('../routes/venue');
+const playersRoute = require('../routes/players')
 
 mainRoute.use('/about', aboutRoutes);
 mainRoute.use('/auth', authenticateRoutes);
@@ -18,6 +19,7 @@ mainRoute.use('/subnews', subnewsRoutes);
 mainRoute.use('/teams', teamsRoutes);
 mainRoute.use('/tournaments', tournamentsRoutes);
 mainRoute.use('/venues', venuesRoutes);
+mainRoute.use('/players', playersRoute);
 
 
 module.exports = mainRoute

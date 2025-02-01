@@ -49,7 +49,7 @@ export interface IMatch {
 
 export interface IPersonalInfo {
     name: string,
-    img? : string,
+    img?: string,
     dob?: string,
     phone?: string,
     address?: string
@@ -97,13 +97,6 @@ export interface ITournamentInfo {
     description: string,
 };
 
-export interface ITournamentForm {
-    tournamentid?: number,
-    name: string,
-    start_date: Date,
-    end_date: Date
-};
-
 export interface IPersonCard {
     name: string,
     img?: string,
@@ -117,6 +110,32 @@ export interface IMatchForm {
     isLive?: boolean | null,
     date: Date
 };
+
+// forms interface here
+
+export interface ITournamentForm {
+    tournamentid?: number,
+    name: string,
+    start_date: string,
+    end_date: string
+};
+
+export interface ITeamForm {
+    teamid?: number,
+    name: string,
+    description: string
+};
+
+export interface IVenueForm {
+    venueid?: number,
+    name: string,
+    seats: number,
+    location: string
+};
+
+export interface IPlayerForm extends IPlayer {
+    
+}
 
 
 // For view specifics in the webpage 

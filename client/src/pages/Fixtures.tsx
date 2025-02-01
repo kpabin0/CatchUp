@@ -42,8 +42,8 @@ export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
       { isLive ? <span className="absolute font-bold bottom-1 right-2 text-sm text-theme-cont animate-pulse">Live</span> : <></>}
       <span>vs</span>
       <div className="grid grid-cols-2 gap-10">
-        {teams.map((t) => {
-          return <div>
+        {teams.map((t, ind) => {
+          return <div key={ind}>
                     <h1 className='text-theme uppercase font-bold'>{t.name}</h1>
                     <span className="text-3xl tracking-tighter font-extrabold">{t.runs} / {t.wickets} ({t.over})</span>
                 </div>
