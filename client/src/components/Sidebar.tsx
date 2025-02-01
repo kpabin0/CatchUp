@@ -104,7 +104,7 @@ const Sidebar = () => {
     </nav>
     <button 
         onClick={() => setShouldOpen(!shouldOpen)}
-        className={'absolute top-0 left-0 z-50 rounded-[50%] m-2 p-2 text-theme-w bg-theme'} 
+        className={'fixed top-0 left-0 z-50 rounded-[50%] m-2 p-2 text-theme-w bg-theme'} 
     >
         <TbMenu className='w-5 h-5' />
     </button>
