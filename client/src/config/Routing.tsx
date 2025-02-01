@@ -2,7 +2,7 @@ import { App, Home, NotFound, Footer, Navbar, Sidebar, Register, Login, ResetPas
 
 import { Route, Routes } from "react-router-dom"
 import Matches from "../pages/Matches/Matches"
-import News from "../pages/News"
+import News from "../pages/News/News"
 import Fixtures from "../pages/Fixtures"
 import Tournaments from "../pages/Tournaments/Tournaments"
 import EditTournament from "../pages/Tournaments/EditTournament"
@@ -23,6 +23,7 @@ import EditVenue from "../pages/Venues/EditVeneue"
 import TeamDetails from "../pages/Teams/TeamDetails"
 import CreatePlayer from "../pages/Players/CreatePlayer"
 import EditPlayer from "../pages/Players/EditPlayer"
+import CreateNews from "../pages/News/CreateNews"
 
 const Routing = () => {
 
@@ -56,7 +57,11 @@ const Routing = () => {
         <Route path="/matches/create" element={<CreateMatchForm />} />
       </Route>
       <Route path="/tournaments" element={<Tournaments />} />
-      <Route path="/news" element={<News />} />
+      <Route>
+        <Route  path="/news" element={<News />} />
+        <Route  path="/news/create" element={<CreateNews />} />
+        <Route  path="/subnews/create" element={<CreateNews />} />
+      </Route>
       <Route path="/fixtures" element={<Fixtures />} />
       <Route path="/resetpassword" element={<ResetPassword/>} />
       <Route>

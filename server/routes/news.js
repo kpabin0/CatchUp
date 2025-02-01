@@ -3,20 +3,21 @@ const router = express.Router();
 const dbpool = require('../config/pgdb');
 
 router.post("/create", async (req, res) => {
-    const { name, seats, location } = req.body; 
+    const { title, img, description } = req.body; 
     console.log("Creating a new news:", req.body);
 
     try {
-        if (!name || !seats || !location) {
+        if (!title || !img || !description) {
             return res.status(400).json({ error: "Missing required fields" });
         } else {
             
-            const result = await dbpool.query("SELECT newsid FROM news ORDER BY newsid DESC LIMIT 1;");
-            const newsid = result.rows.length > 0 ? result.rows[0].newsid + 1 : 1;
-            
+            // const result = await dbpool.query("SELECT newsid FROM news ORDER BY newsid DESC LIMIT 1;");
+            // const newsid = result.rows.length > 0 ? result.rows[0].newsid + 1 : 1;
         
-            const query = `INSERT INTO news (newsid, name, seats, location) VALUES ($1, $2, $3, $4);`;
-            const newnews = await dbpool.query(query, [newsid, name, seats, location]);
+            // const query = `INSERT INTO news (newsid, title, img, description) VALUES ($1, $2, $3, $4);`;
+            const query = `INSERT INTO news (title, img, description) VALUES ($1, $2, $3);`;
+            // const newnews = await dbpool.query(query, [newsid, title, img, description]);
+            const newnews = await dbpool.query(query, [title, img, description]);
             console.log("Created news:", newnews.rows[0]);
             res.json(newnews.rows[0]);
         }

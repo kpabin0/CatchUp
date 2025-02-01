@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { INews, ISubNews } from '../data/ITypes';
-import { backendBaseURL } from '../data/utils';
-import BasicDiv from '../components/BasicDiv';
-import Loading from '../components/Loading';
-import ThemeLink from '../components/ThemeLink';
+import { INews, ISubNews } from '../../data/ITypes';
+import { backendBaseURL } from '../../data/utils';
+import BasicDiv from '../../components/BasicDiv';
+import Loading from '../../components/Loading';
+import ThemeLink from '../../components/ThemeLink';
 
 const News = () => {
 

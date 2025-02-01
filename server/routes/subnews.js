@@ -3,20 +3,21 @@ const router = express.Router();
 const dbpool = require('../config/pgdb');
 
 router.post("/create", async (req, res) => {
-    const { name, seats, location } = req.body; 
+    const { title, description } = req.body; 
     console.log("Creating a new subnews:", req.body);
 
     try {
-        if (!name || !seats || !location) {
+        if (!title || !description) {
             return res.status(400).json({ error: "Missing required fields" });
         } else {
             
-            const result = await dbpool.query("SELECT subnewsid FROM subnews ORDER BY subnewsid DESC LIMIT 1;");
-            const subnewsid = result.rows.length > 0 ? result.rows[0].subnewsid + 1 : 1;
-            
+            // const result = await dbpool.query("SELECT subnewsid FROM subnews ORDER BY subnewsid DESC LIMIT 1;");
+            // const subnewsid = result.rows.length > 0 ? result.rows[0].subnewsid + 1 : 1;
         
-            const query = `INSERT INTO subnews (subnewsid, name, seats, location) VALUES ($1, $2, $3, $4);`;
-            const newsubnews = await dbpool.query(query, [subnewsid, name, seats, location]);
+            // const query = `INSERT INTO subnews (subnewsid, title, description) VALUES ($1, $2, $3, $4);`;
+            const query = `INSERT INTO subnews (title, description) VALUES ($1, $2);`;
+            // const newsubnews = await dbpool.query(query, [subnewsid, title, description]);
+            const newsubnews = await dbpool.query(query, [title, description]);
             console.log("Created subnews:", newsubnews.rows[0]);
             res.json(newsubnews.rows[0]);
         }

@@ -133,6 +133,17 @@ export interface IVenueForm {
     location: string
 };
 
+export interface INewsForm {
+    newsid?: number,
+    title: string,
+    img?: string,
+    description: string
+};
+
+export interface ISubNewForm extends INewsForm {
+
+};
+
 export interface IPlayerForm extends IPlayer {
     
 }
