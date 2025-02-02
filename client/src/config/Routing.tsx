@@ -12,7 +12,6 @@ import Player from "../pages/Players/PlayerDetails"
 import Dashboard from "../pages/Dashboard"
 import { useState, useEffect } from "react"
 import { checkAdminStatus, loggedInStatus } from "../data/utils"
-import CreateMatchForm from "../pages/Matches/MatchesForm"
 import AllTeams from "../pages/Teams/Teams"
 import CreateTournament from "../pages/Tournaments/CreateTournament"
 import CreateTeam from "../pages/Teams/CreateTeam"
@@ -24,6 +23,7 @@ import TeamDetails from "../pages/Teams/TeamDetails"
 import CreatePlayer from "../pages/Players/CreatePlayer"
 import EditPlayer from "../pages/Players/EditPlayer"
 import CreateNews from "../pages/News/CreateNews"
+import CreateMatch from "../pages/Matches/CreateMatches"
 
 const Routing = () => {
 
@@ -54,7 +54,7 @@ const Routing = () => {
       <Route path="/home" element={isAdmin ? <Dashboard /> : isLoggedIn ? <Home /> : <Login />}/>
       <Route>
         <Route path="/matches" element={<Matches />} />
-        <Route path="/matches/create" element={<CreateMatchForm />} />
+        <Route path="/matches/create" element={<CreateMatch />} />
       </Route>
       <Route path="/tournaments" element={<Tournaments />} />
       <Route>
