@@ -5,9 +5,9 @@ import { backendBaseURL, checkAdminStatus } from "../../data/utils";
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
 import { FaEdit, FaTrash } from "react-icons/fa"; 
-import { useNavigate } from "react-router-dom";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
+import { useDNavigate } from "../../customhook/dnavigate";
 
 interface IVenueCard extends IVenue {
   handleEdit: (id: number) => void,
@@ -19,7 +19,7 @@ const Venues = () => {
     const [venues, setVenues] = useState<IVenue[]>([]);
     const { info, setInfo } = useInfoHandler();
     const [isAdmin, setIsAdmin] = useState(false); 
-    const navigate = useNavigate();
+    const { dnav } = useDNavigate();
 
   useEffect(() => {
     setIsAdmin(checkAdminStatus());
@@ -52,7 +52,7 @@ const Venues = () => {
   };
 
   const handleEdit = async (venueid: number) => {
-    navigate(`/venues/edit/${venueid}`);
+    dnav(`/venues/edit/${venueid}`);
   }
 
   return (

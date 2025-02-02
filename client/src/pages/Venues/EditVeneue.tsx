@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { IVenueForm } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
@@ -8,12 +8,14 @@ import FormWrapper from "../FormWrapper";
 import { useInfoHandler } from "../../customhook/info";
 import Message from "../../components/Message";
 import VeneueFormCard from "./VenueForm";
+import { useDNavigate } from "../../customhook/dnavigate";
 
 const EditVenue = () => {
+  
   const { venueid } = useParams(); 
   const { info, setInfo } = useInfoHandler();
+  const { dnav } = useDNavigate();
   
-  const navigate = useNavigate();
   const [data, setData] = useState<IVenueForm | null>(null);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const EditVenue = () => {
       const response = await axios.put(backendBaseURL + `/venues/${venueid}`, data);
       console.log("Venue updated:", response.data);
       setInfo(["Venue updated Successfully", "success"]);
-      setTimeout(() => navigate("/venues/"), 1000);
+      dnav("/venues", 1000);
     } catch (error) {
       setInfo(["Error updating venue data.", "error"]);
       console.error("Error updating venue:", error);

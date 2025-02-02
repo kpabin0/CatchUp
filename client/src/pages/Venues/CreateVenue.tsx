@@ -1,15 +1,15 @@
 import { IVenueForm } from "../../data/ITypes";
 import { backendBaseURL } from "../../data/utils";
-import { useNavigate } from "react-router-dom";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
 import FormWrapper from "../FormWrapper";
 import VeneueFormCard from "./VenueForm";
 import axios from "axios";
+import { useDNavigate } from "../../customhook/dnavigate";
 
 const CreateVenue = () => {
-  const navigate = useNavigate();
 
+  const { dnav } = useDNavigate();
   const { info, setInfo } = useInfoHandler();
 
   const createVenue = async (data: any) => {
@@ -17,7 +17,8 @@ const CreateVenue = () => {
         const response = await axios.post(backendBaseURL + `/venues/create`, data);
         console.log("Venue created successfully:", response.data);
         setInfo(["Venue created successfully!", "success"]);
-        setTimeout(() => navigate("/venues"), 1000);
+        dnav("/venues", 1000);
+        // setTimeout(() => navigate("/venues"), 1000);
     } catch (error: any) {
         console.error("Error creating Venue:", error);
         setInfo(["Error creating Venue", "error"])
