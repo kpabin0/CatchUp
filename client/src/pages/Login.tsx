@@ -5,11 +5,12 @@ import TextInputField from '../components/ThemeInputField';
 import { backendBaseURL, loggedInStatus } from '../data/utils';
 import FullBgCover from '../components/FullBgCover';
 import Message from '../components/Message';
+import { useInfoHandler } from '../customhook/info';
 
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const { info, setInfo } = useInfoHandler();
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,8 +20,8 @@ const Login = () => {
   
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
-
+    setInfo(null)
+    
     try {   
         const response = await axios.post(backendBaseURL + `/auth/login`, formData);
         
@@ -32,8 +33,8 @@ const Login = () => {
         navigate('/dashboard');
       } 
       catch (error: any) {
-      console.error('Error during login:', error.response || error.message);
-      setError(error.response?.data?.message || 'Login failed. Please try again.');
+        console.error('Error during login:', error.response || error.message);
+        setInfo(["Login failed", 'error'])
       }
   };
 
@@ -61,7 +62,7 @@ const Login = () => {
 
         <form className="w-[90%]" onSubmit={handleFormSubmit}>
          
-        {error && <Message message={error} type="error" onClose={() => setError("")} />}
+        {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
        
           <div className="mt-2">
             <TextInputField
