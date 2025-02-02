@@ -105,10 +105,11 @@ export interface IPersonCard {
 
 
 export interface IMatchForm {
+    matchid: number,
     team_1: string,
     team_2: string,
-    isLive?: boolean | null,
-    date: Date
+    date: string,
+    venue: string,
 };
 
 // forms interface here
