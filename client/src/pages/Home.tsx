@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import BasicDiv from "../components/BasicDiv";
-import { IMatchHighlightView, IMatchView, IPlayer, ITournament } from "../data/ITypes";
-import { backendBaseURL, getArray } from "../data/utils";
+import { IMatchHighlightView, ITournament } from "../data/ITypes";
+import { backendBaseURL } from "../data/utils";
 import FullBgCover from "../components/FullBgCover";
 import ThemeLink from "../components/ThemeLink";
-import { MatchCard } from "./Matches/Matches";
 import { Link } from "react-router-dom";
 import { FixtureCard } from "./Fixtures";
 import Loading from "../components/Loading";
-
-const tempArr = getArray(4);
 
 const Home = () => {
 
