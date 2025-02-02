@@ -54,6 +54,7 @@ const GenericForm = ({fields, onSubmit, ostyle}: IGenericForm) => {
     }, [])
 
   return (
+    fields.length ?
     <form onSubmit={onFormSubmit} onReset={onFormReset} className={"w-full p-4 " + (ostyle ? ostyle : "")}>
         {
             fields.map((props, ind) => {
@@ -64,7 +65,7 @@ const GenericForm = ({fields, onSubmit, ostyle}: IGenericForm) => {
             <ThemeButton label='Submit' type="submit" />
             <ThemeButton label='Clear' type="reset" />
         </div>
-    </form>
+    </form> : <></>
   )
 }
 
