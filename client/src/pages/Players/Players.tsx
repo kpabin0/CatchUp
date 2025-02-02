@@ -6,7 +6,6 @@ import Loading from '../../components/Loading';
 import BasicDiv from '../../components/BasicDiv';
 import { KeyValSpan1 } from '../../components/KeyValueSpan';
 import axios from 'axios';
-import ThemeLink from '../../components/ThemeLink';
 
 const Players = () => {
 
@@ -27,7 +26,8 @@ const Players = () => {
 
   return (
     <section className="flex flex-col justify-between items-center min-h-screen min-w-full">
-      <BasicDiv ostyle="w-full min-h-[25vh] bg-theme text-theme-w">
+      <BasicDiv ostyle="w-full min-h-[25vh] bg-theme text-theme-w relative">
+        {isAdmin && <span className='absolute top-4 right-4'><Link className="inline-block bg-theme-w text-theme p-1 px-2 rounded-md hover:scale-105" to="/players/create">Add Player</Link></span>}
         <h1 className="text-4xl font-bold uppercase">Players</h1>
         <p className="mt-4 text-lg">Total Player Count: {players ? players.length : 0}</p>
       </BasicDiv>
@@ -38,7 +38,6 @@ const Players = () => {
           )) : <Loading />
         }
       </div>
-      <span className='mb-10'>{isAdmin && <ThemeLink label="Create Player" url="players/create" />}</span>
     </section>
   )
 }

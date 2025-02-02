@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { IMatchHighlightView } from '../../data/ITypes';
 import { FixtureCard } from '../Fixtures';
-import { backendBaseURL } from '../../data/utils';
+import { backendBaseURL, checkAdminStatus } from '../../data/utils';
 import Loading from '../../components/Loading';
 import BorderDiv from '../../components/BorderDiv';
+import ThemeLink from '../../components/ThemeLink';
 
 const Matches = () => {
 
   const [matchesData, setMatchesData] = useState<IMatchHighlightView[]>();
+  const [isAdmin, setIsAdmin] = useState(false); 
   
   useEffect(() => {
     const res = async () => {
@@ -17,12 +19,14 @@ const Matches = () => {
                     .catch((error) => { console.log(error); });
     }
     res();
+    setIsAdmin(checkAdminStatus())
     
   // eslint-disable-next-line
   }, [])
 
   return (
     <section className="py-3 flex flex-col justify-evenly items-center min-h-screen min-w-full">
+        {isAdmin && <span className='absolute top-4 right-4'><ThemeLink label="Add Match" url="/matches/create" /></span>}
         <span className="text-3xl text-theme font-bold my-4 uppercase">Matches</span>
         <div className="max-w-[90%] min-w-[60%] flex flex-row justify-evenly items-center flex-wrap text-center my-10">
           {

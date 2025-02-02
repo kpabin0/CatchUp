@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import { ITeamForm } from '../../data/ITypes';
-import TextInputField from '../../components/ThemeInputField';
+import GenericForm, { IInputFieldProps } from '../../components/GenericForm';
 
 interface ITeamFormCard {
   d?: ITeamForm,
@@ -10,83 +9,17 @@ interface ITeamFormCard {
 
 const TeamFormCard = ({d, onSubmit}: ITeamFormCard) => {
 
-  const [data, setData] = useState<ITeamForm>({
-    teamid: 0,
-    name: '',
-    description: ''
-  })
-
-  useEffect(() => {
-    if(d) {
-      setData(d);
-    }
-
-  }, [d]);
-
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setData({
-        ...data,
-        [e.target.name]: e.target.value
-      });
-  }  
-
-  const formSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(data);
-  }
-
-  const formReset = (e: React.FormEvent) => {
-    e.preventDefault();
-    setData({
-      teamid: data.teamid,
-      name: '',
-      description: ''
-    })
-  }
+  const fields: IInputFieldProps[] = [
+    {label: "Team id", name: "teamid", type: "number", value: d?.teamid?.toString() || '0', readOnly: true},
+    {label: "Name", name: "name", type: "text", value: d?.name, required: true},
+    {label: "Description", name: "description", type: "text", value: d?.description, required: true},
+  ]
 
   return (
-    <form onSubmit={formSubmit} onReset={formReset} className="">
-      <TextInputField
-        label="Team id"
-        type="number"
-        name="teamid"
-        value={data.teamid?.toString()}
-        placeholder="Team id (not required)"
-        onInputChange={onInputChange}
-        readOnly={true}
-      />
-      <TextInputField
-        label="Name"
-        type="text"
-        name="name"
-        value={data.name}
-        placeholder="Enter Team Name"
-        onInputChange={onInputChange}
-        required={true}
-      />
-      <TextInputField
-        label="Description"
-        type="text"
-        name="description"
-        value={data.description}
-        placeholder="Enter team description"
-        onInputChange={onInputChange}
-        required={true}
-      />
-
-      <button
-        type="submit"
-        className="bg-theme hover:bg-theme-alt text-theme-w px-4 py-2 rounded mt-4"
-      >
-        Submit
-      </button>
-      <button
-        type="reset"
-        className="mx-2 bg-theme hover:bg-theme-alt text-theme-w px-4 py-2 rounded mt-4"
-      >
-        Clear
-      </button>
-    </form>
+    <GenericForm 
+      fields={fields}
+      onSubmit={onSubmit}
+    />
   );
 };
 export default TeamFormCard;

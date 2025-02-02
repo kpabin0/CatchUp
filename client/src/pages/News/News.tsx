@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { INews, ISubNews } from '../../data/ITypes';
-import { backendBaseURL } from '../../data/utils';
+import { backendBaseURL, checkAdminStatus } from '../../data/utils';
 import BasicDiv from '../../components/BasicDiv';
 import Loading from '../../components/Loading';
 import ThemeLink from '../../components/ThemeLink';
@@ -10,6 +10,7 @@ const News = () => {
 
   const [newsData, setNewsData] = useState<INews[]>();
   const [subNewsData, setSubNewsData] = useState<ISubNews[]>();
+  const [isAdmin, setIsAdmin] = useState(false); 
 
   
   useEffect(() => {
@@ -30,13 +31,16 @@ const News = () => {
     }
 
     res();
+    setIsAdmin(checkAdminStatus())
+
   // eslint-disable-next-line
   }, [])
 
   return (
-    <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
-        <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
+    <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full relative">
+        {isAdmin && <span className='absolute top-4 right-4'><ThemeLink label="Add News" url="/news/create" /></span>}
         
+        <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
         <div className="grid xl:grid-cols-3 grid-cols-1 gap-x-10">
           <div className="w-full xl:col-span-2 p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
             {
