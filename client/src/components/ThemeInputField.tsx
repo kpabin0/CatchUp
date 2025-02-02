@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 
 interface IThemeInputField {
-  type?: string,
+  type?: "text" | "number" | "email" | "password" | "date",
   label?: string,
   name: string,
   value?: string,
@@ -11,7 +11,7 @@ interface IThemeInputField {
   required?: boolean,
   readOnly?: boolean,
   ostyle? : string,
-  onInputChange?: (e: any) => void,
+  onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 const ThemeInputField = ({
@@ -38,7 +38,7 @@ const ThemeInputField = ({
       className={"w-full my-2 " + (ostyle ? ostyle : "")}
     >
       {label && (
-        <label htmlFor={name} className="block text-sm text-theme font-medium">
+        <label htmlFor={name} className="block text-sm text-theme font-bold capitalize">
           {label}
         </label>
       )}
