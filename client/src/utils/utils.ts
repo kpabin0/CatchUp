@@ -46,7 +46,7 @@ export function checkAdminStatus() {
 export const backendBaseURL = "http://localhost:" + process.env.REACT_APP_PORT_NUMBER;
 
 function getURLSepMsg(url: string, a: string = "") {
-  return (url.split("/").filter((i) => i != '')).join("...") + `...${a}...`;
+  return (url.split("/").filter((i) => i !== '')).join("...") + `...${a}...`;
 }
 
 const axiosW = axios.create({baseURL: backendBaseURL})
@@ -135,7 +135,7 @@ export async function AxiosPut(url: string, data: any, setInfo: any, setLoading:
   const sepMsg = getURLSepMsg("put");
   if(setLoading) setLoading(true)
 
-  await axiosW.post(url, data)
+  await axiosW.put(url, data)
                 .then(res => {
                   if(setLoading) setLoading(false)
 
