@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
-import { backendBaseURL, getArray } from "../../data/utils";
+import { AxiosGet, getArray } from "../../data/utils";
 import { ITeam } from "../../data/ITypes";
 import BasicDiv from "../../components/BasicDiv";
 import { checkAdminStatus } from "../../data/utils";
@@ -10,40 +9,22 @@ import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
 import ThemeDiv from "../../components/ThemeDiv";
 import { MatchCard } from "../Matches/Matches";
-// import ThemeLink from "../../components/ThemeLink";
 
 const tempArr = getArray(5);
 
 const TeamDetails = () => {
-    const { teamid } = useParams<{ teamid: string }>();
-    console.log("Team ID from URL:", teamid);
+    const { teamid } = useParams();
 
     const [team, setTeam] = useState<ITeam | null>(null);
     const { info, setInfo } = useInfoHandler();
-    const [isAdmin, setIsAdmin] = useState(false);
+    const isAdmin = checkAdminStatus();
 
  
   useEffect(() => {
-    const fetchVenue = async () => {
-      try {
-        console.log("Fetching venue with ID:", teamid);
-        const response = await axios.get(backendBaseURL+`/teams/${teamid}`);
-        setTeam(response.data);
-        console.log("API Response:", response.data);
-        setInfo(["Team fetched successfully", "success"])
-      } catch (error: any) {
-        setInfo(["Error fetching team data", "error"]);
-        console.error("Error fetching venue:", error.response);
-      }
-    };
+    AxiosGet(`/teams/${teamid}`, setTeam, setInfo);
+    console.log("Team ID from URL:", teamid);
 
-    fetchVenue();
   }, [teamid]);
-
- 
-  useEffect(() => {
-    setIsAdmin(checkAdminStatus());
-  }, []);
 
   return (
     team ?
@@ -53,6 +34,7 @@ const TeamDetails = () => {
         <p className="mt-4 text-lg">Team Id: {team.teamid}</p>
         <p className="mt-4 text-md">"{team.description}"</p>
       </BasicDiv>
+      
       <span>{info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}</span>
 
       {/* {isAdmin && <ThemeLink label="edit" url={`/team/edit/${teamid}`} />} */}

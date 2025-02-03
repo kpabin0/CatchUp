@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { IPlayer } from '../../data/ITypes';
 import { Link } from 'react-router-dom';
-import { backendBaseURL, checkAdminStatus } from '../../data/utils';
+import { AxiosGet, checkAdminStatus } from '../../data/utils';
 import Loading from '../../components/Loading';
 import BasicDiv from '../../components/BasicDiv';
 import { KeyValSpan1 } from '../../components/KeyValueSpan';
-import axios from 'axios';
+import { useInfoHandler } from '../../customhook/info';
+import Message from '../../components/Message';
 
 const Players = () => {
 
   const [players, setPlayers] = useState<IPlayer[]>();
-  const [isAdmin, setIsAdmin] = useState(false); 
+  const { info, setInfo } = useInfoHandler();
+  const isAdmin = checkAdminStatus(); 
 
   useEffect(() => {
-    const res = async () => {
-      await axios.get(backendBaseURL + `/players`)
-                    .then((res) => { setPlayers(res.data); return res.data; })
-                    .catch((error) => { console.log(error); });
-    }
-    res();
-    setIsAdmin(checkAdminStatus())
+    AxiosGet(`/players`, setPlayers, setInfo);
     
   // eslint-disable-next-line
   }, [])
 
   return (
     <section className="flex flex-col justify-between items-center min-h-screen min-w-full">
+      
+      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
+      
       <BasicDiv ostyle="w-full min-h-[25vh] bg-theme text-theme-w relative">
         {isAdmin && <span className='absolute top-4 right-4'><Link className="inline-block bg-theme-w text-theme p-1 px-2 rounded-md hover:scale-105" to="/players/create">Add Player</Link></span>}
         <h1 className="text-4xl font-bold uppercase">Players</h1>

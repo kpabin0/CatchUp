@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TextInputField from '../components/ThemeInputField';
-import { backendBaseURL, loggedInStatus } from '../data/utils';
+import { backendBaseURL } from '../data/utils';
 import FullBgCover from '../components/FullBgCover';
 import Message from '../components/Message';
 import { useInfoHandler } from '../customhook/info';
+import { useDNavigate } from '../customhook/dnavigate';
 
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const { info, setInfo } = useInfoHandler();
-  const navigate = useNavigate();
+  const { dnav } = useDNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -20,7 +21,6 @@ const Login = () => {
   
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setInfo(null)
     
     try {   
         const response = await axios.post(backendBaseURL + `/auth/login`, formData);
@@ -30,7 +30,7 @@ const Login = () => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('loggedIn', String(true));
         window.location.reload()
-        navigate('/dashboard');
+        dnav('/dashboard', 200);
       } 
       catch (error: any) {
         console.error('Error during login:', error.response || error.message);
@@ -39,17 +39,9 @@ const Login = () => {
   };
 
   const handleForgotPassword = () => {
-    navigate('/resetpassword');
+    dnav('/resetpassword', 200);
   };
 
-  useEffect(() => {
-    if(loggedInStatus())
-    {
-      navigate("/home");
-    }
-
-  // eslint-disable-next-line
-  }, [])
 
   return (
     <section className="w-screen h-screen flex flex-col justify-center items-center">

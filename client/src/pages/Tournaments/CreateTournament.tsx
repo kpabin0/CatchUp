@@ -1,27 +1,20 @@
 import { ITournamentForm } from "../../data/ITypes";
-import { backendBaseURL } from "../../data/utils";
-import { useNavigate } from "react-router-dom";
+import { AxiosPost } from "../../data/utils";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
 import FormWrapper from "../FormWrapper";
 import TournamentFormCard from "./TournamentForm";
-import axios from "axios";
+import { useDNavigate } from "../../customhook/dnavigate";
 
 const CreateTournament = () => {
-  const navigate = useNavigate();
-
+  
   const { info, setInfo } = useInfoHandler();
+  const { dnav } = useDNavigate();
 
   const createTournament = async (data: any) => {
-    try {
-        const response = await axios.post(backendBaseURL + `/tournaments/create`, data);
-        console.log("Tournament created successfully:", response.data);
-        setInfo(["Tournament created successfully!", "success"]);
-        setTimeout(() => navigate("/tournaments"), 1000);
-    } catch (error: any) {
-        console.error("Error creating tournament:", error);
-        setInfo(["Error creating tournament", "error"])
-    }
+
+    AxiosPost(`/tournaments/create`, data, setInfo);
+    dnav("/tournaments", 1000);
   };
 
   const onSubmit = (data: ITournamentForm) => {

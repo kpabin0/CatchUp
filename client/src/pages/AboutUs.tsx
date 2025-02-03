@@ -1,36 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { _about } from '../data/_about'
 import { ITournament } from "../data/ITypes";
-import { backendBaseURL } from '../data/utils';
+import { AxiosGet } from '../data/utils';
 import { IPersonCard } from '../data/ITypes';
 import BasicDiv from '../components/BasicDiv';
 import Loading from '../components/Loading';
+import { useInfoHandler } from '../customhook/info';
+import Message from '../components/Message';
 
 const AboutUs = () => {
   
     const [tournaments, setTournaments] = useState<ITournament[]>();
     const [person, setPerson] = useState<IPersonCard[]>();
+    const { info, setInfo } = useInfoHandler();
 
     useEffect(() => {
-        const res = async () => {
-        await fetch(backendBaseURL + `/tournaments`)
-                        .then((res) => res.json())
-                        .then((data) => { setTournaments(data); console.log(data); return data })
-                        .catch((error) => { console.log(error); });
-        await fetch(backendBaseURL + `/about`)
-                        .then((res) => res.json())
-                        .then((data) => { setPerson(data); console.log(data); return data })
-                        .catch((error) => { console.log(error); });
-        }
-        res();
-        
+        AxiosGet(`/tournaments`, setTournaments, setInfo);
+        AxiosGet(`/about`, setPerson, setInfo);
+
     // eslint-disable-next-line
     }, [])
 
     return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
         <h1 className="text-xl text-theme-g font-bold mt-20 uppercase">About Us</h1>
-        
+
+        {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
+
         <BasicDiv>
             <h1 className="font-extrabold text-6xl text-theme my-2 uppercase">{_about.name}</h1>
             <h1 className="font-bold text-xl text-theme-alt my-2">{_about.quote}</h1>

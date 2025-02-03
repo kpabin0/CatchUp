@@ -1,47 +1,33 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { backendBaseURL, checkAdminStatus } from "../../data/utils";
+import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../data/utils";
 import { Link } from "react-router-dom";
 import { FaTrash,FaEdit } from "react-icons/fa"; 
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
 import { ITeam } from "../../data/ITypes";
-import { useNavigate } from "react-router-dom";
+import { useInfoHandler } from "../../customhook/info";
+import { useDNavigate } from "../../customhook/dnavigate";
+import Message from "../../components/Message";
 
 const Teams = () => {
   const [teams, setTeams] = useState<ITeam[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const navigate = useNavigate();
+  const { info, setInfo } = useInfoHandler();
+  const { dnav } = useDNavigate();
+  const isAdmin = checkAdminStatus();
 
   useEffect(() => {
-    setIsAdmin(checkAdminStatus());
-    fetchTeams();
+    AxiosGet(`/teams`, setTeams, setInfo);
+
   }, []);
 
-  const fetchTeams = async () => {
-    try {
-      const response = await axios.get(`${backendBaseURL}/teams`);
-      setTeams(response.data);
-      setError(null);
-    } catch (error: any) {
-      setError("Error fetching teams.");
-      console.error("Error fetching teams:", error.response);
-    }
-  };
-
   const deleteTeam = async (teamid: number) => {
-    try {
-      console.log("Deleting team with id: ", teamid);
-      await axios.delete(`${backendBaseURL}/teams/${teamid}`);
-      setTeams(teams.filter((team) => team.teamid !== teamid));
-    } catch (error: any) {
-      console.error("Error deleting team:", error.response.data);
-    }
+    AxiosDelete(`/teams/${teamid}`, setInfo);
+    dnav('/teams', 1000);
+    // left to do, write logic to reload
   };
 
   const handleEdit = (teamid: number) => {
-    navigate(`/teams/edit/${teamid}`);
+    dnav(`/teams/edit/${teamid}`, 100);
   };
 
   return (
@@ -51,7 +37,7 @@ const Teams = () => {
           All Teams
         </h2>
 
-        {error && <div className="text-theme-cont mb-4">{error}</div>}
+        {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
 
         <table className="w-full text-md text-center rtl:text-right table-fixed">
           <thead>

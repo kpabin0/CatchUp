@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { IFixture } from '../data/ITypes';
-import { backendBaseURL } from '../data/utils';
+import { AxiosGet } from '../data/utils';
 import BorderDiv from '../components/BorderDiv';
 import Loading from '../components/Loading';
+import { useInfoHandler } from '../customhook/info';
+import Message from '../components/Message';
 
 const Fixtures = () => {
 
   const [fixtureData, setFixtureData] = useState<IFixture[]>();
+  const { info, setInfo } = useInfoHandler();
 
   useEffect(() => {
-    const res = async () => {
-      return await fetch(backendBaseURL + `/matches/highlight`)
-                    .then((res) => res.json())
-                    .then((data) => { setFixtureData(data); console.log(data); return data; })
-                    .catch((error) => { console.log(error); });
-    }
-    res();
+    AxiosGet(`/matches/highlight`, setFixtureData, setInfo);
     
   // eslint-disable-next-line
   }, [])
 
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
+      
+      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
+      
       <span className="text-3xl text-theme font-bold my-4 uppercase">Fixtures</span>
       <div className="max-w-[90%] min-w-[60%] flex flex-row flex-wrap justify-evenly items-center">
         {

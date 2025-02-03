@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { backendBaseURL, getArray } from "../../data/utils";
+import { Link, useParams } from "react-router-dom";
+import { AxiosGet, getArray } from "../../data/utils";
 import { ITournament } from "../../data/ITypes";
 import BasicDiv from "../../components/BasicDiv";
 import { checkAdminStatus } from "../../data/utils";
@@ -10,41 +9,21 @@ import { MatchCard } from "../Matches/Matches";
 import { useInfoHandler } from "../../customhook/info";
 import Loading from "../../components/Loading";
 import Message from "../../components/Message";
-// import ThemeLink from "../../components/ThemeLink";
 
 const tempArr = getArray(5)
 
 const TournamentDetails = () => {
   const { tid } = useParams<{ tid: string }>();
-  const [isAdmin, setIsAdmin] = useState(false); 
+  const isAdmin = checkAdminStatus() 
 
   const [tournament, setTournament] = useState<ITournament | null>(null);
   const { info, setInfo } = useInfoHandler()
 
-  const navigate = useNavigate()
-
   useEffect(() => {
-    const fetchTournament = async () => {
-        console.log("Fetching tournament with ID:", tid);  
-        await axios.get(backendBaseURL + `/tournaments/${tid}`)
-                    .then(res => {
-                      setTournament(res.data);
-                      setInfo(["Tournament fetched successfully", "success"])
-                    })
-                    .catch(error => {
-                      setInfo(["Error fetching tournament data.", "error"]);
-                      console.error("Error fetching tournament:", error);
-                      navigate("/notfound");
-                    })
-    }
-
-    fetchTournament();
+    AxiosGet(`/tournaments/${tid}`, setTournament, setInfo);
+    
   }, []);
 
-
-  useEffect(() => {
-    setIsAdmin(checkAdminStatus());
-  }, []);
 
   return (
     tournament ?
@@ -53,9 +32,10 @@ const TournamentDetails = () => {
         <h1 className="text-5xl font-bold">{tournament.name}</h1>
         <p className="mt-4 text-lg">Tournament Id: {tournament.tournamentid} | Start: {tournament.start_date.split("T")[0]} | End: {tournament.end_date.split("T")[0]}</p>
       </BasicDiv>
+      
       {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
 
-      {/* {isAdmin && <ThemeLink label="edit" url={`/tournament/edit/${tid}`} />} */}
+      {isAdmin && <span className='absolute top-4 right-4'><Link className="inline-block bg-theme-w text-theme p-1 px-2 rounded-md hover:scale-105" to={`/tournaments/edit/${tid}`}>Edit Tournament</Link></span>}
 
       <BasicDiv ostyle="py-16">
         <div className="container mx-auto text-center">

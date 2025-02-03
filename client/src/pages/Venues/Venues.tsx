@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { IVenue } from "../../data/ITypes";
-import { backendBaseURL, checkAdminStatus } from "../../data/utils";
+import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../data/utils";
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
 import { FaEdit, FaTrash } from "react-icons/fa"; 
@@ -18,37 +17,16 @@ interface IVenueCard extends IVenue {
 const Venues = () => {
     const [venues, setVenues] = useState<IVenue[]>([]);
     const { info, setInfo } = useInfoHandler();
-    const [isAdmin, setIsAdmin] = useState(false); 
     const { dnav } = useDNavigate();
+    const isAdmin = checkAdminStatus();
 
   useEffect(() => {
-    setIsAdmin(checkAdminStatus());
-    fetchVenues();
+    AxiosGet("/venues", setVenues, setInfo);
+
   }, []);
 
-  const fetchVenues = async () => {
-    try {
-      const response = await axios.get(backendBaseURL + `/venues`);
-      setVenues(response.data);
-      setInfo(["venue fetched successfully", "success"])
-    } catch (error: any) {
-        setInfo(["Error fetching venues.", "error"]);
-        console.error(error);
-    }
-  };
-
- 
   const handleDelete = async (venueid: number) => {
-    try {
-      console.log("Deleting venue with id: ", venueid);
-      const response = await axios.delete(backendBaseURL + `/venues/${venueid}`);
-      setInfo(["venue deleted successfully!", "success"]);
-
-      fetchVenues();
-    } catch (error: any) {
-        setInfo(["Error deleting venue.", "error"]);
-        console.error(error.response.data);
-    }
+    AxiosDelete(`/venues/${venueid}`, setInfo);
   };
 
   const handleEdit = async (venueid: number) => {

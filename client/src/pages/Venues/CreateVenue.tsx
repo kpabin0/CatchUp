@@ -1,10 +1,9 @@
 import { IVenueForm } from "../../data/ITypes";
-import { backendBaseURL } from "../../data/utils";
+import { AxiosPost } from "../../data/utils";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
 import FormWrapper from "../FormWrapper";
 import VeneueFormCard from "./VenueForm";
-import axios from "axios";
 import { useDNavigate } from "../../customhook/dnavigate";
 
 const CreateVenue = () => {
@@ -13,16 +12,8 @@ const CreateVenue = () => {
   const { info, setInfo } = useInfoHandler();
 
   const createVenue = async (data: any) => {
-    try {
-        const response = await axios.post(backendBaseURL + `/venues/create`, data);
-        console.log("Venue created successfully:", response.data);
-        setInfo(["Venue created successfully!", "success"]);
-        dnav("/venues", 1000);
-        // setTimeout(() => navigate("/venues"), 1000);
-    } catch (error: any) {
-        console.error("Error creating Venue:", error);
-        setInfo(["Error creating Venue", "error"])
-    }
+    AxiosPost(`/venues/create`, data, setInfo);
+    dnav("/venues", 1000);
   };
 
   const onSubmit = (data: IVenueForm) => {

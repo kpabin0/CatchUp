@@ -1,29 +1,19 @@
-import React from 'react'
-import axios from 'axios';
 import FormWrapper from '../FormWrapper';
 import MatchFormCard from './MatchForm';
 import { IMatchForm } from '../../data/ITypes';
-import { backendBaseURL } from '../../data/utils';
+import { AxiosPost } from '../../data/utils';
 import { useInfoHandler } from '../../customhook/info';
-import { useNavigate } from 'react-router-dom';
 import Message from '../../components/Message';
+import { useDNavigate } from '../../customhook/dnavigate';
 
 const CreateMatch = () => {
 
-    const navigate = useNavigate();
-
     const { info, setInfo } = useInfoHandler();
+    const { dnav } = useDNavigate();
   
     const createMatch = async (data: any) => {
-      try {
-          const response = await axios.post(backendBaseURL + `/matches/create`, data);
-          console.log("Match created successfully:", response.data);
-          setInfo(["Match created successfully!", "success"]);
-          setTimeout(() => navigate("/matches"), 1000);
-      } catch (error: any) {
-          console.error("Error creating match:", error);
-          setInfo(["Error creating match", "error"])
-      }
+      AxiosPost(`/matches/create`, data, setInfo);
+      dnav(`/matches`, 1000);
     };
   
     const onSubmit = (data: IMatchForm) => {

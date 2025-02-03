@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { IVenueForm } from "../../data/ITypes";
-import { backendBaseURL } from "../../data/utils";
+import { AxiosGet, AxiosPut } from "../../data/utils";
 import Loading from "../../components/Loading";
 import FormWrapper from "../FormWrapper";
 import { useInfoHandler } from "../../customhook/info";
@@ -21,27 +20,13 @@ const EditVenue = () => {
   useEffect(() => {
     console.log(venueid)
     if (venueid) {
-      axios.get(backendBaseURL + `/venues/${venueid}`)
-          .then((response) => {
-            setData(response.data);
-        })
-        .catch((error) => {
-          setInfo(["Error fetching venue data.", "error"]);
-          console.error("Error fetching venue data:", error);
-        });
+      AxiosGet(`/venues/${venueid}`, setData, setInfo);
     }
   }, [venueid]);
 
   const updateVenue = async (data: IVenueForm) => {
-    try {
-      const response = await axios.put(backendBaseURL + `/venues/${venueid}`, data);
-      console.log("Venue updated:", response.data);
-      setInfo(["Venue updated Successfully", "success"]);
-      dnav("/venues", 1000);
-    } catch (error) {
-      setInfo(["Error updating venue data.", "error"]);
-      console.error("Error updating venue:", error);
-    }
+    AxiosPut(`/venues/${venueid}`, data, setInfo);
+    dnav("/venues", 1000);
   };
 
   const onSubmit = (d: IVenueForm) => {

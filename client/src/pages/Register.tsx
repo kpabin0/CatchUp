@@ -2,11 +2,11 @@ import TextInputField from '../components/ThemeInputField'
 import { Link } from 'react-router-dom'
 import { HiUserAdd } from "react-icons/hi";
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { backendBaseURL } from '../data/utils';
 import ThemeFormDiv from '../components/ThemeFormDiv';
 import FullBgCover from '../components/FullBgCover';
+import { useDNavigate } from '../customhook/dnavigate';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const Register = () => {
         password: '',
         confirmPassword: ''
       });
-  const navigate = useNavigate();
+  const { dnav } = useDNavigate();
     
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -39,7 +39,7 @@ const Register = () => {
         });
       
         alert(response.data.message || "Registration successful!");
-        setTimeout(() => navigate('/login'), 1000);
+        dnav('/login', 1000);
       } catch (error: any) {
         console.error("Error registering user:", error.response || error.message);
         const errorMessage = error.response?.data?.message || "An error occurred during registration.";

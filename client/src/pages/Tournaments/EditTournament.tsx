@@ -1,47 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useParams } from "react-router-dom";
 import { ITournamentForm } from "../../data/ITypes";
-import { backendBaseURL } from "../../data/utils";
+import { AxiosGet, AxiosPut } from "../../data/utils";
 import Loading from "../../components/Loading";
 import FormWrapper from "../FormWrapper";
 import { useInfoHandler } from "../../customhook/info";
 import Message from "../../components/Message";
 import TournamentFormCard from "./TournamentForm";
+import { useDNavigate } from "../../customhook/dnavigate";
 
 const EditTournament = () => {
   const { tid } = useParams(); 
   const { info, setInfo } = useInfoHandler();
+  const { dnav } = useDNavigate()
   
-  const navigate = useNavigate();
   const [data, setData] = useState<ITournamentForm | null>(null);
 
   useEffect(() => {
     if (tid) {
-      axios.get(backendBaseURL + `/tournaments/${tid}`)
-          .then((response) => {
-            let tempData = response.data;
-            tempData["end_date"] = tempData["end_date"].split('T')[0]
-            tempData["start_date"] = tempData["start_date"].split('T')[0]
-            setData(tempData);
-        })
-        .catch((error) => {
-          setInfo(["Error fetching tournament data.", "error"]);
-          console.error("Error fetching tournament data:", error);
-        });
+      const forwardData = (d: any) => {
+        let temp = d;
+        temp["end_date"] = temp["end_date"].split('T')[0]
+        temp["start_date"] = temp["start_date"].split('T')[0]
+        setData(temp);
+      }
+
+      AxiosGet(`/tournaments/${tid}`, forwardData, setInfo);
     }
+
   }, [tid]);
 
   const updateTournament = async (data: ITournamentForm) => {
-    try {
-      const response = await axios.put(backendBaseURL + `/tournaments/${tid}`, data);
-      console.log("Tournament updated:", response.data);
-      setInfo(["Tournament updated Successfully", "success"]);
-      setTimeout(() => navigate("/tournaments/"), 1000);
-    } catch (error) {
-      setInfo(["Error updating tournament data.", "error"]);
-      console.error("Error updating tournament:", error);
-    }
+    AxiosPut(`/tournaments/${tid}`, data, setInfo);
+    dnav(`/tournaments`, 1000);
   };
 
   const onSubmit = (d: ITournamentForm) => {

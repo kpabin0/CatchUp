@@ -1,51 +1,35 @@
 import { useEffect, useState } from "react";
 import BasicDiv from "../components/BasicDiv";
 import { IMatchHighlightView, ITournament } from "../data/ITypes";
-import { backendBaseURL } from "../data/utils";
+import { AxiosGet, backendBaseURL } from "../data/utils";
 import FullBgCover from "../components/FullBgCover";
 import ThemeLink from "../components/ThemeLink";
 import { Link } from "react-router-dom";
 import { FixtureCard } from "./Fixtures";
 import Loading from "../components/Loading";
+import { useInfoHandler } from "../customhook/info";
+import Message from "../components/Message";
 
 const Home = () => {
 
   const [topPlayer, setTopPlayer] = useState<IPlayerCard[]>();
   const [topMatches, setTopMatches] = useState<IMatchHighlightView[]>();
   const [topTournaments, setTopTournaments] = useState<ITournament[]>();
+  const { info, setInfo } = useInfoHandler();
 
   useEffect(() => {
-    fetchPlayer();
-    fetchCurrentMatches();
-    fetchHotTournaments();
+    AxiosGet(`/matches/hot`, setTopMatches, setInfo);
+    AxiosGet(`/players/top`, setTopPlayer, setInfo);
+    AxiosGet(`/tournament/hot`, setTopTournaments, setInfo);
 
   }, [])
-
-  const fetchPlayer = async () => {
-    await fetch(backendBaseURL + "/players/top")
-            .then((res) => res.json())
-            .then(data => setTopPlayer(data))
-            .catch(error => console.log(error))
-  }
-
-  const fetchCurrentMatches = async () => {
-    await fetch(backendBaseURL + "/matches/hot")
-            .then((res) => res.json())
-            .then(data => setTopMatches(data))
-            .catch(error => console.log(error))
-  }
-
-  const fetchHotTournaments = async () => {
-    await fetch(backendBaseURL + "/tournaments/hot")
-            .then((res) => res.json())
-            .then(data => setTopTournaments(data))
-            .catch(error => console.log(error))
-  }
 
   return (
     <section className="min-w-screen min-h-screen flex flex-col justify-center items-center">
       
       <FullBgCover />
+
+      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
 
       <BasicDiv ostyle="w-full py-12 min-h-[50vh]">
           <h2 className="p-2 mb-10 text-xl font-bold bg-theme text-theme-w inline-block">Fixtures</h2>

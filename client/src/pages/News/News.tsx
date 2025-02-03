@@ -1,62 +1,52 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { INews, ISubNews } from '../../data/ITypes';
-import { backendBaseURL, checkAdminStatus } from '../../data/utils';
+import { AxiosGet, checkAdminStatus } from '../../data/utils';
 import BasicDiv from '../../components/BasicDiv';
 import Loading from '../../components/Loading';
 import ThemeLink from '../../components/ThemeLink';
+import { useInfoHandler } from '../../customhook/info';
+import Message from '../../components/Message';
 
 const News = () => {
 
   const [newsData, setNewsData] = useState<INews[]>();
   const [subNewsData, setSubNewsData] = useState<ISubNews[]>();
-  const [isAdmin, setIsAdmin] = useState(false); 
+  const { info ,setInfo } = useInfoHandler()
+  const isAdmin = checkAdminStatus(); 
 
   
   useEffect(() => {
-    const res = async () => {
-
-      // eslint-disable-next-line
-      const news =  await fetch(backendBaseURL + `/news/`)
-                    .then((res) => res.json())
-                    .then((data) => { setNewsData(data); console.log(data); return data })
-                    .catch((error) => { console.log(error); });
-                    
-      // eslint-disable-next-line
-      const subNews =  await fetch(backendBaseURL + `/subnews/`)
-                    .then((res) => res.json())
-                    .then((data) => { setSubNewsData(data); console.log(data); return data })
-                    .catch((error) => { console.log(error); });
-
-    }
-
-    res();
-    setIsAdmin(checkAdminStatus())
+    AxiosGet(`/news`, setNewsData, setInfo);
+    AxiosGet(`/subnews`, setSubNewsData, setInfo);
 
   // eslint-disable-next-line
   }, [])
 
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full relative">
-        {isAdmin && <span className='absolute top-4 right-4'><ThemeLink label="Add News" url="/news/create" /></span>}
-        
-        <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
-        <div className="grid xl:grid-cols-3 grid-cols-1 gap-x-10">
-          <div className="w-full xl:col-span-2 p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {
-              newsData ? newsData.map((props, ind) => {
-                return <NewsCard key={ind} {...props} />
-              }) : <Loading text="news" />
-            }
-          </div>
-          <BasicDiv ostyle="w-full mx-auto xl:self-start space-y-2 mt-10">
-            {
-              subNewsData ? subNewsData.map((props, ind) => {
-                return <SubNewsCard key={ind} {...props} />
-              }) : <Loading text="subnews" />
-            }
-          </BasicDiv>
+      
+      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
+      
+      {isAdmin && <span className='absolute top-4 right-4'><ThemeLink label="Add News" url="/news/create" /></span>}
+      
+      <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
+      <div className="grid xl:grid-cols-3 grid-cols-1 gap-x-10">
+        <div className="w-full xl:col-span-2 p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {
+            newsData ? newsData.map((props, ind) => {
+              return <NewsCard key={ind} {...props} />
+            }) : <Loading text="news" />
+          }
         </div>
+        <BasicDiv ostyle="w-full mx-auto xl:self-start space-y-2 mt-10">
+          {
+            subNewsData ? subNewsData.map((props, ind) => {
+              return <SubNewsCard key={ind} {...props} />
+            }) : <Loading text="subnews" />
+          }
+        </BasicDiv>
+      </div>
     </section>
   )
 }

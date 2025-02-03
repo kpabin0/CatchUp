@@ -4,27 +4,27 @@ import { useParams } from 'react-router-dom'
 import ThemeDiv from '../../components/ThemeDiv';
 import BasicDiv from '../../components/BasicDiv';
 import { IPlayer } from '../../data/ITypes';
-import { backendBaseURL } from '../../data/utils';
+import { AxiosGet, backendBaseURL } from '../../data/utils';
+import { useInfoHandler } from '../../customhook/info';
+import Message from '../../components/Message';
 
 const Player = () => {
 
     const { tid, pid } = useParams();
 
     const [player, setPlayer] = useState<IPlayer>()
+    const { info, setInfo } = useInfoHandler()
 
     useEffect(() => {
-      const res = async () => {
-        await axios.get(backendBaseURL + `/players/${pid}`)
-                      .then((res) => { setPlayer(res.data); console.log(res.data); return res.data; })
-                      .catch((error) => { console.log(error); });
-      }
-      res();
+      AxiosGet(`/players/${pid}`, setPlayer, setInfo);
       
     // eslint-disable-next-line
     }, [])
 
   return (
     <section className="min-h-screen min-w-full flex flex-row justify-evenly items-center relative">
+        {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
+       
         <ThemeDiv className="w-[30rem] h-[30rem] bg-theme rounded-md">
           <img src={"/assets/player.png"} alt={"img"} />
         </ThemeDiv>
