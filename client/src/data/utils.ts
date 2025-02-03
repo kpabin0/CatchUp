@@ -1,3 +1,4 @@
+import axios from "axios";
 import { jwtDecode } from "jwt-decode"
 
 export function getArray(count : any)
@@ -43,3 +44,137 @@ export function checkAdminStatus() {
 
 
 export const backendBaseURL = "http://localhost:" + process.env.REACT_APP_PORT_NUMBER;
+
+function getURLSepMsg(url: string, a: string = "") {
+  return (url.split("/").filter((i) => i != '')).join("...") + `...${a}...`;
+}
+
+const axiosW = axios.create({baseURL: backendBaseURL})
+
+
+/**
+  Wrapper async function for axios fetch/get request from URL, \
+  set the value on success and set status on info message (custom hook) \
+  ### Note: baseURL already preincluded
+  
+  args
+  - url: backend url (only /enpoint, eg: /news)
+  - setRes: If get request was succesful setRes will be called with response data passed to it
+  - setInfo: success or failure info updated
+
+  return:
+  - the response data if connection was successful, else return error
+
+  `usage: for connecting to http://localhost:8080/news/2, url - /news/2`
+*/
+export async function AxiosGet(url: string, setRes: any, setInfo: any, setLoading: any = null) {
+  const sepMsg = getURLSepMsg(url, "fetch");
+  if(setLoading) setLoading(true)
+
+  await axiosW.get(url)
+              .then(res => {
+                setRes(res.data)
+                if(setLoading) setLoading(false)
+                setInfo([sepMsg + "sucessful", "success"])
+                return res.data;
+              })
+              .catch(error => {
+                setInfo([sepMsg + "error", "error"])
+                return error
+              })
+}
+
+/**
+  Wrapper async function for axios post request to given URL, \
+  set the value of passed data on success and set status on info message (custom hook) \
+  ### Note: baseURL already preincluded
+  
+  args
+  - url: backend url (only /enpoint, eg: /news)
+  - data: data to post to the given endpoint
+  - setInfo: success or failure info updated
+
+  return:
+  - on success response data will be returned, else error
+
+  `usage: for connecting to http://localhost:8080/news/2, url - /news/2`
+*/
+export async function AxiosPost(url: string, data: any, setInfo: any, setLoading: any = null) {
+  const sepMsg = getURLSepMsg("post");
+  if(setLoading) setLoading(true)
+
+  await axiosW.post(url, data)
+                .then(res => {
+                  if(setLoading) setLoading(false)
+
+                  setInfo([sepMsg + "sucessful", "success"])
+                  return res.data
+                })
+                .catch(error => {
+                  setInfo([sepMsg + "error", "error"])
+                  return error;
+                })
+}
+
+/**
+  Wrapper async function for axios put request to given URL, \
+  set the value of passed data on success and set status on info message (custom hook) \
+  ### Note: baseURL already preincluded
+  
+  args
+  - url: backend url (only /enpoint, eg: /news)
+  - data: data to put to the given endpoint
+  - setInfo: success or failure info updated
+
+  return:
+  - on success response data will be returned, else error
+
+  `usage: for connecting to http://localhost:8080/news/2, url - /news/2`
+*/
+export async function AxiosPut(url: string, data: any, setInfo: any, setLoading: any = null) {
+  const sepMsg = getURLSepMsg("put");
+  if(setLoading) setLoading(true)
+
+  await axiosW.post(url, data)
+                .then(res => {
+                  if(setLoading) setLoading(false)
+
+                  setInfo([sepMsg + "sucessful", "success"])
+                  return res.data
+                })
+                .catch(error => {
+                  setInfo([sepMsg + "error", "error"])
+                  return error;
+                })
+}
+
+/**
+  Wrapper async function for axios put request to given URL, \
+  set the value of passed data on success and set status on info message (custom hook) \
+  ### Note: baseURL already preincluded
+  
+  args
+  - url: backend url (only /enpoint, eg: /news)
+  - setInfo: success or failure info updated
+
+  return:
+  - on success response data will be returned, else error
+
+  `usage: for connecting to http://localhost:8080/news/2, url - /news/2`
+*/
+export async function AxiosDelete(url: string, setInfo: any, setLoading: any = null) {
+  const sepMsg = getURLSepMsg("delete");
+  if(setLoading) setLoading(true)
+
+  await axiosW.delete(url)
+                .then(res => {
+                  if(setLoading) setLoading(false)
+
+                  setInfo([sepMsg + "sucessful", "success"])
+                  return res.data
+                })
+                .catch(error => {
+                  setInfo([sepMsg + "error", "error"])
+                  return error;
+                })
+}
