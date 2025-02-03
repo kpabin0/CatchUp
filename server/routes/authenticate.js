@@ -4,14 +4,15 @@ const jwt = require("jsonwebtoken");
 const dbpool = require('../config/pgdb');
 const router = express.Router();
 require("dotenv").config()
+const util = require('../util/util')
 
 // Registration
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    let userid = (await dbpool.query("SELECT userid FROM users ORDER BY userid DESC LIMIT 1;")).rows[0].userid;
-    console.log(userid)
+    let userid = await util.get_col_max('users', 'userid')
+    // console.log(userid)
 
     console.log("Creating a new User:", req.body);
     // Hash the password
@@ -20,11 +21,9 @@ router.post("/register", async (req, res) => {
     // Log the hashed password to console
     console.log("Hashed Password:", hashedPassword);
 
+    const insert_query = "INSERT INTO users (userid, name, email, password) VALUES ($1, $2, $3, $4)";
     // Insert the new user into the database
-    const result = await dbpool.query(
-      "INSERT INTO users (userid, name, email, password) VALUES ($1, $2, $3, $4)",
-      [++userid, name, email, hashedPassword]
-    );
+    const result = await dbpool.query(insert_query, [++userid, name, email, hashedPassword]);
     
     res.status(201).json({ message: "User registered successfully!" });
   } catch (error) {
@@ -39,8 +38,8 @@ router.post("/login", async (req, res) => {
 
   try {
     console.log("Log In of a User:", req.body);
-    const result = await dbpool.query("SELECT * FROM users WHERE email = $1", [email]);
-    const user = result.rows[0];
+    const user = await util.query_all_f('users', 'email', email);
+    console.log(user)
 
     if (!user) {
       return res.status(400).json({ message: "User not found" });
@@ -77,23 +76,19 @@ router.post("/reset", async (req, res) => {
   try {
       console.log("Received reset request:", email);
 
-      const result = await dbpool.query("SELECT * FROM users WHERE email = $1", [email]);
-      const user = result.rows[0];
+      const user = await util.query_all_f('users', 'email', email);
 
       if (!user) {
           console.log("User not found:", email);
           return res.status(400).json({ message: "User not found" });
       }
 
-   
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       console.log("Hashed password:", hashedPassword);
 
-      await dbpool.query("UPDATE users SET password = $1 WHERE email = $2", [hashedPassword, email]);
-
-      
+      const update_query = "UPDATE users SET password = $1 WHERE email = $2";
+      await dbpool.query(update_query, [hashedPassword, email]);
       console.log("New password has been set for user:", email);
-     
 
       res.json({ message: "Password reset successfully!" });
   } catch (error) {

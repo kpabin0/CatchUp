@@ -4,7 +4,8 @@ const dbpool = require('../config/pgdb');
 
 router.get("/", async (req, res) => {
     try {
-        const allpersonals = await dbpool.query("SELECT * FROM persons");
+        const select_query = "SELECT * FROM persons";
+        const allpersonals = await dbpool.query(select_query);
         console.log("Fetched all personals:", allpersonals.rows);
         res.json(allpersonals.rows);
     } catch (error) {

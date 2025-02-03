@@ -11,13 +11,8 @@ router.post("/create", async (req, res) => {
             return res.status(400).json({ error: "Missing required fields" });
         } else {
             
-            // const result = await dbpool.query("SELECT newsid FROM news ORDER BY newsid DESC LIMIT 1;");
-            // const newsid = result.rows.length > 0 ? result.rows[0].newsid + 1 : 1;
-        
-            // const query = `INSERT INTO news (newsid, title, img, description) VALUES ($1, $2, $3, $4);`;
-            const query = `INSERT INTO news (title, img, description) VALUES ($1, $2, $3);`;
-            // const newnews = await dbpool.query(query, [newsid, title, img, description]);
-            const newnews = await dbpool.query(query, [title, img, description]);
+            const insert_query = `INSERT INTO news (title, img, description) VALUES ($1, $2, $3);`;
+            const newnews = await dbpool.query(insert_query, [title, img, description]);
             console.log("Created news:", newnews.rows[0]);
             res.json(newnews.rows[0]);
         }
@@ -69,7 +64,8 @@ try{
    
     const {  name, seats, location } = req.body;    
     console.log("Updating news with id:", newsid);
-    const updatednews = await dbpool.query("UPDATE news SET name = $1, seats = $2, location = $3 WHERE newsid = $4 RETURNING *", [name, seats, location, newsid]);
+    const update_query = "UPDATE news SET name = $1, seats = $2, location = $3 WHERE newsid = $4 RETURNING *";
+    const updatednews = await dbpool.query(update_query, [name, seats, location, newsid]);
     console.log("Updated news:", updatednews.rows[0]);   
     if (updatednews.rowCount === 0) {
         console.log(`news not found for update with id: ${newsid}`);
@@ -80,9 +76,8 @@ try{
  catch (error) {
     console.error("Error updating news:", error);
     res.status(500).json({ error: "Internal Server Error" });  
-}
-}
-)
+    }
+});
 
 
 router.get("/:newsid", async (req, res) => {

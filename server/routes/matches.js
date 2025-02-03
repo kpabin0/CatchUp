@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const dbpool = require('../config/pgdb');
 const { route } = require('./about');
+const util = require('../util/util')
 
 router.post("/create", async (req, res) => {
     const { name, seats, location } = req.body; 
@@ -12,12 +13,11 @@ router.post("/create", async (req, res) => {
             return res.status(400).json({ error: "Missing required fields" });
         } else {
             
-            const result = await dbpool.query("SELECT matchid FROM matches ORDER BY matchid DESC LIMIT 1;");
-            const matchid = result.rows.length > 0 ? result.rows[0].matchid + 1 : 1;
+            const result = await util.get_col_max('matches', 'matchid');
+            const matchid = result !== -1 ? result + 1 : 1;
             
-        
-            const query = `INSERT INTO matches (matchid, name, seats, location) VALUES ($1, $2, $3, $4);`;
-            const newmatch = await dbpool.query(query, [matchid, name, seats, location]);
+            const insert_query = `INSERT INTO matches (matchid, name, seats, location) VALUES ($1, $2, $3, $4);`;
+            const newmatch = await dbpool.query(insert_query, [matchid, name, seats, location]);
             console.log("Created match:", newmatch.rows[0]);
             res.json(newmatch.rows[0]);
         }

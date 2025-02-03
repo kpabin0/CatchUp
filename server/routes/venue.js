@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const dbpool = require('../config/pgdb');
+const util = require('../util/util')
 
 router.post("/create", async (req, res) => {
     const { name, seats, location } = req.body; 
@@ -11,12 +12,11 @@ router.post("/create", async (req, res) => {
             return res.status(400).json({ error: "Missing required fields" });
         } else {
             
-            const result = await dbpool.query("SELECT venueid FROM venues ORDER BY venueid DESC LIMIT 1;");
-            const venueid = result.rows.length > 0 ? result.rows[0].venueid + 1 : 1;
+            const result = await util.get_col_max('venues', 'venueid');
+            const venueid = result !== -1 ? result + 1 : 1;
             
-        
-            const query = `INSERT INTO venues (venueid, name, seats, location) VALUES ($1, $2, $3, $4);`;
-            const newVenue = await dbpool.query(query, [venueid, name, seats, location]);
+            const insert_query = `INSERT INTO venues (venueid, name, seats, location) VALUES ($1, $2, $3, $4);`;
+            const newVenue = await dbpool.query(insert_query, [venueid, name, seats, location]);
             console.log("Created venue:", newVenue.rows[0]);
             res.json(newVenue.rows[0]);
         }
@@ -79,9 +79,8 @@ try{
  catch (error) {
     console.error("Error updating venue:", error);
     res.status(500).json({ error: "Internal Server Error" });  
-}
-}
-)
+    }
+})
 
 
 router.get("/:venueid", async (req, res) => {

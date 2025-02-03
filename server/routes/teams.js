@@ -1,6 +1,7 @@
 const express =require("express")
 const router =express.Router()
 const dbpool = require("../config/pgdb")
+const util = require('../util/util')
 
 router.post("/create", async(req,res)=>{
     const { name, description } = req.body;
@@ -10,8 +11,8 @@ router.post("/create", async(req,res)=>{
         return res.status(400).json({ error: "Missing required fields" });
     }
     try{
-        const  result = await dbpool.query('SELECT teamid from teams ORDER BY teamid DESC LIMIT 1;');
-        const teamid = result.rows.length > 0 ? result.rows[0].teamid + 1 : 1;
+        const result = await util.get_col_max('teams', 'teamid');
+        const teamid = result !== -1 ? result + 1: 1;
 
         const query = `INSERT INTO teams (teamid, name, description) VALUES ($1, $2, $3 ) RETURNING *`;
         const newTeam = await dbpool.query(query,[teamid,name,description])
