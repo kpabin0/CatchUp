@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { _about } from '../data/_about'
-import { ITournament } from "../data/ITypes";
-import { AxiosGet } from '../data/utils';
-import { IPersonCard } from '../data/ITypes';
+import { ITournament } from "../utils/ITypes";
+import { AxiosGet } from '../utils/utils';
+import { IPersonCard } from '../utils/ITypes';
 import BasicDiv from '../components/BasicDiv';
 import Loading from '../components/Loading';
 import { useInfoHandler } from '../customhook/info';

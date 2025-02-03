@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import BasicDiv from '../components/BasicDiv'
 import ThemeLink from '../components/ThemeLink'
-import { ISideNavItem } from '../data/ITypes'
+import { ISideNavItem } from '../utils/ITypes'
 import { _loggedInAdminItems } from '../data/_navItems'
 import Loading from '../components/Loading'
 

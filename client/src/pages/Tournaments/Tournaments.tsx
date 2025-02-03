@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ITournament } from "../../data/ITypes";
-import { AxiosDelete, AxiosGet, backendBaseURL, checkAdminStatus } from "../../data/utils";
+import { ITournament } from "../../utils/ITypes";
+import { AxiosDelete, AxiosGet, backendBaseURL, checkAdminStatus } from "../../utils/utils";
 import { Link, useNavigate } from "react-router-dom";
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";

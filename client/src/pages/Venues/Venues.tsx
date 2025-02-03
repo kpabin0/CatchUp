@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { IVenue } from "../../data/ITypes";
-import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../data/utils";
+import { IVenue } from "../../utils/ITypes";
+import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
 import { FaEdit, FaTrash } from "react-icons/fa"; 

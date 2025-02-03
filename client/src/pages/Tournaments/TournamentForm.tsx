@@ -1,4 +1,4 @@
-import { ITournamentForm } from "../../data/ITypes";
+import { ITournamentForm } from "../../utils/ITypes";
 import GenericForm, { IInputFieldProps } from "../../components/GenericForm";
 
 interface ITournamentFormCard {

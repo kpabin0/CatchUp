@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { IPlayerForm } from "../../data/ITypes";
-import { AxiosGet, AxiosPost, backendBaseURL } from "../../data/utils";
+import { IPlayerForm } from "../../utils/ITypes";
+import { AxiosGet, AxiosPost, backendBaseURL } from "../../utils/utils";
 import Loading from "../../components/Loading";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";

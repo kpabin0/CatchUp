@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import TextInputField from '../components/ThemeInputField';
-import { backendBaseURL } from '../data/utils';
+import { backendBaseURL } from '../utils/utils';
 import FullBgCover from '../components/FullBgCover';
 import Message from '../components/Message';
 import { useInfoHandler } from '../customhook/info';

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import BasicDiv from "../components/BasicDiv";
-import { IMatchHighlightView, ITournament } from "../data/ITypes";
-import { AxiosGet, backendBaseURL } from "../data/utils";
+import { IMatchHighlightView, ITournament } from "../utils/ITypes";
+import { AxiosGet, backendBaseURL } from "../utils/utils";
 import FullBgCover from "../components/FullBgCover";
 import ThemeLink from "../components/ThemeLink";
 import { Link } from "react-router-dom";

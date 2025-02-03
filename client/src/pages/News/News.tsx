@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { INews, ISubNews } from '../../data/ITypes';
-import { AxiosGet, checkAdminStatus } from '../../data/utils';
+import { INews, ISubNews } from '../../utils/ITypes';
+import { AxiosGet, checkAdminStatus } from '../../utils/utils';
 import BasicDiv from '../../components/BasicDiv';
 import Loading from '../../components/Loading';
 import ThemeLink from '../../components/ThemeLink';

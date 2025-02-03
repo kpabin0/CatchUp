@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { IFixture } from '../data/ITypes';
-import { AxiosGet } from '../data/utils';
+import { IFixture } from '../utils/ITypes';
+import { AxiosGet } from '../utils/utils';
 import BorderDiv from '../components/BorderDiv';
 import Loading from '../components/Loading';
 import { useInfoHandler } from '../customhook/info';

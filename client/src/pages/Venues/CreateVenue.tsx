@@ -1,5 +1,5 @@
-import { IVenueForm } from "../../data/ITypes";
-import { AxiosPost } from "../../data/utils";
+import { IVenueForm } from "../../utils/ITypes";
+import { AxiosPost } from "../../utils/utils";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
 import FormWrapper from "../FormWrapper";

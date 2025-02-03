@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { AxiosPost } from '../../data/utils';
+import { AxiosPost } from '../../utils/utils';
 import Message from '../../components/Message';
-import { INewsForm } from '../../data/ITypes';
+import { INewsForm } from '../../utils/ITypes';
 import { useInfoHandler } from '../../customhook/info';
 import FormWrapper from '../FormWrapper';
 import NewsFormCard from './NewsForm';

@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { _loggedInAdminItems, _loggedInUserItems, _navItems } from '../data/_navItems'
 import { useEffect, useState } from 'react'
 import { TbMenu, TbHome, TbCricket, TbTrophy, TbNews, TbBallTennis, TbLogout, TbPlus, TbEdit, TbLogin, TbBinoculars, TbBrandTeams, TbUser, TbHome2, TbQuestionMark } from "react-icons/tb";
-import { ISideNavItem } from '../data/ITypes';
-import { checkAdminStatus, loggedInStatus } from '../data/utils';
+import { ISideNavItem } from '../utils/ITypes';
+import { checkAdminStatus, loggedInStatus } from '../utils/utils';
 import Logo from './Logo';
 
 const iconStyle = 'inline-block m-2 h-5 w-5'

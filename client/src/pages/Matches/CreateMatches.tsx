@@ -1,7 +1,7 @@
 import FormWrapper from '../FormWrapper';
 import MatchFormCard from './MatchForm';
-import { IMatchForm } from '../../data/ITypes';
-import { AxiosPost } from '../../data/utils';
+import { IMatchForm } from '../../utils/ITypes';
+import { AxiosPost } from '../../utils/utils';
 import { useInfoHandler } from '../../customhook/info';
 import Message from '../../components/Message';
 import { useDNavigate } from '../../customhook/dnavigate';

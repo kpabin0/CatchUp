@@ -1,4 +1,4 @@
-import { IPlayerForm } from '../../data/ITypes';
+import { IPlayerForm } from '../../utils/ITypes';
 import GenericForm, { IInputFieldProps } from '../../components/GenericForm';
 
 interface IPlayerFormCard {

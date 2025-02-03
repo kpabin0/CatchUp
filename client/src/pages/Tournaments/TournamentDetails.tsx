@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { AxiosGet, getArray } from "../../data/utils";
-import { ITournament } from "../../data/ITypes";
+import { AxiosGet, getArray } from "../../utils/utils";
+import { ITournament } from "../../utils/ITypes";
 import BasicDiv from "../../components/BasicDiv";
-import { checkAdminStatus } from "../../data/utils";
+import { checkAdminStatus } from "../../utils/utils";
 import ThemeDiv from "../../components/ThemeDiv";
 import { MatchCard } from "../Matches/Matches";
 import { useInfoHandler } from "../../customhook/info";

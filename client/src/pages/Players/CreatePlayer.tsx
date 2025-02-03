@@ -1,7 +1,7 @@
 import FormWrapper from '../FormWrapper'
 import { useInfoHandler } from '../../customhook/info';
-import { IPlayerForm } from '../../data/ITypes';
-import { AxiosPost } from '../../data/utils';
+import { IPlayerForm } from '../../utils/ITypes';
+import { AxiosPost } from '../../utils/utils';
 import Message from '../../components/Message';
 import PlayerFormCard from './PlayerForm';
 import { useDNavigate } from '../../customhook/dnavigate';

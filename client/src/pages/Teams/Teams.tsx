@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../data/utils";
+import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
 import { Link } from "react-router-dom";
 import { FaTrash,FaEdit } from "react-icons/fa"; 
 import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
-import { ITeam } from "../../data/ITypes";
+import { ITeam } from "../../utils/ITypes";
 import { useInfoHandler } from "../../customhook/info";
 import { useDNavigate } from "../../customhook/dnavigate";
 import Message from "../../components/Message";

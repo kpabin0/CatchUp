@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ITeamForm } from "../../data/ITypes";
-import { AxiosGet, AxiosPut } from "../../data/utils";
+import { ITeamForm } from "../../utils/ITypes";
+import { AxiosGet, AxiosPut } from "../../utils/utils";
 import Loading from "../../components/Loading";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";

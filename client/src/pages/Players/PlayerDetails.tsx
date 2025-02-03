@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom'
 import ThemeDiv from '../../components/ThemeDiv';
 import BasicDiv from '../../components/BasicDiv';
-import { IPlayer } from '../../data/ITypes';
-import { AxiosGet, backendBaseURL } from '../../data/utils';
+import { IPlayer } from '../../utils/ITypes';
+import { AxiosGet, backendBaseURL } from '../../utils/utils';
 import { useInfoHandler } from '../../customhook/info';
 import Message from '../../components/Message';
 

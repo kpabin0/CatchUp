@@ -1,5 +1,5 @@
 import GenericForm, { IInputFieldProps } from "../../components/GenericForm";
-import { IMatchForm } from "../../data/ITypes";
+import { IMatchForm } from "../../utils/ITypes";
 
 interface IMatchFormCard {
   d?: IMatchForm,

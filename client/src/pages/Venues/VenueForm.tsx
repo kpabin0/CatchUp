@@ -1,4 +1,4 @@
-import { IVenueForm } from "../../data/ITypes";
+import { IVenueForm } from "../../utils/ITypes";
 import GenericForm, { IInputFieldProps } from "../../components/GenericForm";
 
 interface IVenueFormCard {

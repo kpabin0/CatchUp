@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { IMatchHighlightView } from '../../data/ITypes';
+import { IMatchHighlightView } from '../../utils/ITypes';
 import { FixtureCard } from '../Fixtures';
-import { AxiosGet, checkAdminStatus } from '../../data/utils';
+import { AxiosGet, checkAdminStatus } from '../../utils/utils';
 import Loading from '../../components/Loading';
 import BorderDiv from '../../components/BorderDiv';
 import ThemeLink from '../../components/ThemeLink';

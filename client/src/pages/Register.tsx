@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { HiUserAdd } from "react-icons/hi";
 import { useState } from 'react';
 import axios from 'axios';
-import { backendBaseURL } from '../data/utils';
+import { backendBaseURL } from '../utils/utils';
 import ThemeFormDiv from '../components/ThemeFormDiv';
 import FullBgCover from '../components/FullBgCover';
 import { useDNavigate } from '../customhook/dnavigate';

@@ -1,4 +1,4 @@
-import { INewsForm } from '../../data/ITypes';
+import { INewsForm } from '../../utils/ITypes';
 import GenericForm, { IInputFieldProps } from '../../components/GenericForm';
 
 interface INewsFormCard {

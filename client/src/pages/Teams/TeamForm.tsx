@@ -1,4 +1,4 @@
-import { ITeamForm } from '../../data/ITypes';
+import { ITeamForm } from '../../utils/ITypes';
 import GenericForm, { IInputFieldProps } from '../../components/GenericForm';
 
 interface ITeamFormCard {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AxiosGet, getArray } from "../../data/utils";
-import { ITeam } from "../../data/ITypes";
+import { AxiosGet, getArray } from "../../utils/utils";
+import { ITeam } from "../../utils/ITypes";
 import BasicDiv from "../../components/BasicDiv";
-import { checkAdminStatus } from "../../data/utils";
+import { checkAdminStatus } from "../../utils/utils";
 import Loading from "../../components/Loading";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";

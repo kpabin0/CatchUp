@@ -1,7 +1,7 @@
 import FormWrapper from '../FormWrapper'
 import { useInfoHandler } from '../../customhook/info';
-import { ITeamForm } from '../../data/ITypes';
-import { AxiosPost } from '../../data/utils';
+import { ITeamForm } from '../../utils/ITypes';
+import { AxiosPost } from '../../utils/utils';
 import Message from '../../components/Message';
 import TeamFormCard from './TeamForm';
 import { useDNavigate } from '../../customhook/dnavigate';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ITournamentForm } from "../../data/ITypes";
-import { AxiosGet, AxiosPut } from "../../data/utils";
+import { ITournamentForm } from "../../utils/ITypes";
+import { AxiosGet, AxiosPut } from "../../utils/utils";
 import Loading from "../../components/Loading";
 import FormWrapper from "../FormWrapper";
 import { useInfoHandler } from "../../customhook/info";
