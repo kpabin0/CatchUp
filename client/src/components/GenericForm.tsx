@@ -30,7 +30,11 @@ const GenericForm = ({fields, onSubmit, ostyle}: IGenericForm) => {
 
     const onFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(field);
+        const obj: Record<string, string> = {};
+        field.forEach((v, k) => {
+            obj[k] = v;
+        })
+        onSubmit(obj);
     }
 
     const onFormReset = (e: React.FormEvent) => {
