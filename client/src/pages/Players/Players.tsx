@@ -22,14 +22,14 @@ const Players = () => {
 
   return (
     <section className="flex flex-col justify-between items-center min-h-screen min-w-full">
-      
-      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
-      
       <BasicDiv ostyle="w-full min-h-[25vh] bg-theme text-theme-w relative">
         {isAdmin && <span className='absolute top-4 right-4'><Link className="inline-block bg-theme-w text-theme p-1 px-2 rounded-md hover:scale-105" to="/players/create">Add Player</Link></span>}
         <h1 className="text-4xl font-bold uppercase">Players</h1>
         <p className="mt-4 text-lg">Total Player Count: {players ? players.length : 0}</p>
       </BasicDiv>
+
+      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
+      
       <div className="max-w-[90%] min-w-[80%] flex flex-row justify-evenly items-center flex-wrap my-20">
         {
           players ? players.map((player, ind) => (

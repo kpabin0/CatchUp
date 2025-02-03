@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import BasicDiv from "../components/BasicDiv";
 import { IMatchHighlightView, ITournament } from "../utils/ITypes";
-import { AxiosGet, backendBaseURL } from "../utils/utils";
+import { AxiosGet } from "../utils/utils";
 import FullBgCover from "../components/FullBgCover";
 import ThemeLink from "../components/ThemeLink";
 import { Link } from "react-router-dom";
 import { FixtureCard } from "./Fixtures";
 import Loading from "../components/Loading";
 import { useInfoHandler } from "../customhook/info";
-import Message from "../components/Message";
+// import Message from "../components/Message";
 
 const Home = () => {
 
@@ -20,16 +20,16 @@ const Home = () => {
   useEffect(() => {
     AxiosGet(`/matches/hot`, setTopMatches, setInfo);
     AxiosGet(`/players/top`, setTopPlayer, setInfo);
-    AxiosGet(`/tournament/hot`, setTopTournaments, setInfo);
+    AxiosGet(`/tournaments/hot`, setTopTournaments, setInfo);
 
+  // eslint-disable-next-line
   }, [])
 
   return (
     <section className="min-w-screen min-h-screen flex flex-col justify-center items-center">
-      
       <FullBgCover />
 
-      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
+      {/* {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> } */}
 
       <BasicDiv ostyle="w-full py-12 min-h-[50vh]">
           <h2 className="p-2 mb-10 text-xl font-bold bg-theme text-theme-w inline-block">Fixtures</h2>

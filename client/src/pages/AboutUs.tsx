@@ -47,7 +47,7 @@ const AboutUs = () => {
           {
             tournaments ? tournaments.map((props, ind) => {
               return (
-                <BasicDiv ostyle={"w-full py-10 px-[5%] grid grid-cols-2 gap-10 text-center " + (ind % 2 === 0 ? " bg-theme text-theme-w " : " bg-none text-theme")}>
+                <BasicDiv key={ind} ostyle={"w-full py-10 px-[5%] grid grid-cols-2 gap-10 text-center " + (ind % 2 === 0 ? " bg-theme text-theme-w " : " bg-none text-theme")}>
                     <div className={"w-[30rem] h-[20rem] bg-theme-g " + (ind % 2 === 0 ? " order-2 " : " ")}></div>
                     <TournamentInfoCard {...props} />
                 </BasicDiv>

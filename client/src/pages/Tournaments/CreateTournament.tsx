@@ -18,6 +18,7 @@ const CreateTournament = () => {
   };
 
   const onSubmit = (data: ITournamentForm) => {
+    // console.log(data.start_date, data.end_date);
     if(Date.parse(data.start_date) < Date.parse(data.end_date)) {
         createTournament(data)
     }

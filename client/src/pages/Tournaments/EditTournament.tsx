@@ -31,6 +31,7 @@ const EditTournament = () => {
   }, [tid]);
 
   const updateTournament = async (data: ITournamentForm) => {
+    // console.log(data);
     AxiosPut(`/tournaments/${tid}`, data, setInfo);
     dnav(`/tournaments`, 1000);
   };
@@ -51,7 +52,6 @@ const EditTournament = () => {
     <FormWrapper title="Edit Tournament">
       {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
       {data ? <TournamentFormCard d={data} onSubmit={onSubmit} /> : <Loading /> }
-
     </FormWrapper>
   )
 };
