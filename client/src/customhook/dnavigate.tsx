@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 
 
 /** Custom hook to be used as the delay Navigate (wrapper for useNavigate with delay) 
+
+    `usage: const { dnav } = useDNavigate();`
+    \
     args        
     - url to navigate
-    - delay for redirection (in ms)
+    - delay for redirection (in ms) (optional: default to 0)
     
-    `usage: const { dnav } = useDNavigate(url, delay);`
-    \
-    `invoke: dnav() to trigger`
+    `invoke: dnav(url, delay) to trigger`
 */
 export function useDNavigate() {
 
