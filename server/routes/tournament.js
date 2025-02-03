@@ -77,7 +77,7 @@ router.get("/:tournamentid", async (req, res) => {
 });
 
 router.put("/:tournamentid", async (req, res) => {
-    // console.log("put request recieved in tournament /:id")
+    console.log("put request recieved in tournament /:id")
     try {
         const { tournamentid } = req.params;
         const { name, start_date, end_date } = req.body;
