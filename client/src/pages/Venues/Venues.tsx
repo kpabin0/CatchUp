@@ -101,7 +101,7 @@ const VenueCard = ({
             />
           <FaTrash 
             onClick={() => handleDelete(venueid)}
-            className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont text-theme-cont hover:text-theme-w"
+            className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont text-theme-red hover:text-theme-w"
           />
         </td>
       )}

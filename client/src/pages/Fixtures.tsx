@@ -39,7 +39,7 @@ export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
   const teams = [team_1, team_2]
   return (
     <BorderDiv ostyle="min-h-[10rem] bg-theme-w p-2 py-5 rounded-lg shadow-lg text-center relative">
-      { isLive ? <span className="absolute font-bold bottom-1 right-2 text-sm text-theme-cont animate-pulse">Live</span> : <></>}
+      { isLive ? <span className="absolute font-bold bottom-1 right-2 text-sm text-theme-red animate-pulse">Live</span> : <></>}
       <span>vs</span>
       <div className="grid grid-cols-2 gap-10">
         {teams.map((t, ind) => {

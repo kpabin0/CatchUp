@@ -17,7 +17,11 @@ export const _socialHandles = [
     }
 ];
 
-export const _otherLinks = [
+export const _usefulLinks = [
+    {
+        label: "Fixtures",
+        url: "/fixtures"
+    },
     {
         label: "Teams",
         url: "/teams"
@@ -33,5 +37,28 @@ export const _otherLinks = [
     {
         label: "About Us",
         url: "/aboutus"
+    },
+]
+
+export const _otherLinks = [
+    {
+        label: "Terms & Condition",
+        url: "/terms"
+    },
+    {
+        label: "Privacy policy",
+        url: "/privacypolicy"
+    },
+    {
+        label: "Code of Conduct",
+        url: "/codeofconduct"
+    },
+    {
+        label: "Sponsorship",
+        url: "/sponsorship"
+    },
+    {
+        label: "Ministry of Youth and Sports",
+        url: "/moyas"
     },
 ]

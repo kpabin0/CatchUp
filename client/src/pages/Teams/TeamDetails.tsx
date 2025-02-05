@@ -60,7 +60,7 @@ const TeamDetails = () => {
             {tempArr.map((result, index) => (
               <ThemeDiv key={index} ostyle="bg-theme-w p-6">
                 <h3 className="text-xl font-semibold text-theme-g uppercase">result match (t1 vs t2)</h3>
-                <p className="text-theme-cont">t1 won/loss t2 by ...</p>
+                <p className="text-theme-red">t1 won/loss t2 by ...</p>
               </ThemeDiv>
             ))}
           </div>

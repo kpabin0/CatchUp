@@ -57,12 +57,16 @@ const Landing = () => {
 
 
   return (
-    <section className="relative min-h-screen min-w-full flex flex-col justify-evenly items-center text-center">
-      <BasicDiv>
-        <h1 className="font-main-a text-8xl my-10 font-bold uppercase text-theme">Catchup</h1>
-        <h1 className="font-main-a text-5xl font-bold uppercase text-theme-w">{currentTournament?.substring(0, textCount) + "_"}</h1>
+    <section className="relative h-screen min-w-full flex flex-col justify-evenly items-center font-f6 text-left">
+      <BasicDiv ostyle="text-theme-w w-full px-[10%] flex flex-col justify-evenly ">
+        <div className="w-full text-5xl/snug font-bold flex flex-col">
+          <p>Love to watch <span className='text-theme font-extrabold'>Cricket</span>?</p>
+          <span className="w-full block">Don't worry now!</span>
+        </div>
+        <p className="w-full font-medium my-2 mb-5 text-sm">Catchup is here to gives the latest and greatest live updates never been before</p>
+        <h1 className="w-full my-8 text-3xl font-bold uppercase text-theme capitalize">{currentTournament?.substring(0, textCount) + "_"}</h1>
+        <ThemeLink label="Home" url="/home" ostyle="self-start my-5" />
       </BasicDiv>
-      <span><ThemeLink label="Explore" url="/home" /></span>
     </section>
   )
 }

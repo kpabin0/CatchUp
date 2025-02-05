@@ -52,7 +52,7 @@ const ThemeInputField = ({
         readOnly={readOnly}
         className="block w-full rounded-md py-1.5 border-[0.15rem] border-theme-gray outline-none focus:border-b-theme sm:leading-6 px-2 transition-colors duration-200 "
       />
-      {errMsg && <span className="text-theme-cont">{errMsg}</span>}
+      {errMsg && <span className="text-theme-red">{errMsg}</span>}
     </motion.div>
   );
 };

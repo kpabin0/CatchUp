@@ -44,7 +44,7 @@ export const MatchCard = ({}) => {
     <BorderDiv ostyle="bg-theme-w p-2 py-5 rounded-lg shadow-lg text-center">
       <h3 className="text-xl font-semibold text-theme uppercase mb-2">t1 vs t2</h3>
       <p className="">fixture date | fixture time</p>
-      <p className="text-theme-cont">Venue: venue</p>
+      <p className="text-theme-red">Venue: venue</p>
     </BorderDiv>
   )
 }

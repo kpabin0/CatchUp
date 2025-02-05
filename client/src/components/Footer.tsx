@@ -1,46 +1,55 @@
 import { Link } from "react-router-dom"
-import { _otherLinks, _socialHandles } from "../data/_footerItems"
+import { _usefulLinks, _otherLinks, _socialHandles } from "../data/_footerItems"
 import { FaFacebook, FaYoutube, FaInstagram, FaQuestion, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Logo from "./Logo";
 import BasicDiv from "./BasicDiv";
+import { INavItem } from "../utils/ITypes";
 
 interface ISocialMediaItem  {
     media: string,
     url: string
 };
 
+interface IFotLinks {
+    title: string,
+    items: INavItem[]
+};
+
 const Footer = () => {
   return (
     <>
-    <BasicDiv ostyle="w-full h-[25rem] m-0 bg-theme">
-        <div className="text-sm font-bold text-theme-w">
-            <span className="inline-block">Want to stay up to date</span>
-            <Link to={"/subscribe"} className="bg-white text-theme inline-block p-2 px-4 rounded-xl mx-3 hover:bg-gray-200">Subscribe to Newsletter</Link>
-        </div>
+    <BasicDiv ostyle="w-full min-h-[25rem] m-0 bg-theme text-left bg-theme ">
+        <BasicDiv ostyle="w-full text-sm font-bold text-theme-w !flex-row space-x-3">
+            <div className="flex flex-row justify-center items-center space-x-2">
+                <Logo ostyle="h-[2rem] w-[2rem] inline-block" />
+                <span className="text-xl font-bold uppercase">Catchup</span>
+            </div>
+            <div className="flex flex-col lg:flex-row justify-evenly items-center space-y-2 lg:space-x-2">
+                <span className="inline-block">Stay upto date</span>
+                <Link to={"/subscribe"} className="bg-white text-theme inline-block p-2 px-3 rounded-xl hover:bg-theme-w-alt">Subscribe to Newsletter</Link>
+            </div>
+        </BasicDiv>
         <hr className="border border-theme-cont w-[80%] rounded-xl my-2"/>
         <div className="flex flex-row justify-around items-center w-full">
-            <BasicDiv ostyle="h-full text-theme-w">
-                <span className="text-2xl font-bold uppercase">Catchup</span>
-                <Logo />
-            </BasicDiv>
-            <MoreLinks />
-            <SocialLinks />
+            <FotLinks title={"Useful Links"} items={_usefulLinks} />
+            <FotLinks title={"Other Links"} items={_otherLinks} />
         </div>
         <hr className="border border-theme-cont w-[40%] rounded-xl my-2"/>
+        <SocialLinks />
         <FooterInfo />
     </BasicDiv>
     </>
   )
 }
 
-const MoreLinks = () => {
+const FotLinks = ({title, items} : IFotLinks) => {
     return (
-        <BasicDiv ostyle="text-theme-w">
-            <span className="font-bold underline mb-4">Other Links</span>
+        <BasicDiv ostyle="text-theme-w ">
+            <span className="w-full font-extrabold text-xl mb-2">{title}</span>
             {
-                _otherLinks.map(({label, url}) => {
-                    return <Link key={label} to={url} className="m-[0.2rem] hover:underline underline-offset-4">
+                items.map(({label, url}: INavItem) => {
+                    return <Link key={label} to={url} className="w-full my-[0.1rem] opacity-[70%] hover:opacity-100">
                                 {label}
                             </Link>
                 })
@@ -51,16 +60,14 @@ const MoreLinks = () => {
 
 const SocialLinks = () => {
     return (
-    <BasicDiv ostyle="h-full">
-        <span className="text-theme-w text-xl font-main-a font-bold underline">Connect</span>
-        <div className="grid grid-cols-4 gap-10 w-full">
+    <BasicDiv ostyle="max-w-full my-2 flex !flex-row justify-evenly items-center space-x-5 text-theme-w">
+        <span className="text-xl font-extrabold">Connect:</span>
             {
                 _socialHandles.map(({media, url}) => {
                     return <SocialMediaItem key={media} media={media} url={url} />
                 })
             }
-        </div>
-        <span className="text-black">Email : <a href="mailto:npldbms@gmail.com">npldbms@gmail.com</a></span>
+        <span className="">Email : <a href="mailto:npldbms@gmail.com">npldbms@gmail.com</a></span>
     </BasicDiv>
     )
 }
@@ -85,9 +92,9 @@ const SocialMediaItem = ({media, url} : ISocialMediaItem) => {
 
 const FooterInfo = () => {
     return (
-        <div className="text-center bg-theme text-sm w-full ">
-            <p>Powered by <b className=""> React.js | Tailwindcss | framer-motion </b></p>
+        <div className="text-center text-sm w-full my-2 ">
             <span className=" block">All copyright reserved | @{new Date().getFullYear()}</span>
+            <p>Powered by <b className=""> React.js | Tailwindcss | framer-motion </b></p>
         </div>
     )
 }

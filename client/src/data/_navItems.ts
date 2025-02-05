@@ -20,10 +20,6 @@ export const _navItems = [
     {
         label: "News",
         url: "/news"
-    },
-    {
-        label: "Fixtures",
-        url: "/fixtures"
     }
 ];
 
