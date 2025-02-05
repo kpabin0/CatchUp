@@ -1,5 +1,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"
+import { _navItems } from "../data/_navItems";
+import { _usefulLinks } from "../data/_footerItems";
 
 export function getArray(count : any)
 {
@@ -41,6 +43,36 @@ export function checkAdminStatus() {
     }
     return false;
 };
+
+export async function getURLItemCount(url: string) {
+  return (await getURLItem(url)).length
+}
+
+export async function getURLItem(url: string) {
+  return await axiosW.get(url).then(res => res.data)
+}
+
+// get all the recent items
+export async function getAllStats() {
+  const temp: {title:string, number: number}[] = [];
+  let items = [..._navItems, ..._usefulLinks].filter((item) => item.label !== "Home").filter((item) => item.label !== "About Us").filter((item) => item.label !== "Fixtures");
+  for(let i=0;i<items.length;++i) {
+    temp.push({
+      title: items[i].label,
+      number: await getURLItemCount(items[i].url)
+    })
+  }
+
+  return await temp;
+}
+
+export async function getRecentItems(count: number) {
+  const temp: any = []
+
+  
+
+  return await temp;
+}
 
 
 export const backendBaseURL = "http://localhost:" + process.env.REACT_APP_PORT_NUMBER;

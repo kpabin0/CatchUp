@@ -11,7 +11,7 @@ const PlayerFormCard = ({d, onSubmit}: IPlayerFormCard) => {
 
   const fields: IInputFieldProps[] = [
     {label: "Player id", name:"playerid", type:"number", value: d?.playerid?.toString() || '0', readOnly: true},
-    {label: "Team id", name:"teamid", type:"number", value: d?.teamid?.toString() || '0', readOnly: true},
+    {label: "Team id", name:"teamid", type:"number", value: d?.teamid?.toString() || '0'},
     {label: "Role", name:"role", type:"text", value: d?.role, required: true},
     {label: "Name", name:"name", type:"text", value: d?.name, required: true},
     {label: "Img URL", name:"img", type:"text", value: d?.img, required: true},

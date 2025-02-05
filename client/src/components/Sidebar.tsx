@@ -8,38 +8,38 @@ import Logo from './Logo';
 
 const iconStyle = 'inline-block m-2 h-5 w-5'
 
-function getIcon(name : string)
+export function getIcon(name : string, style: string = iconStyle)
 {
     switch(name)
     {
         case "Home":
-            return <TbHome className={iconStyle} />;
+            return <TbHome className={style} />;
         case "Matches":
-            return <TbCricket className={iconStyle} />
+            return <TbCricket className={style} />
         case "Tournaments":
-            return <TbTrophy className={iconStyle} />
+            return <TbTrophy className={style} />
         case "News":
-            return <TbNews className={iconStyle} />
+            return <TbNews className={style} />
         case "Fixtures":
-            return <TbBallTennis className={iconStyle} />
+            return <TbBallTennis className={style} />
         case "Watchlist":
-            return <TbBinoculars className={iconStyle} />
+            return <TbBinoculars className={style} />
         case "Teams":
-            return <TbBrandTeams className={iconStyle} />
+            return <TbBrandTeams className={style} />
         case "Players":
-            return <TbUser className={iconStyle} />
+            return <TbUser className={style} />
         case "Venues":
-            return <TbHome2 className={iconStyle} />
+            return <TbHome2 className={style} />
         case "About Us":
-            return <TbQuestionMark className={iconStyle} />
+            return <TbQuestionMark className={style} />
 
         case "Create Team":
         case "Create Tournament":
-            return <TbPlus className={iconStyle} />
+            return <TbPlus className={style} />
 
         case "Edit Team":
         case "Edit Tournaments":
-            return <TbEdit className={iconStyle} />
+            return <TbEdit className={style} />
         
         default:
             return;
@@ -82,8 +82,8 @@ const Sidebar = () => {
 
   return (
     <>
-    <nav className={"fixed top-0 left-0 w-[20rem] h-screen flex flex-col justify-center items-center bg-theme-w-alt z-40 shadow-xl transition-transform duration-300 "  + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}>
-        <div className="w-full py-20 text-center flex flex-col justify-center">
+    <nav className={"fixed top-0 left-0 w-[20rem] h-screen flex flex-col justify-center bg-theme-w text-theme z-40 shadow-xl transition-transform duration-300 "  + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}>
+        <div className="w-full py-20 text-left flex flex-col justify-center">
         <Logo ostyle="h-[2rem] mx-auto my-4" />
         {
             sideNavItems?.map(({label, url}, ind) => {
@@ -92,7 +92,7 @@ const Sidebar = () => {
         }
         <button 
             onClick={handleLogInOut}
-            className="w-full space-x-4 text-md py-5 text-theme uppercase font-bold hover:bg-theme hover:text-theme-w"
+            className="w-full flex flex-row items-center px-[10%] space-x-4 text-md py-5 uppercase font-bold hover:bg-theme-w-alt hover:text-theme-red"
             >
         {
             isLoggedIn ? <><TbLogout className={iconStyle} />Logout</> : <><TbLogin className={iconStyle} />Login</>
@@ -104,7 +104,7 @@ const Sidebar = () => {
     </nav>
     <button 
         onClick={() => setShouldOpen(!shouldOpen)}
-        className={'fixed top-0 left-0 z-50 rounded-[50%] m-2 p-2 text-theme-w bg-theme'} 
+        className={'fixed top-0 left-0 z-50 rounded-[50%] m-2 p-2 text-theme-w bg-theme border border-theme-w'} 
     >
         <TbMenu className='w-5 h-5' />
     </button>
@@ -116,7 +116,7 @@ const SideItem = ({label, url, style, icon} : ISideNavItem) => {
     return (
         <Link 
             to={url} 
-            className={`w-full text-md py-4 text-theme uppercase font-bold hover:bg-theme hover:text-theme-w ${style}`}
+            className={`w-full px-[10%] text-md py-4 uppercase font-bold hover:bg-theme-w-alt hover:px-[15%] transition-all duration-300 ${style}`}
         >
             {icon ? icon : <></>}
             {label}

@@ -1,4 +1,4 @@
-import { _otherLinks } from "./_footerItems";
+import { _usefulLinks } from "./_footerItems";
 
 export const _navItems = [
     {
@@ -29,7 +29,7 @@ export const _loggedInUserItems = [
         label: "Watchlist",
         url: "/watchlist"
     },
-    ..._otherLinks
+    ..._usefulLinks
 ];
 
 export const _loggedInAdminItems = [

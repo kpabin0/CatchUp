@@ -22,17 +22,22 @@ const AboutUs = () => {
     }, [])
 
     return (
-    <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
-        <h1 className="text-xl text-theme-g font-bold mt-20 uppercase">About Us</h1>
-
+    <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full py-20">
         {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
 
-        <BasicDiv>
-            <h1 className="font-extrabold text-6xl text-theme my-2 uppercase">{_about.name}</h1>
-            <h1 className="font-bold text-xl text-theme-alt my-2">{_about.quote}</h1>
-            <h1 className="text-xl text-theme-g my-2">Established in : {_about.establishedIn}</h1>
-            <span className="text-md text-theme my-2">Address {_about.address}</span>
-            <div className="flex flex-row justify-evenly items-center space-x-5 mt-20">
+        <BasicDiv ostyle="text-theme">
+            <div className="w-[60%] flex flex-row space-x-10">
+                <img className="max-w-[30rem] max-h-[20rem]" alt="TourImg" src={"/assets/bg.png"} />
+                <div className="flex flex-col text-md space-y-2">
+                    <h1 className="font-extrabold text-2xl uppercase">About {_about.name}</h1>
+                    <h1 className="font-bold text-theme-cont">{_about.quote}</h1>
+                    <h1 className="text-theme-g-alt pr-10 text-sm">{_about.description}</h1>
+                    <span className="text-sm text-black my-2">Address: {_about.address}</span>
+                    <h1 className="text-theme-g">Established: {_about.establishedIn}</h1>
+                </div>
+            </div>
+            <hr className="w-full my-10 border border-theme"/>
+            <div className="flex flex-row justify-evenly items-center space-x-5">
                 {
                     person ? person.map((props, ind) => {
                         return (
@@ -44,11 +49,12 @@ const AboutUs = () => {
         </BasicDiv>
         <hr className="w-full my-10 border border-theme"/>
         <div className="w-full grid grid-cols-1 gap-10 text-center">
+        <h1 className="text-xl text-theme-cont uppercase font-bold">Tournaments</h1>
           {
             tournaments ? tournaments.map((props, ind) => {
               return (
-                <BasicDiv key={ind} ostyle={"w-full py-10 px-[5%] grid grid-cols-2 gap-10 text-center " + (ind % 2 === 0 ? " bg-theme text-theme-w " : " bg-none text-theme")}>
-                    <div className={"w-[30rem] h-[20rem] bg-theme-g " + (ind % 2 === 0 ? " order-2 " : " ")}></div>
+                <BasicDiv key={ind} ostyle={"w-full py-5 px-[5%] grid grid-cols-2 gap-10 text-center text-theme " + (ind % 2 === 0 ? " bg-theme-w-alt " : " bg-none")}>
+                    <div className={" " + (ind % 2 === 0 ? " order-2 " : " brightness-50 ")}><img className="max-w-[30rem] max-h-[20rem]" alt="TourImg" src={"/assets/bg.png"} /></div>
                     <TournamentInfoCard {...props} />
                 </BasicDiv>
               )
@@ -62,18 +68,18 @@ const AboutUs = () => {
 
 const TournamentInfoCard = ({tournamentid, name, start_date, end_date} : ITournament) => {
     return (
-        <BasicDiv>
-            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Id:</b> {tournamentid}</span>
-            <h1 className="text-xl font-bold uppercase text-center py-2">Name: {name}</h1>
-            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">Start Date:</b> {start_date}</span>
-            <span className="font-extralight text-[0.80rem] text-center inline-block m-2"><b className="text-md font-bold">End Date:</b> {end_date}</span>
+        <BasicDiv ostyle="!items-start px-2 space-y-2">
+            <span className="text-md inline-block">Id: {tournamentid}</span>
+            <h1 className="text-xl font-bold uppercase py-2">{name}</h1>
+            <span className="text-sm text-theme-g-alt inline-block"><b className="text-md font-bold">Start Date:</b> {start_date}</span>
+            <span className="text-sm text-theme-g-alt inline-block"><b className="text-md font-bold">End Date:</b> {end_date}</span>
         </BasicDiv>
     )
 }  
 
 const PersonCard = ({name, img, post} : IPersonCard) => {
     return (
-        <BasicDiv ostyle="min-w-[20rem] min-h-[20rem] hover:bg-theme hover:text-theme-w pb-5">
+        <BasicDiv ostyle="min-w-[20rem] min-h-[20rem] hover:bg-theme-cont hover:text-theme-w pb-5">
             <div className="w-full h-[15rem] bg-theme-g">{img?<img src={img} alt={name} /> : <></>}</div>
             <span className="font-bold text-xl">{name}</span>
             <span className="font-light text-sm">{post}</span>

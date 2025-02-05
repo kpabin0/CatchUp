@@ -54,7 +54,7 @@ const Register = () => {
 
       <ThemeFormDiv ostyle="p-4">
         <h2 className="w-full py-4 mb-8 text-center text-sm font-light bg-theme text-theme-w rounded-t-xl grid grid-cols-3">
-            <span className="col-span-2">Sign Up in <span className='uppercase text-4xl font-extrabold block'>Catchup</span></span>
+            <span className="col-span-2">Join our family of <span className='uppercase text-4xl font-extrabold block'>Catchup</span></span>
             <HiUserAdd className="m-auto text-theme-w w-20 h-20" />
         </h2>
         <form onSubmit={handleFormSubmit} className="w-[90%] flex flex-col items-center text-md" noValidate={false}>
