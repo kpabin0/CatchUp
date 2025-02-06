@@ -4,19 +4,19 @@ const dbpool = require('../config/pgdb');
 const util = require('../util/util')
 
 router.post("/create", async (req, res) => {
-    const { name, seats, location } = req.body; 
+    const { team_1, team_2, date, venue } = req.body; 
     console.log("Creating a new match:", req.body);
 
     try {
-        if (!name || !seats || !location) {
+        if (!team_1 || !team_2 || !date || !venue) {
             return res.status(400).json({ error: "Missing required fields" });
         } else {
             
             const result = await util.get_col_max('matches', 'matchid');
             const matchid = result !== -1 ? result + 1 : 1;
             
-            const insert_query = `INSERT INTO matches (matchid, name, seats, location) VALUES ($1, $2, $3, $4);`;
-            const newmatch = await dbpool.query(insert_query, [matchid, name, seats, location]);
+            const insert_query = `INSERT INTO matches (matchid, teamid_1, teamid_2, date, venue) VALUES ($1, $2, $3, $4, $5);`;
+            const newmatch = await dbpool.query(insert_query, [matchid, team_1, team_2, date, venue]);
             console.log("Created match:", newmatch.rows[0]);
             res.json(newmatch.rows[0]);
         }
@@ -111,9 +111,9 @@ router.put("/:matchid", async (req, res) => {
     try{
         const { matchid } = req.params;
     
-        const {  name, seats, location } = req.body;    
+        const { team_1, team_2, date, venue } = req.body; 
         console.log("Updating match with id:", matchid);
-        const updatedmatch = await dbpool.query("UPDATE matches SET name = $1, seats = $2, location = $3 WHERE matchid = $4 RETURNING *", [name, seats, location, matchid]);
+        const updatedmatch = await dbpool.query("UPDATE matches SET teamid_1 = $1, teamid_2 = $2, date = $3, venue = $4 WHERE matchid = $5 RETURNING *", [team_1, team_2, date, venue, matchid]);
         console.log("Updated match:", updatedmatch.rows[0]);   
         if (updatedmatch.rowCount === 0) {
             console.log(`match not found for update with id: ${matchid}`);
