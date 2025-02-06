@@ -44,17 +44,6 @@ router.get("/hot", async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
-    // console.log("get request recieved in tournament")
-    try {
-        const allTournaments = await dbpool.query("SELECT * FROM tournaments");
-        console.log("Fetched all tournaments:", allTournaments.rows);
-        res.json(allTournaments.rows);
-    } catch (err) {
-        console.error("Error fetching tournaments:", err.message);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
 
 router.get("/:tournamentid", async (req, res) => {
     // console.log("get request recieved in tournament /:id")

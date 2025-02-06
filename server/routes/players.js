@@ -18,16 +18,6 @@ router.get("/top", async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
-    try {
-        const allplayers = await dbpool.query("SELECT * FROM players");
-        console.log("Fetched all players:", allplayers.rows);
-        res.json(allplayers.rows);
-    } catch (error) {
-        console.error("Error fetching players:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
 
 router.delete("/:playerid", async (req, res) => {
     const playerid = req.params.playerid;

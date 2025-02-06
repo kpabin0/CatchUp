@@ -24,17 +24,6 @@ router.post("/create", async (req, res) => {
 
 
 
-router.get("/", async (req, res) => {
-    try {
-        const allnews = await dbpool.query("SELECT * FROM news");
-        console.log("Fetched all news:", allnews.rows);
-        res.json(allnews.rows);
-    } catch (error) {
-        console.error("Error fetching news:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
 router.delete("/:newsid", async (req, res) => {
     const newsid = req.params.newsid;
     console.log("Deleting news with id:", newsid);

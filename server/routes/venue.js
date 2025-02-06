@@ -27,18 +27,6 @@ router.post("/create", async (req, res) => {
 });
 
 
-
-router.get("/", async (req, res) => {
-    try {
-        const allVenues = await dbpool.query("SELECT * FROM venues");
-        console.log("Fetched all venues:", allVenues.rows);
-        res.json(allVenues.rows);
-    } catch (error) {
-        console.error("Error fetching venues:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
 router.delete("/:venueid", async (req, res) => {
     const venueid = req.params.venueid;
     console.log("Deleting venue with id:", venueid);

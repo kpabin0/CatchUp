@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const dbpool = require('../config/pgdb');
-const { route } = require('./about');
 const util = require('../util/util')
 
 router.post("/create", async (req, res) => {
@@ -84,16 +83,6 @@ router.get("/hot", async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
-    try {
-        const allmatches = await dbpool.query("SELECT * FROM matches");
-        console.log("Fetched all matches:", allmatches.rows);
-        res.json(allmatches.rows);
-    } catch (error) {
-        console.error("Error fetching matches:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
 
 router.delete("/:matchid", async (req, res) => {
     const matchid = req.params.matchid;
@@ -119,25 +108,24 @@ router.delete("/:matchid", async (req, res) => {
 
 
 router.put("/:matchid", async (req, res) => {
-try{
-    const { matchid } = req.params;
-   
-    const {  name, seats, location } = req.body;    
-    console.log("Updating match with id:", matchid);
-    const updatedmatch = await dbpool.query("UPDATE matches SET name = $1, seats = $2, location = $3 WHERE matchid = $4 RETURNING *", [name, seats, location, matchid]);
-    console.log("Updated match:", updatedmatch.rows[0]);   
-    if (updatedmatch.rowCount === 0) {
-        console.log(`match not found for update with id: ${matchid}`);
-        return res.status(404).json({ error: " match not found for update" });
+    try{
+        const { matchid } = req.params;
+    
+        const {  name, seats, location } = req.body;    
+        console.log("Updating match with id:", matchid);
+        const updatedmatch = await dbpool.query("UPDATE matches SET name = $1, seats = $2, location = $3 WHERE matchid = $4 RETURNING *", [name, seats, location, matchid]);
+        console.log("Updated match:", updatedmatch.rows[0]);   
+        if (updatedmatch.rowCount === 0) {
+            console.log(`match not found for update with id: ${matchid}`);
+            return res.status(404).json({ error: " match not found for update" });
+        }
+        res.json(updatedmatch.rows[0]);
+    }  
+    catch (error) {
+        console.error("Error updating match:", error);
+        res.status(500).json({ error: "Internal Server Error" });  
     }
-    res.json(updatedmatch.rows[0]);
-}  
- catch (error) {
-    console.error("Error updating match:", error);
-    res.status(500).json({ error: "Internal Server Error" });  
-}
-}
-)
+})
 
 
 router.get("/:matchid", async (req, res) => {

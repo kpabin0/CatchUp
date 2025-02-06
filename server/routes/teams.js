@@ -27,21 +27,6 @@ router.post("/create", async(req,res)=>{
 })
 
 
-
-router.get("/", async(req,res)=>{
-try{
-    const allteams = await dbpool.query("SELECT * from teams")
-    console.log("Fetching all the teams", allteams.rows)
-    res.json(allteams.rows)
-
-}
-catch(error){
-    console.error("Error Fetching all the teams",error)
-    res.status(500).json({error:"INternal Server Error"})
-}
-})
-
-
 router.delete("/:teamid", async (req, res) => {
     const { teamid } = req.params; 
     console.log("Deleting Team ID:", teamid);

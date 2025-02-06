@@ -23,18 +23,6 @@ router.post("/create", async (req, res) => {
 });
 
 
-
-router.get("/", async (req, res) => {
-    try {
-        const allsubnews = await dbpool.query("SELECT * FROM subnews");
-        console.log("Fetched all subnews:", allsubnews.rows);
-        res.json(allsubnews.rows);
-    } catch (error) {
-        console.error("Error fetching subnews:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
 router.delete("/:subnewsid", async (req, res) => {
     const subnewsid = req.params.subnewsid;
     console.log("Deleting subnews with id:", subnewsid);
@@ -59,25 +47,24 @@ router.delete("/:subnewsid", async (req, res) => {
 
 
 router.put("/:subnewsid", async (req, res) => {
-try{
-    const { subnewsid } = req.params;
-   
-    const {  name, seats, location } = req.body;    
-    console.log("Updating subnews with id:", subnewsid);
-    const updatedsubnews = await dbpool.query("UPDATE subnews SET name = $1, seats = $2, location = $3 WHERE subnewsid = $4 RETURNING *", [name, seats, location, subnewsid]);
-    console.log("Updated subnews:", updatedsubnews.rows[0]);   
-    if (updatedsubnews.rowCount === 0) {
-        console.log(`subnews not found for update with id: ${subnewsid}`);
-        return res.status(404).json({ error: " subnews not found for update" });
+    try{
+        const { subnewsid } = req.params;
+    
+        const {  name, seats, location } = req.body;    
+        console.log("Updating subnews with id:", subnewsid);
+        const updatedsubnews = await dbpool.query("UPDATE subnews SET name = $1, seats = $2, location = $3 WHERE subnewsid = $4 RETURNING *", [name, seats, location, subnewsid]);
+        console.log("Updated subnews:", updatedsubnews.rows[0]);   
+        if (updatedsubnews.rowCount === 0) {
+            console.log(`subnews not found for update with id: ${subnewsid}`);
+            return res.status(404).json({ error: " subnews not found for update" });
+        }
+        res.json(updatedsubnews.rows[0]);
+    }  
+    catch (error) {
+        console.error("Error updating subnews:", error);
+        res.status(500).json({ error: "Internal Server Error" });  
     }
-    res.json(updatedsubnews.rows[0]);
-}  
- catch (error) {
-    console.error("Error updating subnews:", error);
-    res.status(500).json({ error: "Internal Server Error" });  
-}
-}
-)
+})
 
 
 router.get("/:subnewsid", async (req, res) => {

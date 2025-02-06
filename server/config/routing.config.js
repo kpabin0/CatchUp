@@ -10,7 +10,10 @@ const teamsRoutes = require('../routes/teams')
 const tournamentsRoutes = require('../routes/tournament');
 const venuesRoutes = require('../routes/venue');
 const playersRoute = require('../routes/players')
+// this is the file that contains the common get, list, entries route which share common logic
+const commonRoute = require('../routes/commonroute')
 
+mainRoute.use('/', commonRoute)
 mainRoute.use('/about', aboutRoutes);
 mainRoute.use('/auth', authenticateRoutes);
 mainRoute.use('/matches', matchesRoutes);
