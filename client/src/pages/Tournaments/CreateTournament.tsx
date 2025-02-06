@@ -13,8 +13,9 @@ const CreateTournament = () => {
 
   const createTournament = async (data: any) => {
 
-    AxiosPost(`/tournaments/create`, data, setInfo);
-    dnav("/tournaments", 1000);
+    AxiosPost(`/tournaments/create`, data, setInfo).then(() => {
+      dnav("/tournaments", 1000);
+    });
   };
 
   const onSubmit = (data: ITournamentForm) => {

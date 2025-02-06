@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ITournament } from "../../utils/ITypes";
 import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
-import { Link } from "react-router-dom";
-import BorderDiv from "../../components/BorderDiv";
 import ThemeLink from "../../components/ThemeLink";
 import Message from "../../components/Message";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useInfoHandler } from "../../customhook/info";
 import { useDNavigate } from "../../customhook/dnavigate";
+import TableTemplate from "../TableTemplate";
 
 interface ITournamentCard extends ITournament {
   handleEdit: (id: number) => void,
@@ -16,16 +15,14 @@ interface ITournamentCard extends ITournament {
 };
 
 const Tournaments = () => {
-  const [tournaments, setTournaments] = useState<ITournament[]>([]);
+  const [tournaments, setTournaments] = useState<ITournament[]>();
   const { info, setInfo } = useInfoHandler();
   const { dnav } = useDNavigate()
   const isAdmin = checkAdminStatus();
 
   useEffect(() => {
     AxiosGet(`/tournaments`, setTournaments, setInfo);
-
   }, []);
-
 
   const handleDelete = async (tid: number) => {
     AxiosDelete(`/tournaments/${tid}`, setInfo).then(() => {
@@ -38,82 +35,36 @@ const Tournaments = () => {
   }
 
   return (
-    <section className="w-full h-screen flex justify-center items-center">
-      <BorderDiv ostyle="w-[80%] p-6 shadow-xl">
-        <h2 className="w-full py-6 text-2xl font-extrabold uppercase bg-theme text-theme-w text-center mb-5">
-          All Tournaments
-        </h2>
+    <section className="w-full h-screen flex flex-col justify-evenly items-center">
 
-        {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
+      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
 
-        <table className="w-full text-md text-center rtl:text-right table-fixed">
-          <thead>
-            <tr className="text-xl">
-              <th>Id</th>
-              <th>Name</th>
-              <th>Start</th>
-              <th>End</th>
-              {isAdmin && <th>Actions</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {tournaments.map((tournament, ind) => {
-              return <TournamentCard key={ind} {...tournament} 
-                        handleEdit={handleEdit} 
-                        handleDelete={handleDelete} 
-                        isAdmin={isAdmin}
-                      />
-            })}
-          </tbody>
-        </table>
+      <TableTemplate 
+        title="Tournaments"
+        th={["Tournament id", "Name", "Start date", "End date"]} 
+        rd={tournaments}
+      />
 
-        <hr className="w-full my-6 border-theme" />
-
-        {isAdmin && (
-            <ThemeLink label="Create New Tournament" ostyle="text-xl font-bold" url={"/tournaments/create"} />
-        )}
-      </BorderDiv>
+      {isAdmin && (
+          <ThemeLink label="Create New Tournament" ostyle="text-xl font-bold" url={"/tournaments/create"} />
+      )}
     </section>
   );
 };
 
-const TournamentCard = ({
-  tournamentid,
-  name,
-  start_date,
-  end_date,
-  handleEdit,
-  handleDelete,
-  isAdmin
-}: ITournamentCard) => {
+const Control = ({handleEdit, handleDelete} : any) => {
   return (
-    <tr className="my-2 py-2">
-      <td>{tournamentid}</td>
-      <td>
-        <Link
-          to={`/tournaments/${tournamentid}`}
-          className="hover:text-theme uppercase hover:underline"
-        >
-          {name}
-        </Link>
-      </td>
-      <td>{start_date.split("T")[0]}</td>
-      <td>{end_date.split("T")[0]}</td>
-
-      {isAdmin && (
-        <td>
-          <FaEdit 
-            onClick={() => handleEdit(tournamentid)}
-            className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme hover:text-theme-w text-theme"
-            />
-          <FaTrash 
-            onClick={() => handleDelete(tournamentid)}
-            className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont text-theme-red hover:text-theme-w"
-          />
-        </td>
-      )}
-    </tr>
-  );
-};
+    <>
+      <FaEdit 
+        onClick={handleEdit}
+        className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme hover:text-theme-w text-theme"
+        />
+      <FaTrash 
+        onClick={handleDelete}
+        className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont text-theme-red hover:text-theme-w"
+      />
+    </>
+  )
+}
 
 export default Tournaments;

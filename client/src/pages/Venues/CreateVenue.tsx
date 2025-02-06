@@ -12,8 +12,9 @@ const CreateVenue = () => {
   const { info, setInfo } = useInfoHandler();
 
   const createVenue = async (data: any) => {
-    AxiosPost(`/venues/create`, data, setInfo);
-    dnav("/venues", 1000);
+    AxiosPost(`/venues/create`, data, setInfo).then(() => {
+      dnav("/venues", 1000);
+    });
   };
 
   const onSubmit = (data: IVenueForm) => {

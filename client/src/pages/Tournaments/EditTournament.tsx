@@ -32,8 +32,9 @@ const EditTournament = () => {
 
   const updateTournament = async (data: ITournamentForm) => {
     // console.log(data);
-    AxiosPut(`/tournaments/${tid}`, data, setInfo);
-    dnav(`/tournaments`, 1000);
+    AxiosPut(`/tournaments/${tid}`, data, setInfo).then(() => {
+      dnav(`/tournaments`, 1000);
+    });
   };
 
   const onSubmit = (d: ITournamentForm) => {

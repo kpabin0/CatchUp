@@ -25,8 +25,9 @@ const EditVenue = () => {
   }, [venueid]);
 
   const updateVenue = async (data: IVenueForm) => {
-    AxiosPut(`/venues/${venueid}`, data, setInfo);
-    dnav("/venues", 1000);
+    AxiosPut(`/venues/${venueid}`, data, setInfo).then(() => {
+      dnav("/venues", 1000);
+    });
   };
 
   const onSubmit = (d: IVenueForm) => {
