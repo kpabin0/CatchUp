@@ -22,6 +22,23 @@ class util {
     - f: condition/item to check
      */
     static query_all_f = async (table, col, f) => (await dbpool.query(`SELECT * FROM ${table} WHERE ${col} = $1`, [f])).rows[0]
+    
+    /**
+    - Function to get the all the rows list
+    
+    ### args
+    - table: table name
+     */
+    static query_rows = async (table, limit = 0) => (await dbpool.query(`SELECT * FROM ${table} ` + (limit !=0 ? `LIMIT ${limit}`: ''))).rows
+
+    /**
+    - Function to get the row count of the passed table
+    
+    ### args
+    - table: table name
+     */
+    static query_row_c = async (table) => (await dbpool.query(`SELECT * FROM ${table}`)).rowCount
+    
 }
 
 module.exports = util
