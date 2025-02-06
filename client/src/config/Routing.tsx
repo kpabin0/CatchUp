@@ -51,6 +51,7 @@ const Routing = () => {
     {isSideBar || isAdmin || isLoggedIn ? <Sidebar /> : <Navbar />}
     <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/home" element={isAdmin ? <Dashboard /> : isLoggedIn ? <Home /> : <Login />}/>
       <Route>
         <Route path="/matches" element={<Matches />} />
@@ -59,6 +60,7 @@ const Routing = () => {
       <Route path="/tournaments" element={<Tournaments />} />
       <Route>
         <Route  path="/news" element={<News />} />
+        <Route  path="/subnews" element={<News />} />
         <Route  path="/news/create" element={<CreateNews />} />
         <Route  path="/subnews/create" element={<CreateNews />} />
       </Route>

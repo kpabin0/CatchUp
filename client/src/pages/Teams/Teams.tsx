@@ -21,9 +21,9 @@ const Teams = () => {
   }, []);
 
   const deleteTeam = async (teamid: number) => {
-    AxiosDelete(`/teams/${teamid}`, setInfo);
-    dnav('/teams', 1000);
-    // left to do, write logic to reload
+    AxiosDelete(`/teams/${teamid}`, setInfo).then(() => {
+      AxiosGet(`/teams`, setTeams, setInfo);
+    })
   };
 
   const handleEdit = (teamid: number) => {

@@ -28,8 +28,9 @@ const Tournaments = () => {
 
 
   const handleDelete = async (tid: number) => {
-    AxiosDelete(`/tournaments/${tid}`, setInfo)
-    dnav(`/tournaments`, 1000);
+    AxiosDelete(`/tournaments/${tid}`, setInfo).then(() => {
+      AxiosGet(`/tournaments`, setTournaments, setInfo);
+    })
   };
 
   const handleEdit = async (tid: number) => {

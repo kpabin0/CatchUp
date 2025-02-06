@@ -33,7 +33,12 @@ export const _loggedInUserItems = [
 ];
 
 export const _loggedInAdminItems = [
+    {label: "Dashboard", url: "/dashboard"},
     ..._loggedInUserItems.filter((item) => item.label !== "Home").filter((item) => item.label !== "Watchlist"),
+]
 
+export const _entriesItems = [
+    ...[..._navItems, ..._usefulLinks].filter((item) => item.label !== "Home").filter((item) => item.label !== "About Us").filter((item) => item.label !== "Fixtures"),
+    {label: "Subnews", url: "/subnews"}
 ]
 

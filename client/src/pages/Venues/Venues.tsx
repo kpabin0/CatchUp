@@ -26,7 +26,10 @@ const Venues = () => {
   }, []);
 
   const handleDelete = async (venueid: number) => {
-    AxiosDelete(`/venues/${venueid}`, setInfo);
+    AxiosDelete(`/venues/${venueid}`, setInfo).then(() => {
+      AxiosGet("/venues", setVenues, setInfo);
+    }
+    );
   };
 
   const handleEdit = async (venueid: number) => {

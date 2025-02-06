@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { _loggedInAdminItems, _loggedInUserItems, _navItems } from '../data/_navItems'
 import { useEffect, useState } from 'react'
-import { TbMenu, TbHome, TbCricket, TbTrophy, TbNews, TbBallTennis, TbLogout, TbPlus, TbEdit, TbLogin, TbBinoculars, TbBrandTeams, TbUser, TbHome2, TbQuestionMark } from "react-icons/tb";
+import { TbDashboard, TbMenu, TbHome, TbCricket, TbTrophy, TbNews, TbBallTennis, TbLogout, TbPlus, TbEdit, TbLogin, TbBinoculars, TbBrandTeams, TbUser, TbHome2, TbQuestionMark } from "react-icons/tb";
 import { ISideNavItem } from '../utils/ITypes';
 import { checkAdminStatus, loggedInStatus } from '../utils/utils';
 import Logo from './Logo';
@@ -12,6 +12,8 @@ export function getIcon(name : string, style: string = iconStyle)
 {
     switch(name)
     {
+        case "Dashboard":
+            return <TbDashboard className={style} />
         case "Home":
             return <TbHome className={style} />;
         case "Matches":
@@ -19,6 +21,7 @@ export function getIcon(name : string, style: string = iconStyle)
         case "Tournaments":
             return <TbTrophy className={style} />
         case "News":
+        case "Subnews":
             return <TbNews className={style} />
         case "Fixtures":
             return <TbBallTennis className={style} />

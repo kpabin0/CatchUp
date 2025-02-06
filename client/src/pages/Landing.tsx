@@ -14,17 +14,9 @@ const Landing = () => {
   const { info, setInfo } = useInfoHandler();
 
   useEffect(() => {
-    // currently this is hardcoded and not typesafe
-    const forwardSetTournament = (d: any) => {
-      const _tournaments: string[] = []
-      d.forEach((i: any) => { _tournaments.push(i.name)})
-      // console.log(_tournaments)
-      setTournament(_tournaments);
-    }
-
     // this is fallback incase fetch failed;
     setTournament(["Nepal Premier League", "Elite Cup", "Jay Nepal Cup"]);
-    AxiosGet(`/tournaments`, forwardSetTournament, setInfo);
+    AxiosGet(`/tournaments/entries`, setTournament, setInfo);
     // console.log(info);
   }, [])
   
@@ -64,7 +56,7 @@ const Landing = () => {
           <span className="w-full block">Don't worry now!</span>
         </div>
         <p className="w-full font-medium my-2 mb-5 text-sm">Catchup is here to gives the latest and greatest live updates never been before</p>
-        <h1 className="w-full my-8 text-3xl font-bold uppercase text-theme capitalize">{currentTournament?.substring(0, textCount) + "_"}</h1>
+        <h1 className="w-full my-8 text-3xl font-bold text-theme capitalize">{currentTournament?.substring(0, textCount) + "_"}</h1>
         <ThemeLink label="Home" url="/home" ostyle="self-start my-5" />
       </BasicDiv>
     </section>

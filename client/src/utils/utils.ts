@@ -1,7 +1,6 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode"
-import { _navItems } from "../data/_navItems";
-import { _usefulLinks } from "../data/_footerItems";
+import { _entriesItems } from "../data/_navItems";
 
 export function getArray(count : any)
 {
@@ -45,31 +44,49 @@ export function checkAdminStatus() {
 };
 
 export async function getURLItemCount(url: string) {
-  return (await getURLItem(url)).length
+  return (await axiosW.get(url+'/count')).data;
 }
 
 export async function getURLItem(url: string) {
-  return await axiosW.get(url).then(res => res.data)
+  return (await axiosW.get(url)).data
+}
+
+export async function getURLEntries(url: string, count: number) {
+  // console.log(url + '/entries');
+  return (await axiosW.get(url + '/entries/' + count)).data
+  // return (await axiosW.get(url + '/entries/' + count))
 }
 
 // get all the recent items
 export async function getAllStats() {
   const temp: {title:string, number: number}[] = [];
-  let items = [..._navItems, ..._usefulLinks].filter((item) => item.label !== "Home").filter((item) => item.label !== "About Us").filter((item) => item.label !== "Fixtures");
+  let items = _entriesItems;
   for(let i=0;i<items.length;++i) {
     temp.push({
       title: items[i].label,
-      number: await getURLItemCount(items[i].url)
+      number: (await getURLItemCount(items[i].url))
     })
   }
 
   return await temp;
 }
 
-export async function getRecentItems(count: number) {
-  const temp: any = []
+export async function getAllEntries(count: number) {
+  const temp: any[] = [];
+  let items = _entriesItems;
+  items.push()
+  try {
+    for(let i=0;i<items.length;++i) {
+      temp.push({
+        name: items[i].label,
+        items: await getURLEntries(items[i].url, count)
+      })
+    }
+  } catch(error) {
+    console.log(error)
+  }
 
-  
+  // console.log(temp)
 
   return await temp;
 }
