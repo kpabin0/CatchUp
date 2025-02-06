@@ -18,7 +18,7 @@ const getRowCounts = [...getPoints].map((i) => i + '/count')
 // get items (i.e rows) of the table with optional limit (#note: when no limit it is same as getAll below)
 const getList = [...getPoints].map((i) => i + '/list')
 // get all the rows name or title only
-const getListName = [...getPoints].map((i) => i + '/entries')
+const getEntriesName = [...getPoints].map((i) => i + '/entries')
 // get all the the table rows items
 const getAll = [...getPoints].map((i) => i)
 
@@ -64,14 +64,15 @@ getAll.forEach((url) => {
     })
 })
 
-getListName.forEach((url) => {
-    router.get(`${url}`, async (req, res) => {
+getEntriesName.forEach((url) => {
+    router.get(`${url}/:limit?`, async (req, res) => {
         try {
             const tableName = url.split('/')[1]
-            const entires = await util.query_rows(tableName)
+            const { limit } = req.params
+            const entires = await util.query_rows(tableName, limit)
             console.log("Common called")
     
-            const nameList = entires.map((e) => e.name || e.title)
+            const nameList = entires.map((e) => e.name || e.title || 'Matchid: ' + e.matchid)
             res.json(nameList)
         } catch(eror) {
             console.log("error with ", url)
