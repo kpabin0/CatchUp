@@ -1,5 +1,15 @@
 ### DBMS Project - CatchUp
 
+**A Project By**
+- Neha Shah (THA078BCT024)
+- Pabin Khanal (THA078BCT027)
+- Roshan Thapa (THA078BCT036)
+
+**Objectives**
+- To understand & realize workings of DBMS and its coordination with other components on interactive Web-Application.
+- To create an all-in-one Cricket Portal for Tournaments in Nepal.
+
+
 **How to use**
 
     git clone https://github.com/kpabin0/DBMS
@@ -55,21 +65,17 @@ Frontend
 - React.js
 - framer-motion
 - Tailwindcss
+- Axios
 
 Backend
 - Node.js
 - Express
-- MySQL
-- Axios
+- pg (for postgresql)
+- bcrypt
 
+Other
+- Render (for cloud database hosting, postgresql)
+- Figma (early design)
 
-**#Note: These are major libraries, for detailed library used refer to `package.json`**
-
-A Project By
-- Neha Shah
-- Pabin Khanal
-- Roshan Thapa
-
-Objectives
-- To understand & realize workings of DBMS and its coordination with other components on interactive Web-Application.
-- To create an all-in-one Cricket Portal for Tournaments in Nepal.
+**#Note: These are major libraries, for detailed library used refer to `package.json` of respective folder**
+**#Note: This project requires running of both backend and frontend, so have to run locally to get most out it**
