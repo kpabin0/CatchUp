@@ -51,10 +51,10 @@ router.put("/:newsid", async (req, res) => {
 try{
     const { newsid } = req.params;
    
-    const {  name, seats, location } = req.body;    
+    const {  title, img, description } = req.body;    
     console.log("Updating news with id:", newsid);
-    const update_query = "UPDATE news SET name = $1, seats = $2, location = $3 WHERE newsid = $4 RETURNING *";
-    const updatednews = await dbpool.query(update_query, [name, seats, location, newsid]);
+    const update_query = "UPDATE news SET title = $1, img = $2, description = $3 WHERE newsid = $4 RETURNING *";
+    const updatednews = await dbpool.query(update_query, [title, img, description, newsid]);
     console.log("Updated news:", updatednews.rows[0]);   
     if (updatednews.rowCount === 0) {
         console.log(`news not found for update with id: ${newsid}`);

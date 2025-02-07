@@ -23,6 +23,7 @@ router.post("/create", async (req, res) => {
 });
 
 
+
 router.delete("/:subnewsid", async (req, res) => {
     const subnewsid = req.params.subnewsid;
     console.log("Deleting subnews with id:", subnewsid);
@@ -47,24 +48,25 @@ router.delete("/:subnewsid", async (req, res) => {
 
 
 router.put("/:subnewsid", async (req, res) => {
-    try{
-        const { subnewsid } = req.params;
-    
-        const {  name, seats, location } = req.body;    
-        console.log("Updating subnews with id:", subnewsid);
-        const updatedsubnews = await dbpool.query("UPDATE subnews SET name = $1, seats = $2, location = $3 WHERE subnewsid = $4 RETURNING *", [name, seats, location, subnewsid]);
-        console.log("Updated subnews:", updatedsubnews.rows[0]);   
-        if (updatedsubnews.rowCount === 0) {
-            console.log(`subnews not found for update with id: ${subnewsid}`);
-            return res.status(404).json({ error: " subnews not found for update" });
-        }
-        res.json(updatedsubnews.rows[0]);
-    }  
-    catch (error) {
-        console.error("Error updating subnews:", error);
-        res.status(500).json({ error: "Internal Server Error" });  
+try{
+    const { subnewsid } = req.params;
+   
+    const {  title, description } = req.body;    
+    console.log("Updating subnews with id:", subnewsid);
+    const update_query = "UPDATE subnews SET title = $1, description = $2 WHERE subnewsid = $3 RETURNING *";
+    const updatedsubnews = await dbpool.query(update_query, [title, description, subnewsid]);
+    console.log("Updated subnews:", updatedsubnews.rows[0]);   
+    if (updatedsubnews.rowCount === 0) {
+        console.log(`subnews not found for update with id: ${subnewsid}`);
+        return res.status(404).json({ error: " subnews not found for update" });
     }
-})
+    res.json(updatedsubnews.rows[0]);
+}  
+ catch (error) {
+    console.error("Error updating subnews:", error);
+    res.status(500).json({ error: "Internal Server Error" });  
+    }
+});
 
 
 router.get("/:subnewsid", async (req, res) => {
