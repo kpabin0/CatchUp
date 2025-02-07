@@ -42,6 +42,7 @@ const Routing = () => {
   }
 
   useEffect(() => {
+    handleResize();
     window.addEventListener("resize", handleResize)
     setIsLoggedIn(loggedInStatus())
     setIsAdmin(checkAdminStatus())

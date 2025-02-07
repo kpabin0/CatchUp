@@ -38,7 +38,7 @@ const Fixtures = () => {
 export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
   const teams = [team_1, team_2]
   return (
-    <BasicDiv ostyle="border-2 hover:border-theme-cont bg-theme-w-alt rounded-md min-h-[10rem] py-5 relative cursor-pointer ">
+    <BasicDiv ostyle="w-full border-2 hover:border-theme-cont bg-theme-w-alt rounded-md min-h-[10rem] py-5 relative cursor-pointer my-4">
       { isLive ? <span className="absolute font-bold bottom-1 right-2 text-sm text-theme-red animate-pulse">Live</span> : <></>}
       <span>vs</span>
       <div className="grid grid-cols-2 gap-10">

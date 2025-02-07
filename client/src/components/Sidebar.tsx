@@ -85,7 +85,7 @@ const Sidebar = () => {
 
   return (
     <>
-    <nav className={"fixed top-0 left-0 w-[20rem] h-screen flex flex-col justify-center bg-theme-w text-theme z-40 shadow-xl transition-transform duration-300 "  + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}>
+    <nav className={"fixed top-0 left-0 w-[20rem] h-full flex flex-col justify-center bg-theme-w text-theme z-40 shadow-xl transition-transform duration-300 "  + (shouldOpen ? ' translate-x-[0] ' : ' translate-x-[-100%] ')}>
         <div className="w-full py-20 text-left flex flex-col justify-center">
         <Logo ostyle="h-[2rem] mx-auto my-4" />
         {

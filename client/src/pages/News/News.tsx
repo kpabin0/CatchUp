@@ -48,15 +48,15 @@ const News = () => {
   };
   
   return (
-    <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full relative pt-20">
+    <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full relative py-20">
       
       {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
       
       {isAdmin && <span className='absolute top-4 right-4 space-x-5'><ThemeLink label="Add News" url="/news/create" /><ThemeLink label="Add Sub News" url="/subnews/create" /></span>}
       
       <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
-      <div className="min-w-[95%] grid xl:grid-cols-3 grid-cols-1 gap-x-10">
-        <div className="w-full xl:col-span-2 p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div className="min-w-[95%] grid xl:grid-cols-3 grid-cols-1 sm:gap-x-10">
+        <div className="w-full xl:col-span-2 sm:p-10 p-4 grid grid-cols-1 lg:grid-cols-2 gap-10">
           {
             newsData ? newsData.map((props, ind) => {
               return isAdmin ? <NewsCard key={ind} {...props} handleDelete={handleDelete} handlEdit={handleEdit} /> : <NewsCard key={ind} {...props} />

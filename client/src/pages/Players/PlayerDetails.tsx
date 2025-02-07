@@ -21,7 +21,7 @@ const Player = () => {
     }, [])
 
   return (
-    <section className="min-h-screen min-w-full flex flex-row justify-evenly items-center relative">
+    <section className="min-h-screen min-w-full flex sm:flex-row flex-col justify-evenly items-center relative">
        
         <ThemeDiv className="w-[30rem] h-[30rem]">
           <img src={"/assets/player.png"} alt={"img"} />

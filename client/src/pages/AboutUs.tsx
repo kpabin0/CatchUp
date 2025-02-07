@@ -26,8 +26,8 @@ const AboutUs = () => {
         {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
 
         <BasicDiv ostyle="text-theme">
-            <div className="w-[60%] flex flex-row space-x-10">
-                <img className="max-w-[30rem] max-h-[20rem]" alt="TourImg" src={"/assets/bg.png"} />
+            <div className="sm:w-[60%] flex sm:flex-row flex-col sm:space-x-10 space-y-2">
+                <img className="w-full sm:max-w-[30rem] sm:max-h-[20rem]" alt="TourImg" src={"/assets/bg.png"} />
                 <div className="flex flex-col text-md space-y-2">
                     <h1 className="font-extrabold text-2xl uppercase">About {_about.name}</h1>
                     <h1 className="font-bold text-theme-cont">{_about.quote}</h1>
@@ -37,7 +37,7 @@ const AboutUs = () => {
                 </div>
             </div>
             <hr className="w-full my-10 border border-theme"/>
-            <div className="flex flex-row justify-evenly items-center space-x-5">
+            <div className="flex flex-row flex-wrap justify-evenly items-center space-x-5">
                 {
                     person ? person.map((props, ind) => {
                         return (
@@ -53,8 +53,8 @@ const AboutUs = () => {
           {
             tournaments ? tournaments.map((props, ind) => {
               return (
-                <BasicDiv key={ind} ostyle={"w-full py-5 px-[5%] grid grid-cols-2 gap-10 text-center text-theme " + (ind % 2 === 0 ? " bg-theme-w-alt " : " bg-none")}>
-                    <div className={" " + (ind % 2 === 0 ? " order-2 " : " brightness-50 ")}><img className="max-w-[30rem] max-h-[20rem]" alt="TourImg" src={"/assets/bg.png"} /></div>
+                <BasicDiv key={ind} ostyle={"w-full py-5 px-[5%] grid sm:grid-cols-2 gap-10 text-center text-theme " + (ind % 2 === 0 ? " bg-theme-w-alt " : " bg-none")}>
+                    <div className={" " + (ind % 2 === 0 ? " sm:order-2 " : " brightness-50 ")}><img className="sm:max-w-[30rem] sm:max-h-[20rem]" alt="TourImg" src={"/assets/bg.png"} /></div>
                     <TournamentInfoCard {...props} />
                 </BasicDiv>
               )

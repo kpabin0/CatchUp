@@ -20,7 +20,7 @@ const Footer = () => {
   return (
     <>
     <BasicDiv ostyle="w-full !justify-between min-h-[25rem] m-0 p-0 bg-theme text-left bg-theme">
-        <BasicDiv ostyle="w-full px-[20%] text-sm font-bold text-theme-w !flex-row space-x-3 py-5">
+        <BasicDiv ostyle="w-full px-[20%] text-sm font-bold text-theme-w sm:!flex-row space-x-3 py-5">
             <div className="flex flex-row justify-center items-center space-x-2">
                 <Logo ostyle="h-[2rem] w-[2rem] inline-block" />
                 <span className="text-xl font-bold uppercase">Catchup</span>
@@ -31,7 +31,7 @@ const Footer = () => {
             </div>
         </BasicDiv>
         <hr className="border border-theme-cont w-[40%] rounded-xl my-2"/>
-        <div className="flex flex-row justify-around items-start w-full">
+        <div className="flex flex-col sm:flex-row justify-around items-start w-full">
             <FotLinks title={"Useful Links"} items={_usefulLinks} />
             <FotLinks title={"Quick Links"} items={_quickLinks} />
             <FotLinks title={"Others"} items={_otherLinks} />
@@ -61,7 +61,7 @@ const FotLinks = ({title, items} : IFotLinks) => {
 
 const SocialLinks = () => {
     return (
-    <BasicDiv ostyle="max-w-full my-2 flex !flex-row justify-evenly items-center space-x-5 text-theme-w">
+    <BasicDiv ostyle="max-w-full my-2 flex !flex-row justify-evenly items-center flex-wrap space-x-5 space-y-2 text-theme-w">
         <span className="text-xl font-extrabold">Connect:</span>
             {
                 _socialHandles.map(({media, url}) => {

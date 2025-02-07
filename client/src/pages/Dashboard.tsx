@@ -89,7 +89,7 @@ const EntriesCard = ({name, items} : IEntries) => {
 
 const StatsCard = ({title, number}: IAllStats) => {
   return (
-    <ThemeDiv ostyle="block bg-theme-cont rounded-xl min-h-[10rem] min-w-[20rem] flex flex-col justify-evenly items-center">
+    <ThemeDiv ostyle="block bg-theme-cont rounded-xl min-h-[8rem] min-w-[16rem] flex flex-col justify-evenly items-center">
       <h2 className="text-md font-bold">{title}</h2>
       <div className="flex flex-row space-x-5">
         {getIcon(title, "h-10 w-10")}

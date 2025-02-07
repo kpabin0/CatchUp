@@ -49,7 +49,7 @@ const Register = () => {
   
 
   return (
-    <section className="h-screen w-screen flex flex-col justify-center items-center">
+    <section className="h-screen w-screen flex flex-col justify-center items-center p-4 sm:p-0">
       <FullBgCover />
 
       <ThemeFormDiv ostyle="p-4">
@@ -57,7 +57,7 @@ const Register = () => {
             <span className="col-span-2">Join our family of <span className='uppercase text-4xl font-extrabold block'>Catchup</span></span>
             <HiUserAdd className="m-auto text-theme-w w-20 h-20" />
         </h2>
-        <form onSubmit={handleFormSubmit} className="w-[90%] flex flex-col items-center text-md" noValidate={false}>
+        <form onSubmit={handleFormSubmit} className="sm:w-[90%] flex flex-col items-center text-md" noValidate={false}>
             <TextInputField
                 type="text"
                 label="Full Name"

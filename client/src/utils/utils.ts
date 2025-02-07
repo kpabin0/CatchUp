@@ -61,13 +61,16 @@ export async function getURLEntries(url: string, count: number) {
 export async function getAllStats() {
   const temp: {title:string, number: number}[] = [];
   let items = _entriesItems;
-  for(let i=0;i<items.length;++i) {
-    temp.push({
-      title: items[i].label,
-      number: (await getURLItemCount(items[i].url))
-    })
+  try {
+    for(let i=0;i<items.length;++i) {
+      temp.push({
+        title: items[i].label,
+        number: (await getURLItemCount(items[i].url))
+      })
+    }
+  } catch(error) {
+    console.log(error)
   }
-
   return await temp;
 }
 

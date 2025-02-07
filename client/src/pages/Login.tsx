@@ -44,7 +44,7 @@ const Login = () => {
 
 
   return (
-    <section className="w-screen h-screen flex flex-col justify-center items-center">
+    <section className="w-screen h-screen flex flex-col justify-center items-center p-4 sm:p-0">
       <FullBgCover />
       
       <div className="rounded-xl shadow-xl w-[25rem] h-[50vh] flex flex-col justify-between items-center bg-theme-w">

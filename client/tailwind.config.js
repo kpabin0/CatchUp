@@ -20,20 +20,13 @@ module.exports = {
       },
       fontFamily : 
       {
-        "f1": '"Roboto Condensed", serif;',
-        "f2": '"Smooch Sans", serif;',
-        "f3": '"Oswald", serif;',
-        "f4": '"Inter", serif;',
-        "f5": '"Roboto Slab", serif;',
         "f6": '"Lato", serif;',
-        "main" : '"Roboto", serif;',
-        "main-a" : 'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-        "main-alt" : '"Ysabeau SC", serif;',
       },
       fontSize : 
       {
         "title" : "1.2rem",
         "heading" : "1.9rem",
+        "ti": "0.68rem"
       },
     },
   },

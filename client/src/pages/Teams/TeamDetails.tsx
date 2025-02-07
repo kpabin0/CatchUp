@@ -56,7 +56,7 @@ const TeamDetails = () => {
       <BasicDiv ostyle="py-16">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold text-theme mb-8">Results</h2>
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
             {tempArr.map((result, index) => (
               <ThemeDiv key={index} ostyle="bg-theme-w p-6">
                 <h3 className="text-xl font-semibold text-theme-g uppercase">result match (t1 vs t2)</h3>
@@ -70,7 +70,7 @@ const TeamDetails = () => {
       <BasicDiv ostyle=" py-16">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold text-theme mb-8">Match Schedule</h2>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
             {tempArr.map((match, index) => (
               <MatchCard key={index} />
             ))}

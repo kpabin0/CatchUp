@@ -19,11 +19,11 @@ interface IControl {
 const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
 
   return (
-    <section className="min-w-full flex flex-col justify-evenly items-center">
+    <section className="min-w-full flex flex-col justify-evenly items-center p-2 sm:p-0">
       {title ? <h1 className="text-2xl text-center my-10 text-theme uppercase font-bold">{title}</h1> :<></>}
         
       <motion.table
-        className={"min-w-[60%] rounded-md overflow-hidden text-left bg-theme-w-alt"  + (ostyle ? ostyle : "")}
+        className={"min-w-[60%] rounded-md overflow-hidden sm:text-left text-center bg-theme-w-alt text-ti sm:text-md"  + (ostyle ? ostyle : "")}
         initial={{ opacity: 0, translateY: 50 }}
         whileInView={{ opacity: 1, translateY: 0 }}
         viewport={{once : false}}
@@ -35,11 +35,11 @@ const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
       <thead className="w-full uppercase">
         {
           th ? th.map((title, ind) => {
-            return <th key={ind} className="p-4 border-b text-theme border-theme-cont">{title}</th>
+            return <th key={ind} className="sm:p-4 border-b text-theme border-theme-cont">{title}</th>
           }):<></>
         }
         {
-          control ? <th className="p-4 border-b text-theme border-theme-cont">Action</th> : <></>
+          control ? <th className="sm:p-4 border-b text-theme border-theme-cont">Action</th> : <></>
         }
       </thead>
       <tbody className="w-full">
@@ -56,17 +56,18 @@ const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
 const TableRow = ({props, control} : {props: Object, control: any}) => {
   return (
     <motion.tr 
-      initial={{ translateY: 50 }}
+      initial={{ translateY: 15 }}
       whileInView={{ translateY: 0 }}
       viewport={{once : true}}
       transition={{
           duration: 0.5,
           delay: 0.1 
       }}
-      className="w-full p-4 border-b border-theme-g">
+      className="w-full sm:p-4 border-b border-theme-g"
+    >
       {
         Object.entries(props).map(([k, v], ind) => {
-          return <td key={ind} className="p-4 ">{v}</td>
+          return <td key={ind} className="sm:p-4 ">{v}</td>
         })
       }
       {/* #Note: control is hardcoded with inspection for only this specific use case might not work for other as intended */}
@@ -78,7 +79,7 @@ const TableRow = ({props, control} : {props: Object, control: any}) => {
 
 const Control = ({control, id} : {control: IControl, id: number}) => {
   return (
-    <td className="p-4">
+    <td className="sm:p-4">
       <Link to={window.location.pathname + `/${id}`}>
       <FaEye
         className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont hover:text-theme-w text-theme-cont"
