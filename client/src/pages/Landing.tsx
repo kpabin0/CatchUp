@@ -55,7 +55,7 @@ const Landing = () => {
           <p>Love to watch <span className='text-theme font-extrabold'>Cricket</span>?</p>
           <span className="w-full block">Don't worry now!</span>
         </div>
-        <p className="w-full font-medium my-2 mb-5 text-sm">Catchup is here to gives the latest and greatest live updates never been before</p>
+        <p className="w-full font-medium my-2 mb-5 text-sm">Catchup is here to give you the latest and greatest live updates never been before</p>
         <h1 className="w-full my-8 text-3xl font-bold text-theme capitalize">{currentTournament?.substring(0, textCount) + "_"}</h1>
         <ThemeLink label="Home" url="/home" ostyle="sm:self-start self-center my-5" />
       </BasicDiv>
