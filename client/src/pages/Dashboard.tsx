@@ -37,10 +37,6 @@ const Dashboard = () => {
       setInfo(["Welcome Admin", "success"])
   }, [])
 
-  useEffect(() => {
-    console.log(entries)
-  }, [entries])
-
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full relative bg-theme-w">
       {info && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}

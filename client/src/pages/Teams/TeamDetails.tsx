@@ -22,7 +22,7 @@ const TeamDetails = () => {
  
   useEffect(() => {
     AxiosGet(`/teams/${teamid}`, setTeam, setInfo);
-    console.log("Team ID from URL:", teamid);
+    // console.log("Team ID from URL:", teamid);
 
   }, [teamid]);
 

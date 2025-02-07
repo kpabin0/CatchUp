@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 interface ITable {
   title?: string,
@@ -53,7 +54,6 @@ const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
 }
 
 const TableRow = ({props, control} : {props: Object, control: any}) => {
-  console.log()
   return (
     <motion.tr 
       initial={{ translateY: 50 }}
@@ -78,7 +78,12 @@ const TableRow = ({props, control} : {props: Object, control: any}) => {
 
 const Control = ({control, id} : {control: IControl, id: number}) => {
   return (
-    <td className="p-4 ">
+    <td className="p-4">
+      <Link to={window.location.pathname + `/${id}`}>
+      <FaEye
+        className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont hover:text-theme-w text-theme-cont"
+      />
+      </Link>
       <FaEdit 
         onClick={() => control.handleEdit(id)}
         className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme hover:text-theme-w text-theme"
