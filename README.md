@@ -79,3 +79,27 @@ Other
 
 **#Note: These are major libraries, for detailed library used refer to `package.json` of respective folder**
 **#Note: This project requires running of both backend and frontend, so have to run locally to get most out it**
+
+<hr />
+
+#### Some Highlighted SS
+- Landing
+!['Landing'](/client/public/assets/ss/landing.png)
+
+- Login
+!['Login'](/client/public/assets/ss/login.png)
+
+- About Us (Admin Logged in)
+!['About Us'](/client/public/assets/ss/aboutus.png)
+
+- Admin Dashboad
+!['Admin Dashboard](/client/public/assets/ss/admindashboard.png)
+
+- Admin Page Contol (eg: Tournament Table)
+!['Admin Tournament Page Control'](/client/public/assets/ss/admintournament.png)
+
+- Matches Overview
+!['Matches'](/client/public/assets/ss/matches.png)
+
+- Team Detail View
+!['Team Detail View'](/client/public/assets/ss/teams.png)
