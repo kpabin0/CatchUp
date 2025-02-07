@@ -8,7 +8,7 @@ interface ITable {
   rd?: any[],
   ostyle?: string,
   // this is for the special entry in table or say action
-  control?: IControl;
+  control?: IControl | null;
 };
 
 interface IControl {
@@ -38,9 +38,7 @@ const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
             return <th key={ind} className="sm:p-4 border-b text-theme border-theme-cont">{title}</th>
           }):<></>
         }
-        {
-          control ? <th className="sm:p-4 border-b text-theme border-theme-cont">Action</th> : <></>
-        }
+      <th className="sm:p-4 border-b text-theme border-theme-cont">Action</th> : <></>
       </thead>
       <tbody className="w-full">
         {rd ? rd.map((props, ind) => {
@@ -71,13 +69,13 @@ const TableRow = ({props, control} : {props: Object, control: any}) => {
         })
       }
       {/* #Note: control is hardcoded with inspection for only this specific use case might not work for other as intended */}
-      {control ? <Control control={control} id={Object.entries(props)[0][1]} />:<></>}
+      {control ? <Control control={control} id={Object.entries(props)[0][1]} />:<Control id={Object.entries(props)[0][1]} />}
     </motion.tr>
   )
 }
 
 
-const Control = ({control, id} : {control: IControl, id: number}) => {
+const Control = ({control, id} : {control?: IControl, id: number}) => {
   return (
     <td className="sm:p-4">
       <Link to={window.location.pathname + `/${id}`}>
@@ -85,14 +83,20 @@ const Control = ({control, id} : {control: IControl, id: number}) => {
         className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont hover:text-theme-w text-theme-cont"
       />
       </Link>
+      {
+      control ?
       <FaEdit 
         onClick={() => control.handleEdit(id)}
         className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme hover:text-theme-w text-theme"
-        />
+        /> : <></>
+      }
+      {
+      control ? 
       <FaTrash 
         onClick={() => control.handleDelete(id)}
         className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-red text-theme-red hover:text-theme-w"
-      />
+      /> : <></>
+      }
     </td>
   )
 }
