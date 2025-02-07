@@ -24,14 +24,14 @@ const News = () => {
   }, [])
 
   return (
-    <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full relative">
+    <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full relative pt-20">
       
       {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
       
       {isAdmin && <span className='absolute top-4 right-4'><ThemeLink label="Add News" url="/news/create" /></span>}
       
       <h1 className="text-theme text-3xl font-bold uppercase my-10">News</h1>
-      <div className="grid xl:grid-cols-3 grid-cols-1 gap-x-10">
+      <div className="min-w-[95%] grid xl:grid-cols-3 grid-cols-1 gap-x-10">
         <div className="w-full xl:col-span-2 p-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
           {
             newsData ? newsData.map((props, ind) => {

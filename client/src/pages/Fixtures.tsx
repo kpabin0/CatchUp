@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { IFixture } from '../utils/ITypes';
 import { AxiosGet } from '../utils/utils';
-import BorderDiv from '../components/BorderDiv';
 import Loading from '../components/Loading';
 import { useInfoHandler } from '../customhook/info';
 import Message from '../components/Message';
+import BasicDiv from '../components/BasicDiv';
 
 const Fixtures = () => {
 
@@ -23,7 +23,7 @@ const Fixtures = () => {
       {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
       
       <span className="text-3xl text-theme font-bold my-4 uppercase">Fixtures</span>
-      <div className="max-w-[90%] min-w-[60%] flex flex-row flex-wrap justify-evenly items-center">
+      <div className="max-w-[90%] min-w-[60%] flex flex-row flex-wrap justify-evenly items-center text-center">
         {
           fixtureData ? fixtureData.map((props, ind) => {
             return <FixtureCard key={ind} {...props} />
@@ -38,7 +38,7 @@ const Fixtures = () => {
 export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
   const teams = [team_1, team_2]
   return (
-    <BorderDiv ostyle="min-h-[10rem] bg-theme-w p-2 py-5 rounded-lg shadow-lg text-center relative">
+    <BasicDiv ostyle="border-2 hover:border-theme-cont bg-theme-w-alt rounded-md min-h-[10rem] py-5 relative cursor-pointer ">
       { isLive ? <span className="absolute font-bold bottom-1 right-2 text-sm text-theme-red animate-pulse">Live</span> : <></>}
       <span>vs</span>
       <div className="grid grid-cols-2 gap-10">
@@ -50,7 +50,7 @@ export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
         })}
       </div>
       {date ? <span className="text-sm tracking-tighter font-light">{date}</span> : <></>}
-    </BorderDiv>
+    </BasicDiv>
   )
 }
 
