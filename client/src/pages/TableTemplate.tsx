@@ -23,7 +23,7 @@ const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
       {title ? <h1 className="text-2xl text-center my-10 text-theme uppercase font-bold">{title}</h1> :<></>}
         
       <motion.table
-        className={"min-w-[60%] rounded-md overflow-hidden sm:text-left text-center bg-theme-w-alt text-ti sm:text-md"  + (ostyle ? ostyle : "")}
+        className={"min-w-[60%] rounded-md overflow-hidden sm:text-left text-center bg-theme-w-alt text-ti sm:text-lg"  + (ostyle ? ostyle : "")}
         initial={{ opacity: 0, translateY: 50 }}
         whileInView={{ opacity: 1, translateY: 0 }}
         viewport={{once : false}}
