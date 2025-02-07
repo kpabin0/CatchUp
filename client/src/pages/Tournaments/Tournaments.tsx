@@ -36,7 +36,7 @@ const Tournaments = () => {
         title="Tournaments"
         th={["Tournament id", "Name", "Start date", "End date"]} 
         rd={tournaments}
-        control={{handleEdit, handleDelete}}
+        control={isAdmin ? {handleEdit, handleDelete} : null}
       />
 
       {isAdmin && (

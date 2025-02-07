@@ -37,7 +37,7 @@ const Venues = () => {
         title="Venues"
         th={["venueid", "Name", "seats", "location"]} 
         rd={venues}
-        control={{handleEdit, handleDelete}}
+        control={isAdmin ? {handleEdit, handleDelete} : null}
       />
 
       {isAdmin && (

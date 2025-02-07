@@ -32,8 +32,8 @@ const Home = () => {
       {/* {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> } */}
 
       <BasicDiv ostyle="w-full py-12 min-h-[50vh]">
-          <h2 className="p-2 mb-10 text-xl font-bold bg-theme text-theme-w inline-block">Fixtures</h2>
-          <div className="w-[90%] flex flex-row justify-evenly items-center flex-wrap">
+          <h2 className="p-2 mb-10 text-xl font-bold bg-theme text-theme-w inline-block rounded-md">Fixtures</h2>
+          <div className="w-[90%] flex flex-row justify-evenly items-center flex-wrap md:flex-nowrap md:space-x-5">
             {topMatches ? topMatches.map((fixture, index) => (
               <FixtureCard key={index} {...fixture} />
             )) : <Loading />}
@@ -42,8 +42,8 @@ const Home = () => {
       <hr className="w-[50%] mx-auto border border-theme-w" />
 
       <BasicDiv ostyle="w-full min-h-[50vh]">
-        <h2 className="p-2 mb-6 text-xl font-bold bg-theme text-theme-w inline-block">Top Players</h2>
-        <div className="w-[80%] flex flex-row justify-evenly items-center">
+        <h2 className="p-2 mb-6 text-xl font-bold bg-theme text-theme-w inline-block rounded-md">Top Players</h2>
+        <div className="w-[80%] flex flex-row flex-wrap justify-evenly items-center">
           {topPlayer ? topPlayer.map((player, index) => (
             <PlayerCard key={index} {...player} />
           )) : <Loading />}
@@ -74,7 +74,7 @@ interface IPlayerCard {
 
 export const PlayerCard = ({playerid, teamid, name} : IPlayerCard) => {
   return (
-    <BasicDiv ostyle="min-w-[20rem] border bg-theme-w p-4 rounded-lg  text-theme-g-alt ">
+    <BasicDiv ostyle="border-2 min-w-[20rem] border bg-theme-w p-4 rounded-lg  text-theme-g-alt my-2">
       <img src={"#"} alt={"player"} className="w-32 h-32 mx-auto rounded-full object-cover mb-4" />
       <h3 className="text-xl text-theme font-semibold uppercase">{name}</h3>
       <h3 className="text-sm font-semibold uppercase">Teamid: {teamid}</h3>

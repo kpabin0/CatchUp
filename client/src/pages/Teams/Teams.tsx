@@ -37,7 +37,7 @@ const Teams = () => {
         title="All Teams"
         th={["Id", "Name", "Description"]}
         rd={teams}
-        control={{handleEdit, handleDelete}}
+        control={isAdmin ? {handleEdit, handleDelete}: null}
       />
 
       {isAdmin && (

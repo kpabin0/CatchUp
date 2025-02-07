@@ -10,14 +10,17 @@ import Message from '../../components/Message';
 import { useDNavigate } from '../../customhook/dnavigate';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
-interface INewsCard extends INewsForm {
-  handlEdit?: (type: string, id: number) => void,
-  handleDelete?: (type: string, id: number) => void
+interface IConfig {
+  handlEdit?: null | ((type: string, id: number) => void),
+  handleDelete?: null | ((type: string, id: number) => void)
 };
 
-interface ISubNewsCard extends ISubNewsForm {
-  handlEdit?: (type: string, id: number) => void,
-  handleDelete?: (type: string, id: number) => void
+interface INewsCard extends INewsForm, IConfig {
+
+};
+
+interface ISubNewsCard extends ISubNewsForm, IConfig {
+
 };
 
 const News = () => {
@@ -59,14 +62,14 @@ const News = () => {
         <div className="w-full xl:col-span-2 sm:p-10 p-4 grid grid-cols-1 lg:grid-cols-2 gap-10">
           {
             newsData ? newsData.map((props, ind) => {
-              return isAdmin ? <NewsCard key={ind} {...props} handleDelete={handleDelete} handlEdit={handleEdit} /> : <NewsCard key={ind} {...props} />
+              return isAdmin ? <NewsCard key={ind} {...props} handleDelete={isAdmin ? handleDelete : null} handlEdit={isAdmin ? handleEdit : null} /> : <NewsCard key={ind} {...props} />
             }) : <Loading text="news" />
           }
         </div>
         <BasicDiv ostyle="w-full mx-auto xl:self-start space-y-2 mt-10">
           {
             subNewsData ? subNewsData.map((props, ind) => {
-              return isAdmin ? <SubNewsCard key={ind} {...props} handlEdit={handleEdit} handleDelete={handleDelete} /> : <SubNewsCard key={ind} {...props} />
+              return isAdmin ? <SubNewsCard key={ind} {...props} handlEdit={isAdmin ? handleEdit : null} handleDelete={isAdmin ? handleDelete : null} /> : <SubNewsCard key={ind} {...props} />
             }) : <Loading text="subnews" />
           }
         </BasicDiv>

@@ -47,7 +47,7 @@ const Login = () => {
     <section className="w-screen h-screen flex flex-col justify-center items-center p-4 sm:p-0">
       <FullBgCover />
       
-      <div className="rounded-xl shadow-xl w-[25rem] h-[50vh] flex flex-col justify-between items-center bg-theme-w">
+      <div className="rounded-xl shadow-xl max-w-full min-w-[22rem] sm:w-[25rem] sm:h-[50vh] flex flex-col justify-between items-center bg-theme-w">
         <h2 className="w-full py-8 text-center text-sm font-light bg-theme text-theme-w rounded-t-xl">
           Welcome back to <span className="uppercase text-4xl font-extrabold block">Catchup</span>
         </h2>
