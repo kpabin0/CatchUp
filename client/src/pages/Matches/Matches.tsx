@@ -27,7 +27,7 @@ const Matches = () => {
       {isAdmin && <span className='absolute top-4 right-4'><ThemeLink label="Add Match" url="/matches/create" /></span>}
       
       <span className="text-3xl text-theme font-bold my-4 uppercase">Matches</span>
-      <div className="max-w-[90%] sm:min-w-[60%] flex flex-row justify-evenly items-center flex-wrap text-center ">
+      <div className="max-w-[90%] sm:min-w-[60%] flex flex-row justify-evenly items-center flex-wrap sm:flex-nowrap sm:space-x-5 text-center ">
         {
           matchesData ? matchesData.map((props, ind) => {
             return <FixtureCard key={ind} {...props} />

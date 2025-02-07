@@ -38,7 +38,7 @@ const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
             return <th key={ind} className="sm:p-4 border-b text-theme border-theme-cont">{title}</th>
           }):<></>
         }
-      <th className="sm:p-4 border-b text-theme border-theme-cont">Action</th> : <></>
+      <th className="sm:p-4 border-b text-theme border-theme-cont">Action</th>
       </thead>
       <tbody className="w-full">
         {rd ? rd.map((props, ind) => {
