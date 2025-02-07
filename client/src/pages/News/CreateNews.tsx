@@ -30,7 +30,7 @@ const CreateNews = () => {
     }
 
     return (
-        <FormWrapper title="Create News">
+        <FormWrapper title={`Create ${type}`}>
             {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
             <NewsFormCard onSubmit={onSubmit} />  
         </FormWrapper>

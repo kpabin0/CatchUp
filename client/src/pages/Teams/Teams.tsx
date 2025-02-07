@@ -18,7 +18,7 @@ const Teams = () => {
 
   }, []);
 
-  const deleteTeam = async (teamid: number) => {
+  const handleDelete = async (teamid: number) => {
     AxiosDelete(`/teams/${teamid}`, setInfo).then(() => {
       AxiosGet(`/teams`, setTeams, setInfo);
     })
@@ -37,6 +37,7 @@ const Teams = () => {
         title="All Teams"
         th={["Id", "Name", "Description"]}
         rd={teams}
+        control={{handleEdit, handleDelete}}
       />
 
       {isAdmin && (

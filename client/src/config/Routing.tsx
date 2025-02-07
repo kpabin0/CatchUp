@@ -24,6 +24,8 @@ import CreatePlayer from "../pages/Players/CreatePlayer"
 import EditPlayer from "../pages/Players/EditPlayer"
 import CreateNews from "../pages/News/CreateNews"
 import CreateMatch from "../pages/Matches/CreateMatches"
+import EditNews from "../pages/News/EditNews"
+import EditSubnews from "../pages/News/EditSubNews"
 
 const Routing = () => {
 
@@ -62,7 +64,9 @@ const Routing = () => {
         <Route  path="/news" element={<News />} />
         <Route  path="/subnews" element={<News />} />
         <Route  path="/news/create" element={<CreateNews />} />
+        <Route  path="/news/edit/:newsid" element={<EditNews />} />
         <Route  path="/subnews/create" element={<CreateNews />} />
+        <Route  path="/subnews/edit/:subnewsid" element={<EditSubnews />} />
       </Route>
       <Route path="/fixtures" element={<Fixtures />} />
       <Route path="/resetpassword" element={<ResetPassword/>} />

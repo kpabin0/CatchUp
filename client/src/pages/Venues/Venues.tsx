@@ -7,12 +7,6 @@ import { useInfoHandler } from "../../customhook/info";
 import { useDNavigate } from "../../customhook/dnavigate";
 import TableTemplate from "../TableTemplate";
 
-interface IVenueCard extends IVenue {
-  handleEdit: (id: number) => void,
-  handleDelete: (id: number) => void,
-  isAdmin: boolean
-};
-
 const Venues = () => {
     const [venues, setVenues] = useState<IVenue[]>([]);
     const { info, setInfo } = useInfoHandler();
@@ -43,6 +37,7 @@ const Venues = () => {
         title="Venues"
         th={["venueid", "Name", "seats", "location"]} 
         rd={venues}
+        control={{handleEdit, handleDelete}}
       />
 
       {isAdmin && (

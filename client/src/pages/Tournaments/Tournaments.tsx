@@ -3,16 +3,9 @@ import { ITournament } from "../../utils/ITypes";
 import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
 import ThemeLink from "../../components/ThemeLink";
 import Message from "../../components/Message";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import { useInfoHandler } from "../../customhook/info";
 import { useDNavigate } from "../../customhook/dnavigate";
 import TableTemplate from "../TableTemplate";
-
-interface ITournamentCard extends ITournament {
-  handleEdit: (id: number) => void,
-  handleDelete: (id: number) => void,
-  isAdmin: boolean
-};
 
 const Tournaments = () => {
   const [tournaments, setTournaments] = useState<ITournament[]>();
@@ -43,6 +36,7 @@ const Tournaments = () => {
         title="Tournaments"
         th={["Tournament id", "Name", "Start date", "End date"]} 
         rd={tournaments}
+        control={{handleEdit, handleDelete}}
       />
 
       {isAdmin && (
@@ -52,19 +46,5 @@ const Tournaments = () => {
   );
 };
 
-const Control = ({handleEdit, handleDelete} : any) => {
-  return (
-    <>
-      <FaEdit 
-        onClick={handleEdit}
-        className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme hover:text-theme-w text-theme"
-        />
-      <FaTrash 
-        onClick={handleDelete}
-        className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont text-theme-red hover:text-theme-w"
-      />
-    </>
-  )
-}
 
 export default Tournaments;

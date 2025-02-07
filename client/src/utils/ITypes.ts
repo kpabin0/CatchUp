@@ -141,8 +141,10 @@ export interface INewsForm {
     description: string
 };
 
-export interface ISubNewForm extends INewsForm {
-
+export interface ISubNewsForm {
+    subnewsid?: number,
+    title: string,
+    description: string
 };
 
 export interface IPlayerForm extends IPlayer {

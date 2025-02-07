@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 interface ITable {
   title?: string,
@@ -7,7 +7,12 @@ interface ITable {
   rd?: any[],
   ostyle?: string,
   // this is for the special entry in table or say action
-  control?: any
+  control?: IControl;
+};
+
+interface IControl {
+  handleEdit: (id: number) => void,
+  handleDelete: (id: number) => void,
 };
 
 const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
@@ -48,6 +53,7 @@ const TableTemplate = ({title, th, rd, ostyle, control}: ITable) => {
 }
 
 const TableRow = ({props, control} : {props: Object, control: any}) => {
+  console.log()
   return (
     <motion.tr 
       initial={{ translateY: 50 }}
@@ -63,8 +69,25 @@ const TableRow = ({props, control} : {props: Object, control: any}) => {
           return <td key={ind} className="p-4 ">{v}</td>
         })
       }
-      {control ? <td className="p-4 ">{control}</td>:<></>}
+      {/* #Note: control is hardcoded with inspection for only this specific use case might not work for other as intended */}
+      {control ? <Control control={control} id={Object.entries(props)[0][1]} />:<></>}
     </motion.tr>
+  )
+}
+
+
+const Control = ({control, id} : {control: IControl, id: number}) => {
+  return (
+    <td className="p-4 ">
+      <FaEdit 
+        onClick={() => control.handleEdit(id)}
+        className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme hover:text-theme-w text-theme"
+        />
+      <FaTrash 
+        onClick={() => control.handleDelete(id)}
+        className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-red text-theme-red hover:text-theme-w"
+      />
+    </td>
   )
 }
 
