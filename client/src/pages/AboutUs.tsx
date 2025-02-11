@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { _about } from '../data/_about'
 import { ITournament } from "../utils/ITypes";
-import { AxiosGet } from '../utils/utils';
+import { _fallbackPerson, _fallbackTournaments, AxiosGet } from '../utils/utils';
 import { IPersonCard } from '../utils/ITypes';
 import BasicDiv from '../components/BasicDiv';
 import Loading from '../components/Loading';
@@ -15,8 +15,8 @@ const AboutUs = () => {
     const { info, setInfo } = useInfoHandler();
 
     useEffect(() => {
-        AxiosGet(`/tournaments`, setTournaments, setInfo);
-        AxiosGet(`/about`, setPerson, setInfo);
+        AxiosGet(`/tournaments`, setTournaments, setInfo, _fallbackTournaments);
+        AxiosGet(`/about`, setPerson, setInfo, _fallbackPerson);
 
     // eslint-disable-next-line
     }, [])

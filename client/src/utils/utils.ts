@@ -119,7 +119,7 @@ const axiosW = axios.create({baseURL: backendBaseURL})
 
   `usage: for connecting to http://localhost:8080/news/2, url - /news/2`
 */
-export async function AxiosGet(url: string, setRes: any, setInfo: any, setLoading: any = null) {
+export async function AxiosGet(url: string, setRes: any, setInfo: any, fallbackCb: any = null, setLoading: any = null) {
   const sepMsg = getURLSepMsg(url, "fetch");
   if(setLoading) setLoading(true)
 
@@ -131,7 +131,8 @@ export async function AxiosGet(url: string, setRes: any, setInfo: any, setLoadin
                 return res.data;
               })
               .catch(error => {
-                setInfo([sepMsg + "error", "error"])
+                setInfo([sepMsg + "error! Rolling Fallbacks", "error"])
+                if(fallbackCb) setTimeout(() => setRes(fallbackCb()), 1500)
                 return error
               })
 }
@@ -229,4 +230,100 @@ export async function AxiosDelete(url: string, setInfo: any, setLoading: any = n
                   setInfo([sepMsg + "error", "error"])
                   return error;
                 })
+}
+
+
+// Some fallbacks for vercel...
+const fallbackCount = 5;
+const _temp = getArray(fallbackCount);
+
+export function _fallbackMatches() {
+  return _temp.map((i, ind) => {
+    return {
+      team_1: {
+        name: `Fallback Team ${ind}`,
+        runs: ind * ind,
+        wickets: ind,
+        over: ind/10
+      },
+      team_2: {
+        name: `Fallback Team ${ind+1}`,
+        runs: ind * (ind + 1),
+        wickets: ind + 1,
+        over: (ind + 1)/10
+      },
+      isLive: ind % 2 === 0 ? true : false,
+      date: new Date().getFullYear()
+    }
+  })
+}
+
+export function _fallbackTournaments() {
+  return _temp.map((i, ind) => {
+    return {
+      tournamentid: ind,
+      name: `Fallback Tournament ${ind}`,
+      start_date: new Date().toLocaleDateString(),
+      end_date: new Date().toLocaleDateString()
+    }
+  })
+}
+
+export function _fallbackNews() {
+  return _temp.map((i, ind) => {
+    return {
+      newsid: ind,
+      title: `Fallback ${ind}`,
+      img: `img`,
+      description: `Fallback news/subnews description is displayed here.. ${ind}`
+    }
+  })
+}
+
+export function _fallbackTeams() {
+  return _temp.map((i, ind) => {
+    return {
+      teamid: ind,
+      name: `Fallback Team ${ind}`,
+      description: `This is fallback team description ${ind}`
+    }
+  })
+}
+
+export function _fallbackPlayers() {
+  console.log(_temp)
+  return _temp.map((i, ind) => {
+    return {
+      name: `Fallback ${ind}`,
+      img: '',
+      dob: new Date().toLocaleDateString(),
+      phone: `${(ind + 1)*Math.pow(9, 10)}`,
+      address: `Fallback address ${ind}`,
+      playerid: ind,
+      teamid: ind,
+      role: `Fallback role ${ind}`
+    }
+  })
+}
+
+export function _fallbackVenues() {
+  return _temp.map((i, ind) => {
+    return {
+      venueid: ind,
+      name: `Fallback Venue ${ind}`,
+      seats: (ind + 1) * 40,
+      location: `Fallback Location ${ind}`
+    }
+  })
+}
+
+export function _fallbackPerson() {
+  const _fallbackName = ["Neha Shah", "Pabin Khanal", "Roshan Thapa"];
+  return _fallbackName.map((n, ind) => {
+    return {
+      name: n,
+      img: '',
+      post: "CEO"
+    }
+  })
 }

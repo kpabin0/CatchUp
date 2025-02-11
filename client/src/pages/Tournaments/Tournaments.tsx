@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ITournament } from "../../utils/ITypes";
-import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
+import { _fallbackTournaments, AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
 import ThemeLink from "../../components/ThemeLink";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
@@ -14,7 +14,7 @@ const Tournaments = () => {
   const isAdmin = checkAdminStatus();
 
   useEffect(() => {
-    AxiosGet(`/tournaments`, setTournaments, setInfo);
+    AxiosGet(`/tournaments`, setTournaments, setInfo, _fallbackTournaments);
   }, []);
 
   const handleDelete = async (tid: number) => {

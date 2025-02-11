@@ -28,7 +28,7 @@ const Player = () => {
         </ThemeDiv>
         <BasicDiv ostyle="space-y-2 uppercase text-left">
         {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
-          <h1 className="font-bold text-3xl text-theme">{player?.name}</h1>
+          <h1 className="font-bold text-3xl text-theme">{player?.name || "Fallback Name"}</h1>
           <span className="block">Team: {tid}</span>
           <span className="block">Player Number: {pid}</span>
         </BasicDiv>

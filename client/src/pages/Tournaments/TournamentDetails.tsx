@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { AxiosGet, getArray } from "../../utils/utils";
+import { _fallbackTournaments, AxiosGet, getArray } from "../../utils/utils";
 import { ITournament } from "../../utils/ITypes";
 import BasicDiv from "../../components/BasicDiv";
 import { checkAdminStatus } from "../../utils/utils";
@@ -20,8 +20,8 @@ const TournamentDetails = () => {
   const { info, setInfo } = useInfoHandler()
 
   useEffect(() => {
-    AxiosGet(`/tournaments/${tid}`, setTournament, setInfo);
-    
+    AxiosGet(`/tournaments/${tid}`, setTournament, setInfo, () => _fallbackTournaments()[tid ? Number(tid) : 0]);
+
   }, []);
 
 

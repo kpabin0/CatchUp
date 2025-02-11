@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IPlayer } from '../../utils/ITypes';
 import { Link } from 'react-router-dom';
-import { AxiosGet, checkAdminStatus } from '../../utils/utils';
+import { _fallbackPlayers, AxiosGet, checkAdminStatus } from '../../utils/utils';
 import Loading from '../../components/Loading';
 import BasicDiv from '../../components/BasicDiv';
 import { KeyValSpan1 } from '../../components/KeyValueSpan';
@@ -15,7 +15,7 @@ const Players = () => {
   const isAdmin = checkAdminStatus(); 
 
   useEffect(() => {
-    AxiosGet(`/players`, setPlayers, setInfo);
+    AxiosGet(`/players`, setPlayers, setInfo, _fallbackPlayers);
     
   // eslint-disable-next-line
   }, [])

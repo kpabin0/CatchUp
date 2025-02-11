@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AxiosGet, getArray } from "../../utils/utils";
+import { _fallbackTeams, AxiosGet, getArray } from "../../utils/utils";
 import { ITeam } from "../../utils/ITypes";
 import BasicDiv from "../../components/BasicDiv";
 import { checkAdminStatus } from "../../utils/utils";
@@ -21,7 +21,7 @@ const TeamDetails = () => {
 
  
   useEffect(() => {
-    AxiosGet(`/teams/${teamid}`, setTeam, setInfo);
+    AxiosGet(`/teams/${teamid}`, setTeam, setInfo, () => _fallbackTeams()[teamid ? Number(teamid) : 0]);
     // console.log("Team ID from URL:", teamid);
 
   }, [teamid]);
@@ -29,7 +29,7 @@ const TeamDetails = () => {
   return (
     team ?
     <section className="bg-gray-100 min-h-screen">
-      <BasicDiv ostyle="min-h-[40vh] bg-theme text-theme-w">
+      <BasicDiv ostyle="min-h-[40vh] bg-theme text-theme-w pt-10">
         <h1 className="text-5xl font-bold">{team.name}</h1>
         <p className="mt-4 text-lg">Team Id: {team.teamid}</p>
         <p className="mt-4 text-md">"{team.description}"</p>

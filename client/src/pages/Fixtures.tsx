@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IFixture } from '../utils/ITypes';
-import { AxiosGet } from '../utils/utils';
+import { _fallbackMatches, AxiosGet } from '../utils/utils';
 import Loading from '../components/Loading';
 import { useInfoHandler } from '../customhook/info';
 import Message from '../components/Message';
@@ -12,7 +12,7 @@ const Fixtures = () => {
   const { info, setInfo } = useInfoHandler();
 
   useEffect(() => {
-    AxiosGet(`/matches/highlight`, setFixtureData, setInfo);
+    AxiosGet(`/matches/highlight`, setFixtureData, setInfo, _fallbackMatches);
     
   // eslint-disable-next-line
   }, [])
@@ -38,7 +38,7 @@ const Fixtures = () => {
 export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
   const teams = [team_1, team_2]
   return (
-    <BasicDiv ostyle="w-full border-2 hover:border-theme-cont bg-theme-w-alt rounded-md min-h-[10rem] py-5 relative cursor-pointer my-4">
+    <BasicDiv ostyle="sm:w-full max-w-[25rem] border-2 hover:border-theme-cont bg-theme-w-alt rounded-md min-h-[10rem] py-5 relative cursor-pointer my-4">
       { isLive ? <span className="absolute font-bold bottom-1 right-2 text-sm text-theme-red animate-pulse">Live</span> : <></>}
       <span>vs</span>
       <div className="grid grid-cols-2 gap-10">

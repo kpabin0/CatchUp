@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IMatchHighlightView } from '../../utils/ITypes';
 import { FixtureCard } from '../Fixtures';
-import { AxiosGet, checkAdminStatus } from '../../utils/utils';
+import { _fallbackMatches, AxiosGet, checkAdminStatus } from '../../utils/utils';
 import Loading from '../../components/Loading';
 import BorderDiv from '../../components/BorderDiv';
 import ThemeLink from '../../components/ThemeLink';
@@ -15,7 +15,7 @@ const Matches = () => {
   const { info, setInfo } = useInfoHandler()
   
   useEffect(() => {
-    AxiosGet(`/matches/highlight`, setMatchesData, setInfo);
+    AxiosGet(`/matches/highlight`, setMatchesData, setInfo, _fallbackMatches);
 
   // eslint-disable-next-line
   }, [])
@@ -27,7 +27,7 @@ const Matches = () => {
       {isAdmin && <span className='absolute top-4 right-4'><ThemeLink label="Add Match" url="/matches/create" /></span>}
       
       <span className="text-3xl text-theme font-bold my-4 uppercase">Matches</span>
-      <div className="max-w-[90%] sm:min-w-[60%] flex flex-row justify-evenly items-center flex-wrap sm:flex-nowrap sm:space-x-5 text-center ">
+      <div className="max-w-[90%] sm:min-w-[60%] flex flex-row justify-evenly items-center flex-wrap sm:space-x-5 text-center ">
         {
           matchesData ? matchesData.map((props, ind) => {
             return <FixtureCard key={ind} {...props} />

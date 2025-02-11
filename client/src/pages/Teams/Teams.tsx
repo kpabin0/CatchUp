@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
+import { _fallbackTeams, AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
 import ThemeLink from "../../components/ThemeLink";
 import { ITeam } from "../../utils/ITypes";
 import { useInfoHandler } from "../../customhook/info";
@@ -14,7 +14,7 @@ const Teams = () => {
   const isAdmin = checkAdminStatus();
 
   useEffect(() => {
-    AxiosGet(`/teams`, setTeams, setInfo);
+    AxiosGet(`/teams`, setTeams, setInfo, _fallbackTeams);
 
   }, []);
 

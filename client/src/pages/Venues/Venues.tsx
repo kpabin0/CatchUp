@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IVenue } from "../../utils/ITypes";
-import { AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
+import { _fallbackVenues, AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
 import ThemeLink from "../../components/ThemeLink";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
@@ -14,7 +14,7 @@ const Venues = () => {
     const isAdmin = checkAdminStatus();
 
   useEffect(() => {
-    AxiosGet("/venues", setVenues, setInfo);
+    AxiosGet("/venues", setVenues, setInfo, _fallbackVenues);
 
   }, []);
 

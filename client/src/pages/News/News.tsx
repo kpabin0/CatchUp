@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { INewsForm, ISubNewsForm } from '../../utils/ITypes';
-import { AxiosDelete, AxiosGet, checkAdminStatus } from '../../utils/utils';
+import { _fallbackNews, AxiosDelete, AxiosGet, checkAdminStatus } from '../../utils/utils';
 import BasicDiv from '../../components/BasicDiv';
 import Loading from '../../components/Loading';
 import ThemeLink from '../../components/ThemeLink';
@@ -33,8 +33,8 @@ const News = () => {
 
   
   useEffect(() => {
-    AxiosGet(`/news`, setNewsData, setInfo);
-    AxiosGet(`/subnews`, setSubNewsData, setInfo);
+    AxiosGet(`/news`, setNewsData, setInfo, _fallbackNews);
+    AxiosGet(`/subnews`, setSubNewsData, setInfo, _fallbackNews);
 
   // eslint-disable-next-line
   }, [])
