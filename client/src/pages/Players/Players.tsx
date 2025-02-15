@@ -43,7 +43,7 @@ const Players = () => {
 
 const PlayerCard = ({playerid, teamid, name, role, img, dob, phone, address} : IPlayer) => {
     return (
-      <Link to={"/players/" + teamid + "/" + playerid} className="min-w-[15rem] my-10 flex flex-col justify-evenly items-start border-2 p-4 rounded-md hover:border-b-theme hover:-translate-y-2 hover:shadow-md transition-all duration-300">
+      <Link to={"/players/" + teamid + "/" + playerid} className="min-w-[15rem] m-10 my-14 flex flex-col justify-evenly items-start border-2 p-4 rounded-md hover:border-b-theme hover:-translate-y-2 hover:shadow-md transition-all duration-300">
         <img className="w-[10rem] h-[10rem] mt-[-5rem] mb-2 rounded-[20%] bg-theme-g" src={img ? img : "/assets/player.png"} alt={name} />
         <KeyValSpan1 k={"Name"} v={name} sep=':' />
         <KeyValSpan1 k={"Role"} v={role} sep=':' />
