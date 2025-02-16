@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { backendBaseURL } from "../data/utils";
+import { backendBaseURL } from "../utils/utils";
 import { FaUserEdit } from "react-icons/fa";
-import TextInputField from "../components/TextInputField";
+import TextInputField from "../components/ThemeInputField";
 import FullBgCover from "../components/FullBgCover";
 import ThemeFormDiv from "../components/ThemeFormDiv";
 

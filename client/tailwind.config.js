@@ -7,26 +7,26 @@ module.exports = {
     extend: {
       colors: 
       {
-        "theme": "#5019e4",
-        "theme-alt": "#3007c2",
-        "theme-cont": "#FA4032",
-        "theme-cont-alt": "#d93021",
+        "theme": "#16C47F",
+        "theme-alt": "#05B36E",
+        "theme-cont": "#FF9D23",
+        "theme-cont-alt": "#EE8C12",
         "theme-w": "#ffffff",
-        "theme-w-alt": "#dedede",
+        "theme-w-alt": "#efefef",
         "theme-g": "#bababa",
         "theme-g-alt": "#aaaaaa",
-        "theme-green": "#00ff00",
+        "theme-green": "#04AA6D",
+        "theme-red": "#F93827",
       },
       fontFamily : 
       {
-        "main" : '"Roboto", serif',
-        "main-a" : 'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-        "main-alt" : '"Ysabeau SC", serif;',
+        "f6": '"Lato", serif;',
       },
       fontSize : 
       {
         "title" : "1.2rem",
         "heading" : "1.9rem",
+        "ti": "0.68rem"
       },
     },
   },

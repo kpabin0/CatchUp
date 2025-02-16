@@ -1,23 +1,7 @@
 export const _about = {
     name: "CatchUp",
     quote: "Cricket for life",
+    description: "With all the craze of cricket catcup was aimed to establish itself as a standalone platform to serve the need of cricket fans to get all the latest information of cricket withing nepal under single portal.",
     address: "Thapathali, Kathmandu",
     establishedIn: '2025-1-1',
-    personals: [
-        {
-            post: "Head of Department",
-            name: "Name Here hod",
-            img: "#"
-        },
-        {
-            post: "Assitant",
-            name: "Name Here a",
-            img: "#"
-        },
-        {
-            post: "Deputy Head",
-            name: "Name Here dh",
-            img: "#"
-        },
-    ]
 }

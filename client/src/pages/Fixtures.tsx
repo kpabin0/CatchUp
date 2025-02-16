@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { IFixture } from '../data/ITypes';
-import { backendBaseURL } from '../data/utils';
-import BorderDiv from '../components/BorderDiv';
+import { IFixture } from '../utils/ITypes';
+import { _fallbackMatches, AxiosGet } from '../utils/utils';
 import Loading from '../components/Loading';
+import { useInfoHandler } from '../customhook/info';
+import Message from '../components/Message';
+import BasicDiv from '../components/BasicDiv';
 
 const Fixtures = () => {
 
   const [fixtureData, setFixtureData] = useState<IFixture[]>();
+  const { info, setInfo } = useInfoHandler();
 
   useEffect(() => {
-    const res = async () => {
-      return await fetch(backendBaseURL + `/matches`)
-                    .then((res) => res.json())
-                    .then((data) => { setFixtureData(data); console.log(data); return data; })
-                    .catch((error) => { console.log(error); });
-    }
-    res();
+    AxiosGet(`/matches/highlight`, setFixtureData, setInfo, _fallbackMatches);
     
   // eslint-disable-next-line
   }, [])
 
   return (
     <section className="flex flex-col justify-evenly items-center min-h-screen min-w-full">
+      
+      {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} /> }
+      
       <span className="text-3xl text-theme font-bold my-4 uppercase">Fixtures</span>
-      <div className="max-w-[90%] min-w-[60%] flex flex-row flex-wrap justify-evenly items-center">
+      <div className="max-w-[90%] min-w-[60%] flex flex-row flex-wrap justify-evenly items-center text-center">
         {
           fixtureData ? fixtureData.map((props, ind) => {
             return <FixtureCard key={ind} {...props} />
@@ -36,22 +36,21 @@ const Fixtures = () => {
 }
 
 export const FixtureCard = ({team_1, team_2, isLive, date} : IFixture) => {
+  const teams = [team_1, team_2]
   return (
-    <BorderDiv ostyle="w-full min-h-[10rem] justify-between text-black relative">
-      { isLive ? <span className="absolute font-bold bottom-1 right-2 text-theme-cont animate-pulse">Live</span> : <></>}
-      <div className="w-full grid-cols-3">
-        <div className="w-full grid grid-cols-2 gap-6">
-          <span className="text-xl uppercase font-main-a font-extrabold inline-block text-theme">{team_1.name}</span>
-          <span className="text-xl uppercase font-main-a font-extrabold inline-block text-theme">{team_2.name}</span>
-        </div>
-        <span className="w-full text-xl block uppercase">Vs</span>
-        <div className="w-full grid grid-cols-2 gap-6">
-          <span className="text-3xl tracking-tighter font-extrabold">{team_1.runs} / {team_1.wickets} ({team_1.over})</span>
-          <span className="text-3xl tracking-tighter font-extrabold">{team_2.runs} / {team_2.wickets} ({team_2.over})</span>
-        </div>
+    <BasicDiv ostyle="sm:w-full max-w-[25rem] border-2 hover:border-theme-cont bg-theme-w-alt rounded-md min-h-[10rem] py-5 relative cursor-pointer my-4">
+      { isLive ? <span className="absolute font-bold bottom-1 right-2 text-sm text-theme-red animate-pulse">Live</span> : <></>}
+      <span>vs</span>
+      <div className="grid grid-cols-2 gap-10">
+        {teams.map((t, ind) => {
+          return <div key={ind}>
+                    <h1 className='text-theme uppercase font-bold'>{t.name}</h1>
+                    <span className="text-3xl tracking-tighter font-extrabold">{t.runs} / {t.wickets} ({t.over})</span>
+                </div>
+        })}
       </div>
       {date ? <span className="text-sm tracking-tighter font-light">{date}</span> : <></>}
-    </BorderDiv>
+    </BasicDiv>
   )
 }
 

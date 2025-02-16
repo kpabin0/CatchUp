@@ -1,4 +1,4 @@
-import { _otherLinks } from "./_footerItems";
+import { _usefulLinks } from "./_footerItems";
 
 export const _navItems = [
     {
@@ -12,12 +12,6 @@ export const _navItems = [
         ]
     },
     {
-        label: "Teams",
-        url: "/teams",
-        subItems: [
-        ]
-    },
-    {
         label: "Tournaments",
         url: "/tournaments",
         subItems: [
@@ -26,10 +20,6 @@ export const _navItems = [
     {
         label: "News",
         url: "/news"
-    },
-    {
-        label: "Fixtures",
-        url: "/fixtures"
     }
 ];
 
@@ -39,11 +29,16 @@ export const _loggedInUserItems = [
         label: "Watchlist",
         url: "/watchlist"
     },
-    ..._otherLinks
+    ..._usefulLinks
 ];
 
 export const _loggedInAdminItems = [
+    {label: "Dashboard", url: "/dashboard"},
     ..._loggedInUserItems.filter((item) => item.label !== "Home").filter((item) => item.label !== "Watchlist"),
+]
 
+export const _entriesItems = [
+    ...[..._navItems, ..._usefulLinks].filter((item) => item.label !== "Home").filter((item) => item.label !== "About Us").filter((item) => item.label !== "Fixtures"),
+    {label: "Subnews", url: "/subnews"}
 ]
 

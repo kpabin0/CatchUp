@@ -1,16 +1,18 @@
 import { motion } from "framer-motion"
 
 interface IThemeButton {
-    label : string,
-    style? : string,
+    label: string,
+    style?: string,
+    type?: "button" | "submit" | "reset",
     callback? : () => void 
 };
 
-const ThemeButton = ({label, style, callback} : IThemeButton) => {
+const ThemeButton = ({label, style, type, callback} : IThemeButton) => {
   return (
     <motion.button
+        type={type ? type : "button"}
         onClick={callback ? () => callback() : () => {}}
-        className={"bg-theme hover:bg-theme-alt p-2 px-4 text-white rounded-md transition-all duration-200 " + (style ? style : "")}
+        className={"bg-theme-cont hover:bg-theme-cont-alt p-2 px-4 text-white rounded-md transition-all duration-200 " + (style ? style : "")}
         initial={{ opacity: 0, scale: 0 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{once : false}}

@@ -1,5 +1,15 @@
 ### DBMS Project - CatchUp
 
+**A Project By**
+- Neha Shah (THA078BCT024)
+- Pabin Khanal (THA078BCT027)
+- Roshan Thapa (THA078BCT036)
+
+**Objectives**
+- To understand & realize workings of DBMS and its coordination with other components on interactive Web-Application.
+- To create an all-in-one Cricket Portal for Tournaments in Nepal.
+
+
 **How to use**
 
     git clone https://github.com/kpabin0/DBMS
@@ -55,21 +65,41 @@ Frontend
 - React.js
 - framer-motion
 - Tailwindcss
+- Axios
 
 Backend
 - Node.js
 - Express
-- MySQL
-- Axios
+- pg (for postgresql)
+- bcrypt
 
+Other
+- Render (for cloud database hosting, postgresql)
+- Figma (early design)
 
-**#Note: These are major libraries, for detailed library used refer to `package.json`**
+**#Note: These are major libraries, for detailed library used refer to `package.json` of respective folder**
+**#Note: This project requires running of both backend and frontend, so have to run locally to get most out it**
 
-A Project By
-- Neha Shah
-- Pabin Khanal
-- Roshan Thapa
+<hr />
 
-Objectives
-- To understand & realize workings of DBMS and its coordination with other components on interactive Web-Application.
-- To create an all-in-one Cricket Portal for Tournaments in Nepal.
+#### Some Highlighted SS
+- Landing
+!['Landing'](/client/public/assets/ss/landing.png)
+
+- Login
+!['Login'](/client/public/assets/ss/login.png)
+
+- About Us (Admin Logged in)
+!['About Us'](/client/public/assets/ss/aboutus.png)
+
+- Admin Dashboad
+!['Admin Dashboard](/client/public/assets/ss/admindashboard.png)
+
+- Admin Page Contol (eg: Tournament Table)
+!['Admin Tournament Page Control'](/client/public/assets/ss/admintournament.png)
+
+- Matches Overview
+!['Matches'](/client/public/assets/ss/matches.png)
+
+- Team Detail View
+!['Team Detail View'](/client/public/assets/ss/teams.png)

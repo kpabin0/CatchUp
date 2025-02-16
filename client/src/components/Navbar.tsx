@@ -12,9 +12,12 @@ export interface INavItem {
 const Navbar = () => {
   return (
     <nav 
-        className="sticky w-full top-0 left-0 p-2 px-6 mb-5 z-50 flex flex-row justify-between items-center bg-white shadow-sm"
+        className="fixed w-full top-0 left-0 p-2 px-6 z-50 font-f6 flex flex-row justify-between items-center bg-white shadow-sm border-b "
     >
-        <Logo ostyle="h-[2rem] w-[2rem]" linkEnable={true} />
+        <Link to="/" className="flex flex-row justify-evenly items-center space-x-2">
+            <Logo ostyle="h-[1.5rem] w-[1.5rem]" />
+            <span className="text-theme text-md uppercase font-extrabold">Catchup</span>
+        </Link>
         <NavItems />
         <div className="flex flex-row justify-evenly items-center">
             <Link to={"/login"} className=" bg-theme p-2 text-white rounded-[50%]">
@@ -27,7 +30,7 @@ const Navbar = () => {
 
 const NavItems = () => {
     return (
-    <div className="w-[60%] flex flex-row justify-evenly items-center">
+    <div className="min-w-[40%] flex flex-row justify-evenly items-center">
         {
             _navItems.map(({label, url}) => {
                 return <NavItem 
@@ -45,7 +48,7 @@ const NavItem = ({label, url} : INavItem) => {
     return (
         <Link 
             to={url} 
-            className="text-md m-2 text-theme uppercase font-bold font-main-a hover:scale-105"
+            className="text-md mx-2 p-2 text-theme capitalize font-bold rounded-md hover:bg-theme-w-alt"
         >
             {label}
         </Link>

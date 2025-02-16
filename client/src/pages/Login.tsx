@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import TextInputField from '../components/TextInputField';
-import { backendBaseURL, loggedInStatus } from '../data/utils';
+import TextInputField from '../components/ThemeInputField';
+import { backendBaseURL } from '../utils/utils';
 import FullBgCover from '../components/FullBgCover';
 import Message from '../components/Message';
+import { useInfoHandler } from '../customhook/info';
+import { useDNavigate } from '../customhook/dnavigate';
 
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const { info, setInfo } = useInfoHandler();
+  const { dnav } = useDNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,8 +21,7 @@ const Login = () => {
   
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError('');
-
+    
     try {   
         const response = await axios.post(backendBaseURL + `/auth/login`, formData);
         
@@ -29,39 +30,31 @@ const Login = () => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('loggedIn', String(true));
         window.location.reload()
-        navigate('/dashboard');
+        dnav('/dashboard', 200);
       } 
       catch (error: any) {
-      console.error('Error during login:', error.response || error.message);
-      setError(error.response?.data?.message || 'Login failed. Please try again.');
+        console.error('Error during login:', error.response || error.message);
+        setInfo(["Login failed", 'error'])
       }
   };
 
   const handleForgotPassword = () => {
-    navigate('/resetpassword');
+    dnav('/resetpassword', 200);
   };
 
-  useEffect(() => {
-    if(loggedInStatus())
-    {
-      navigate("/home");
-    }
-
-  // eslint-disable-next-line
-  }, [])
 
   return (
-    <section className="w-screen h-screen flex flex-col justify-center items-center">
+    <section className="w-screen h-screen flex flex-col justify-center items-center p-4 sm:p-0">
       <FullBgCover />
       
-      <div className="rounded-xl shadow-xl w-[25rem] h-[50vh] flex flex-col justify-between items-center bg-theme-w">
+      <div className="rounded-xl shadow-xl max-w-full min-w-[22rem] sm:w-[25rem] sm:h-[50vh] flex flex-col justify-between items-center bg-theme-w">
         <h2 className="w-full py-8 text-center text-sm font-light bg-theme text-theme-w rounded-t-xl">
           Welcome back to <span className="uppercase text-4xl font-extrabold block">Catchup</span>
         </h2>
 
         <form className="w-[90%]" onSubmit={handleFormSubmit}>
          
-        {error && <Message message={error} type="error" onClose={() => setError("")} />}
+        {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
        
           <div className="mt-2">
             <TextInputField

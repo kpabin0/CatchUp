@@ -1,6 +1,4 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
+const app = require('./config/express.config');
 
 const PORT_NUMBER = 8080;
 
