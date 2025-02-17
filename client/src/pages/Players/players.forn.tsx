@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { IPlayer, ITeam } from "../../data/ITypes"; 
-import { backendBaseURL } from "../../data/utils";
+import { IPlayer, ITeam } from "../../utils/ITypes"; 
+import { backendBaseURL } from "../../utils/utils";
+
 const PlayerForm = () => {
   const [name, setName] = useState<string>("");
   const [teamid, setTeamid] = useState<number | "">("");

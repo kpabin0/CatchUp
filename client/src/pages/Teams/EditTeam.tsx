@@ -47,5 +47,3 @@ const EditTeam = () => {
 };
 
 export default EditTeam;
-
-
