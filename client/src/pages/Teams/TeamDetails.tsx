@@ -37,7 +37,7 @@ const TeamDetails = () => {
       
       <span>{info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}</span>
 
-      {/* {isAdmin && <ThemeLink label="edit" url={`/team/edit/${teamid}`} />} */}
+   
 
       <BasicDiv ostyle="py-16">
         <div className="container mx-auto text-center">

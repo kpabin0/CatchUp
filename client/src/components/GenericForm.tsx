@@ -54,7 +54,7 @@ const GenericForm = ({fields, onSubmit, ostyle}: IGenericForm) => {
             field.set(f.name, f.value?f.value:'');
         })
 
-    // eslint-disable-next-line
+   
     }, [])
 
   return (

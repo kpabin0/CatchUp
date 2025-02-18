@@ -21,7 +21,7 @@ const CreateMatch = () => {
     }
 
   return (
-    <FormWrapper title="Add Team">
+    <FormWrapper title="Add Match">
         {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
         <MatchFormCard onSubmit={onSubmit} />  
     </FormWrapper>

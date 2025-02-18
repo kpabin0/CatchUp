@@ -13,7 +13,7 @@ const MatchFormCard = ({d, onSubmit}: IMatchFormCard) => {
     {label: "Team 1", name: "team_1", type: "text", value: d?.team_1, required: true},
     {label: "Team 2", name: "team_2", type: "text", value: d?.team_2, required: true},
     {label: "Date", name: "date", type: "date", value: d?.date, required: true},
-    {label: "Venue", name: "venue", type: "text", value: d?.venue, required: true}
+    {label: "Venue", name: "venueid", type: "number", value: d?.venue, required: true}
   ]
 
   return (

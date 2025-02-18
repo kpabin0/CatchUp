@@ -26,7 +26,11 @@ import CreateNews from "../pages/News/CreateNews"
 import CreateMatch from "../pages/Matches/CreateMatches"
 import EditNews from "../pages/News/EditNews"
 import EditSubnews from "../pages/News/EditSubNews"
-
+import PlayerStatusForm from "../pages/Playerstatus/playerstatusfrom"
+import Matchess from "../pages/Matches/allmatches"
+import PlayerStats from "../pages/Playerstatus/allplayerstatus"
+import  PlayerStatsDetails from "../pages/Playerstatus/playerstatusdetails"
+import PlayerStatusEditPage from "../pages/Playerstatus/editplayerstatus"
 const Routing = () => {
 
   const [isSideBar, setIsSideBar] = useState(false)
@@ -57,7 +61,7 @@ const Routing = () => {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/home" element={isAdmin ? <Dashboard /> : isLoggedIn ? <Home /> : <Login />}/>
       <Route>
-        <Route path="/matches" element={<Matches />} />
+        <Route path="/matches" element={<Matchess />} />
         <Route path="/matches/create" element={<CreateMatch />} />
       </Route>
       <Route path="/tournaments" element={<Tournaments />} />
@@ -83,7 +87,13 @@ const Routing = () => {
         <Route path="/teams/:teamid" element={<TeamDetails/>}/>
         <Route path="/teams/edit/:teamid" element={<EditTeam/>}/>
       </Route>
-
+      <Route>
+        <Route path="/playerstatus" element={<PlayerStats/>}/>
+        <Route path="/playerstatus/create" element={<PlayerStatusForm/>} />
+        <Route path="/playerstatus/view/:playerid/:matchis" element={<PlayerStatsDetails/>}/>
+        <Route path="/playerstatus/edit/:playeridd/:matchidd" element={<PlayerStatusEditPage/>}/>
+      
+      </Route>
       <Route>
         <Route path="/venues" element={< Venues/>} />
         <Route path="/venues/create" element={<CreateVenue/>} />
