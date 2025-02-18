@@ -27,9 +27,8 @@ import CreateMatch from "../pages/Matches/CreateMatches"
 import EditNews from "../pages/News/EditNews"
 import EditSubnews from "../pages/News/EditSubNews"
 import PlayerStatusForm from "../pages/Playerstatus/playerstatusfrom"
-import Matchess from "../pages/Matches/allmatches"
 import PlayerStats from "../pages/Playerstatus/allplayerstatus"
-import  PlayerStatsDetails from "../pages/Playerstatus/playerstatusdetails"
+import PlayerStatsDetails from "../pages/Playerstatus/playerstatusdetails"
 import PlayerStatusEditPage from "../pages/Playerstatus/editplayerstatus"
 const Routing = () => {
 
@@ -61,7 +60,7 @@ const Routing = () => {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/home" element={isAdmin ? <Dashboard /> : isLoggedIn ? <Home /> : <Login />}/>
       <Route>
-        <Route path="/matches" element={<Matchess />} />
+        <Route path="/matches" element={<Matches />} />
         <Route path="/matches/create" element={<CreateMatch />} />
       </Route>
       <Route path="/tournaments" element={<Tournaments />} />

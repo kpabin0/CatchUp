@@ -31,6 +31,10 @@ export const _usefulLinks = [
         url: "/players"
     },
     {
+        label: "Player Status",
+        url: "/playerstatus"
+    },
+    {
         label: "Venues",
         url: "/venues"
     },

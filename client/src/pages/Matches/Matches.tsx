@@ -1,42 +1,55 @@
-import React, { useEffect, useState } from 'react'
-import { IMatchHighlightView } from '../../utils/ITypes';
-import { FixtureCard } from '../Fixtures';
-import { _fallbackMatches, AxiosGet, checkAdminStatus } from '../../utils/utils';
-import Loading from '../../components/Loading';
-import BorderDiv from '../../components/BorderDiv';
-import ThemeLink from '../../components/ThemeLink';
-import Message from '../../components/Message';
-import { useInfoHandler } from '../../customhook/info';
+import React, { useEffect, useState } from "react";
+import { IMatch } from "../../utils/ITypes";  // Assuming you have an IMatch type
+import { _fallbackMatches, AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";  // Add necessary utils
+import ThemeLink from "../../components/ThemeLink";
+import Message from "../../components/Message";
+import { useInfoHandler } from "../../customhook/info";
+import { useDNavigate } from "../../customhook/dnavigate";
+import TableTemplate from "../TableTemplate";
+import BorderDiv from "../../components/BorderDiv";
 
 const Matches = () => {
+  const [matches, setMatches] = useState<IMatch[]>();
+  const { info, setInfo } = useInfoHandler();
+  const { dnav } = useDNavigate();
+  const isAdmin = checkAdminStatus();
 
-  const [matchesData, setMatchesData] = useState<IMatchHighlightView[]>();
-  const isAdmin = checkAdminStatus(); 
-  const { info, setInfo } = useInfoHandler()
-  
   useEffect(() => {
-    AxiosGet(`/matches/highlight`, setMatchesData, setInfo, _fallbackMatches);
 
-  // eslint-disable-next-line
-  }, [])
+    AxiosGet(`/matches`, setMatches, setInfo, _fallbackMatches);
+  }, []);
+
+  const handleDelete = async (matchid: number) => {
+    AxiosDelete(`/matches/${matchid}`, setInfo).then(() => {
+      AxiosGet(`/matches`, setMatches, setInfo);  
+    });
+  };
+
+  const handleEdit = async (matchid: number) => {
+    dnav(`/matches/edit/${matchid}`, 100);
+  };
 
   return (
-    <section className="py-3 flex flex-col justify-evenly items-center min-h-screen min-w-full">
+    <section className="w-full h-screen flex flex-col justify-evenly items-center">
+
       {info?.[0] && <Message message={info[0]} type={info[1]} onClose={() => setInfo(null)} />}
-      
-      {isAdmin && <span className='absolute top-4 right-4'><ThemeLink label="Add Match" url="/matches/create" /></span>}
-      
-      <span className="text-3xl text-theme font-bold my-4 uppercase">Matches</span>
-      <div className="max-w-[90%] sm:min-w-[60%] flex flex-row justify-evenly items-center flex-wrap sm:space-x-5 text-center ">
-        {
-          matchesData ? matchesData.map((props, ind) => {
-            return <FixtureCard key={ind} {...props} />
-          }) : <Loading text="matches" />
-        }
-      </div>
+
+      <TableTemplate 
+        title="Matches"
+        th={["Match id", "Tournament ID", "Team 1", "Team 2", "Extra 1", "Extra 2", "Venueid", "Date"]}
+        rd={matches}
+        control={isAdmin ? { handleEdit, handleDelete } : null}
+      />
+
+      {isAdmin && (
+        <ThemeLink label="Create New Match" ostyle="text-xl font-bold" url={"/matches/create"} />
+      )}
     </section>
-  )
-}
+  );
+};
+
+export default Matches;
+
 
 // later pass the props accordingly
 export const MatchCard = ({}) => {
@@ -48,5 +61,3 @@ export const MatchCard = ({}) => {
     </BorderDiv>
   )
 }
-
-export default Matches

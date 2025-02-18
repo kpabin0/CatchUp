@@ -215,8 +215,6 @@ const Sidebar = () => {
                             return <SideItem key={ind} label={label} url={url} icon={getIcon(label)} />
                         })
                     }
-                  
-                    <SideItem label="Player Status" url="/playerstatus" icon={getIcon("Player Status")} />
                     <button
                         onClick={handleLogInOut}
                         className="w-full flex flex-row items-center px-[10%] space-x-4 text-md py-5 uppercase font-bold hover:bg-theme-w-alt hover:text-theme-red"
