@@ -64,8 +64,8 @@ const TableRow = ({props, control} : {props: Object, control: any}) => {
       className="w-full sm:p-4 border-b border-theme-g"
     >
       {
-        Object.entries(props).map(([k, v], ind) => {
-          return <td key={ind} className="sm:p-4 ">{v}</td>
+        Object.entries(props)?.map(([k, v], ind) => {
+          return <td key={ind} className="p-2 sm:px-4">{v}</td>
         })
       }
       {/* #Note: control is hardcoded with inspection for only this specific use case might not work for other as intended */}
@@ -77,7 +77,7 @@ const TableRow = ({props, control} : {props: Object, control: any}) => {
 
 const Control = ({control, id} : {control?: IControl, id: number}) => {
   return (
-    <td className="sm:p-4">
+    <td className="p-2 sm:px-4">
       <Link to={window.location.pathname + `/${id}`}>
       <FaEye
         className="inline-block rounded-sm cursor-pointer mx-1 h-6 w-6 p-1 hover:bg-theme-cont hover:text-theme-w text-theme-cont"
