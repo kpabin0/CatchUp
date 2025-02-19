@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IPlayerStats } from "../../utils/ITypes";  
-import { _fallbackPlayers, AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
+import { _fallbackPlayerStatus, AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";
 import ThemeLink from "../../components/ThemeLink";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
@@ -15,7 +15,7 @@ const PlayerStats = () => {
   const isAdmin = checkAdminStatus();
 
   useEffect(() => {
-    AxiosGet(`/playerstatus`, setPlayerStats, setInfo, _fallbackPlayers);
+    AxiosGet(`/playerstatus`, setPlayerStats, setInfo, _fallbackPlayerStatus);
   }, []);
 
   const handleDelete = async ({ playerid, matchid }: { playerid: number; matchid: number }) => {

@@ -258,6 +258,37 @@ export function _fallbackMatches() {
   })
 }
 
+export function _fallbackMatchesTable() {
+  return _temp.map((i, ind) => {
+    return {
+      "Match id": ind, 
+      "Tournament ID": ind, 
+      "Team 1": ind, 
+      "Team 2": ind + 1, 
+      "Extra 1": ind, 
+      "Extra 2": ind + 1, 
+      "Venueid": ind, 
+      "Date": new Date().getFullYear()
+    }
+  })
+}
+
+export function _fallbackPlayerStatus() {
+  return _temp.map((i, ind) => {
+    return {
+      "playerid": ind,
+      "matchid": ind,
+      "balls_played": ind,
+      "balls_bowled": ind,
+      "runs": ind,
+      "runs_concieved": ind,
+      "wickets": ind,
+      "sixes": ind,
+      "fours": ind
+    }
+  })
+}
+
 export function _fallbackTournaments() {
   return _temp.map((i, ind) => {
     return {

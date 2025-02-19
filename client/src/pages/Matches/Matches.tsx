@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IMatch } from "../../utils/ITypes";  // Assuming you have an IMatch type
-import { _fallbackMatches, AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";  // Add necessary utils
+import { _fallbackMatchesTable, AxiosDelete, AxiosGet, checkAdminStatus } from "../../utils/utils";  // Add necessary utils
 import ThemeLink from "../../components/ThemeLink";
 import Message from "../../components/Message";
 import { useInfoHandler } from "../../customhook/info";
@@ -16,7 +16,7 @@ const Matches = () => {
 
   useEffect(() => {
 
-    AxiosGet(`/matches`, setMatches, setInfo, _fallbackMatches);
+    AxiosGet(`/matches`, setMatches, setInfo, _fallbackMatchesTable);
   }, []);
 
   const handleDelete = async (matchid: number) => {
