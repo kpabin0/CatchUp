@@ -82,6 +82,10 @@ Other
 
 <hr />
 
+### Short Demo Video
+
+[Here](https://drive.google.com/file/d/1SXxBFbVf7VxxGOTVWqLtwteH24JCOUcR/view?usp=sharing)
+
 #### Some Highlighted SS
 - Landing
 !['Landing'](/client/public/assets/ss/landing.png)
